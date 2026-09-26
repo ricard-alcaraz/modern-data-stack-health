@@ -4,7 +4,6 @@ from pathlib import Path
 from dotenv import load_dotenv
 from dagster import asset, AssetExecutionContext
 
-# Import your existing extractor
 from ingestion.utils.api_client import GitHubAPIClient
 from ingestion.extractors.dbt_core import DbtCoreExtractor
 
@@ -15,14 +14,19 @@ from ingestion.extractors.dbt_core import DbtCoreExtractor
 def raw_dbt_core_data(context: AssetExecutionContext):
     """Dagster asset wrapping the custom Python GitHub extractor."""
     
-    # 1. Load environment variables
+    # 1. Load .env file if it exists (for local development)
     root_dir = Path(__file__).parent.parent.parent.parent
     env_path = root_dir / '.env'
-    load_dotenv(dotenv_path=env_path)
     
-    github_token = os.getenv("GITHUB_TOKEN")
+    if env_path.exists():
+        load_dotenv(dotenv_path=env_path)
+        context.log.info(f"Loaded environment variables from {env_path}")
+    else:
+        context.log.info("No .env file found. Relying on environment variables.")
+
+    github_token = os.getenv("TOKEN")
     if not github_token:
-        raise ValueError("GITHUB_TOKEN not found in .env")
+        raise ValueError("TOKEN not found in environment variables")
 
     landing_dir = os.getenv("LANDING_DIR", "data/landing")
 
@@ -37,5 +41,4 @@ def raw_dbt_core_data(context: AssetExecutionContext):
     
     context.log.info("Ingestion complete. Raw data landed in data/landing/dbt-core/")
     
-    # Returning the path tells Dagster where the physical data lives
     return f"{landing_dir}/dbt-core"

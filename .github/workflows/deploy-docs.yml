@@ -42,7 +42,7 @@ jobs:
 
       - name: Run data ingestion
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TOKEN: ${{ secrets.TOKEN }}
           LANDING_DIR: data/landing
         run: |
           python -m ingestion.main
