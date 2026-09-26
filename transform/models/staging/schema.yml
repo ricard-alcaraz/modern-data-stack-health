@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: stg_github_issues
+    columns:
+      - name: issue_id
+        tests:
+          - unique
+          - not_null
+      - name: state
+        tests:
+          - accepted_values:
+              values: ['open', 'closed']
+
+  - name: stg_github_pulls
+    columns:
+      - name: pr_id
+        tests:
+          - unique
+          - not_null

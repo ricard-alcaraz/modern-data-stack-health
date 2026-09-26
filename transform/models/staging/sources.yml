@@ -1,0 +1,21 @@
+version: 2
+
+sources:
+  - name: raw_github
+    description: "Raw GitHub data landed by the Python extractor"
+    # This tells dbt where to find the raw data (DuckDB can read JSONL directly)
+    tables:
+      - name: dbt_core_issues
+        description: "Raw GitHub issues for dbt-core"
+        meta:
+          external_location: "../data/landing/dbt-core/*/issues.jsonl"
+      
+      - name: dbt_core_pulls
+        description: "Raw GitHub pull requests for dbt-core"
+        meta:
+          external_location: "../data/landing/dbt-core/*/pulls.jsonl"
+      
+      - name: dbt_core_releases
+        description: "Raw GitHub releases for dbt-core"
+        meta:
+          external_location: "../data/landing/dbt-core/*/releases.jsonl"

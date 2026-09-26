@@ -1,0 +1,6 @@
+mds_health:
+  target: prod
+  outputs:
+    prod:
+      type: duckdb
+      path: 'md:mds_health_db' 
