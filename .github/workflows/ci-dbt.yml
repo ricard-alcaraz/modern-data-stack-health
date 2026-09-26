@@ -3,7 +3,7 @@ name: CI - dbt Build & Test
 on:
   pull_request:
     branches:
-      - main
+      - master
     paths:
       - 'transform/**'
       - '.github/workflows/ci-dbt.yml'
