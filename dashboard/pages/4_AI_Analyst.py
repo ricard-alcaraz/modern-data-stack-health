@@ -72,7 +72,7 @@ def validate_readonly_sql(sql_query: str) -> bool:
         
     return True
 
-conn = get_connection(read_only=True)
+conn = get_connection()
 
 # --- 2. Dynamic Schema Extraction ---
 def get_schema_from_motherduck(conn):
