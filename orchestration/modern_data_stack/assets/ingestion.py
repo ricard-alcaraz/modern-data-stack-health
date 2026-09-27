@@ -4,16 +4,10 @@ from pathlib import Path
 from dotenv import load_dotenv
 from dagster import asset, AssetExecutionContext
 
+from ingestion.config import TOOLS
 from ingestion.utils.api_client import GitHubAPIClient
 from ingestion.utils.db_writer import MotherDuckWriter
 from ingestion.extractors.github_repo import GitHubRepoExtractor
-
-# Keep this in sync with main.py
-TOOLS_TO_TRACK = [
-    ("dbt-labs", "dbt-core"),
-    ("apache", "airflow"),
-    ("dagster-io", "dagster"),
-]
 
 @asset(
     group_name="ingestion",
@@ -29,9 +23,9 @@ def raw_tools_data(context: AssetExecutionContext):
         load_dotenv(dotenv_path=env_path)
         context.log.info(f"Loaded environment variables from {env_path}")
 
-    github_token = os.getenv("GITHUB_TOKEN")
+    github_token = os.getenv("TOKEN")
     if not github_token:
-        raise ValueError("GITHUB_TOKEN not found in environment variables")
+        raise ValueError("TOKEN not found in environment variables")
 
     landing_dir = os.getenv("LANDING_DIR", "data/landing")
     
@@ -47,10 +41,13 @@ def raw_tools_data(context: AssetExecutionContext):
 
     extractors = [
         GitHubRepoExtractor(
-            client=client, repo_owner=owner, repo_name=name, 
-            landing_dir=landing_dir, db_writer=db_writer
+            client=client,
+            repo_owner=tool.owner,
+            repo_name=tool.repo,
+            landing_dir=landing_dir,
+            db_writer=db_writer
         )
-        for owner, name in TOOLS_TO_TRACK
+        for tool in TOOLS
     ]
 
     for extractor in extractors:
