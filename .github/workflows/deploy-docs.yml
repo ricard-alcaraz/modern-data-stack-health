@@ -31,29 +31,10 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Cache raw landing data
-        uses: actions/cache@v4
-        with:
-          path: data/landing
-          key: landing-data-${{ runner.os }}-${{ hashFiles('ingestion/**') }}
-          restore-keys: |
-            landing-data-${{ runner.os }}-
-
-      - name: Install ingestion dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r ingestion/requirements.txt
-
       - name: Install dbt dependencies
         run: |
+          python -m pip install --upgrade pip
           pip install dbt-duckdb
-
-      - name: Run data ingestion
-        env:
-          TOKEN: ${{ secrets.TOKEN }}
-          LANDING_DIR: data/landing
-        run: |
-          python -m ingestion.main
 
       - name: Generate dbt docs
         env:
