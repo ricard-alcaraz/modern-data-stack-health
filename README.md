@@ -19,35 +19,35 @@ This is a monorepo demonstrating a modern, asset-based ELT architecture:
 
 ```mermaid
 graph TD
-    subgraph Sources ["🌐 Sources (GitHub API)"]
+    subgraph Sources ["Sources: GitHub API"]
         G1[dbt-core]
     end
 
-    subgraph Ingestion ["⚙️ Ingestion (Custom Python)"]
-        PY[Python Extractors<br/>(requests + pagination + rate-limit handling)]
+    subgraph Ingestion ["Ingestion: Custom Python"]
+        PY["Python Extractors: requests, pagination, rate-limit handling"]
     end
 
-    subgraph Storage ["💾 Storage (MotherDuck)"]
-        RAW[(Raw Schema<br/>Upsert pattern with extracted_at)]
+    subgraph Storage ["Storage: MotherDuck"]
+        RAW[(Raw Schema: Upsert pattern with extracted_at)]
     end
 
-    subgraph Transformation ["🔄 Transformation (dbt-core)"]
-        STG[Staging Layer<br/>cleaning, typing, deduplication]
-        MRT[Marts Layer<br/>fct_tool_weekly_snapshot]
-        TESTS{{dbt tests<br/>unique, not_null, custom business logic}}
+    subgraph Transformation ["Transformation: dbt-core"]
+        STG[Staging Layer: cleaning, typing, deduplication]
+        MRT[Marts Layer: fct_tool_weekly_snapshot]
+        TESTS{{dbt tests: unique, not_null, custom business logic}}
     end
 
-    subgraph Orchestration ["🎻 Orchestration (Dagster OSS)"]
-        DAG[Dagster Assets & Schedules<br/>Dependency-aware execution]
+    subgraph Orchestration ["Orchestration: Dagster OSS"]
+        DAG[Dagster Assets and Schedules: Dependency-aware execution]
     end
 
-    subgraph Presentation ["📊 Dashboard (Streamlit)"]
-        EVI[Streamlit Community Cloud<br/>Interactive filtering & Plotly charts]
+    subgraph Presentation ["Presentation: Streamlit"]
+        EVI[Streamlit: Interactive filtering and Plotly charts]
     end
 
-    subgraph Guardrails ["🛡️ CI/CD (GitHub Actions)"]
-        CI[PR Checks: Full pipeline build & test]
-        CD[Auto-deploy Streamlit / dbt docs]
+    subgraph Guardrails ["Guardrails: CI/CD GitHub Actions"]
+        CI[PR Checks: Full pipeline build and test]
+        CD[Auto-deploy Streamlit and dbt docs]
     end
 
     Sources -->|REST API| PY
@@ -117,3 +117,9 @@ streamlit run app.py
 1. Schema Evolution Handling: The ingestion layer uses an intelligent Upsert pattern that dynamically maps columns, preventing breaks when the GitHub API adds or removes optional fields.
 2. Automated Testing: GitHub Actions runs the entire ELT pipeline (ingestion + dbt build) on every Pull Request. If a custom business logic test fails, the PR is blocked.
 3. Asset-Based Orchestration: Dagster automatically infers the dependency graph between the raw Python extraction and the dbt transformation models, preventing race conditions.
+
+## 🔗 Live Links
+📚 dbt Docs: [https://ricard-alcaraz.github.io/modern-data-stack-health/](https://ricard-alcaraz.github.io/modern-data-stack-health/)
+
+## 📝 License
+MIT
