@@ -26,9 +26,15 @@ clean-targets:         # directories to be removed by `dbt clean`
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
 
-# In this example config, we tell dbt to build all models in the example/
-# directory as views. These settings can be overridden in the individual model
-# files using the `{{ config(...) }}` macro.
+
+# NOTE: Keep `vars.tools` in sync with ingestion/config.py (TOOLS).
+# This is the only dbt-side place you touch when adding a tool.
+vars:
+  tools:
+    - repo: "dbt-core"
+    - repo: "airflow"
+    - repo: "dagster"
+
 models:
   mds_health:
     +materialized: view

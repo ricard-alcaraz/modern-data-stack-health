@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: fct_tool_weekly_snapshot
+    description: Weekly snapshot of tool health metrics (issues and PRs).
+    columns:
+      - name: tool_name
+        description: The name of the tool being analyzed.
+        tests:
+          - not_null
+      - name: week_start
+        description: The start of the week (Monday).
+        tests:
+          - not_null
