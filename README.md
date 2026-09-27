@@ -1,12 +1,12 @@
 # 🏥 Health of the Modern Data Stack
 
-> Tracking the *real* health of open-source data tools — beyond vanity metrics like GitHub stars. 
+> Tracking the *real* health of open-source data tools — beyond metrics like GitHub stars. 
 
-This project is a production-grade, end-to-end ELT data pipeline that extracts, transforms, and visualizes the operational health of modern data infrastructure tools (starting with `dbt-core`). It analyzes contribution velocity, issue resolution time, and contributor retention to answer: **"Is this tool actively maintained and healthy?"**
+This project is a end-to-end ELT data pipeline that extracts, transforms, and visualizes the operational health of modern data infrastructure tools (starting with `dbt-core`), using a source [GH Archive](https://www.gharchive.org/). It analyzes contribution velocity, issue resolution time, and contributor retention to answer: **"Is this tool actively maintained and healthy?"**
 
 ## 📊 Analytical Findings (The Narrative)
 
-While GitHub stars are a popular vanity metric, they don't reflect the day-to-day reality of a project. By analyzing the raw GitHub API data for `dbt-core`, this pipeline reveals:
+While GitHub stars are a popularity metric, they don't reflect the day-to-day reality of a project. By analyzing the raw GitHub API data for `dbt-core`, this pipeline reveals:
 - **Issue Resolution Velocity**: The average time to close an issue, highlighting how responsive the core maintainers are to community bug reports.
 - **PR Merge Rate**: The ratio of opened vs. merged pull requests, indicating how welcoming the project is to external contributions.
 - **Contributor Concentration**: Whether the project relies on a tiny core team or has a healthy, distributed community of contributors.
@@ -19,35 +19,35 @@ This is a monorepo demonstrating a modern, asset-based ELT architecture:
 
 ```mermaid
 graph TD
-    subgraph Sources ["🌐 Sources (GitHub API)"]
+    subgraph Sources ["Sources: GitHub API"]
         G1[dbt-core]
     end
 
-    subgraph Ingestion ["⚙️ Ingestion (Custom Python)"]
-        PY[Python Extractors<br/>(requests + pagination + rate-limit handling)]
+    subgraph Ingestion ["Ingestion: Custom Python"]
+        PY["Python Extractors: requests, pagination, rate-limit handling"]
     end
 
-    subgraph Storage ["💾 Storage (MotherDuck)"]
-        RAW[(Raw Schema<br/>Upsert pattern with extracted_at)]
+    subgraph Storage ["Storage: MotherDuck"]
+        RAW[(Raw Schema: Upsert pattern with extracted_at)]
     end
 
-    subgraph Transformation ["🔄 Transformation (dbt-core)"]
-        STG[Staging Layer<br/>cleaning, typing, deduplication]
-        MRT[Marts Layer<br/>fct_tool_weekly_snapshot]
-        TESTS{{dbt tests<br/>unique, not_null, custom business logic}}
+    subgraph Transformation ["Transformation: dbt-core"]
+        STG[Staging Layer: cleaning, typing, deduplication]
+        MRT[Marts Layer: fct_tool_weekly_snapshot]
+        TESTS{{dbt tests: unique, not_null, custom business logic}}
     end
 
-    subgraph Orchestration ["🎻 Orchestration (Dagster OSS)"]
-        DAG[Dagster Assets & Schedules<br/>Dependency-aware execution]
+    subgraph Orchestration ["Orchestration: Dagster OSS"]
+        DAG[Dagster Assets and Schedules: Dependency-aware execution]
     end
 
-    subgraph Presentation ["📊 Dashboard (Streamlit)"]
-        EVI[Streamlit Community Cloud<br/>Interactive filtering & Plotly charts]
+    subgraph Presentation ["Presentation: Streamlit"]
+        EVI[Streamlit: Interactive filtering and Plotly charts]
     end
 
-    subgraph Guardrails ["🛡️ CI/CD (GitHub Actions)"]
-        CI[PR Checks: Full pipeline build & test]
-        CD[Auto-deploy Streamlit / dbt docs]
+    subgraph Guardrails ["Guardrails: CI/CD GitHub Actions"]
+        CI[PR Checks: Full pipeline build and test]
+        CD[Auto-deploy Streamlit and dbt docs]
     end
 
     Sources -->|REST API| PY
@@ -79,9 +79,9 @@ modern-data-stack-health/
 This project is designed for cross-platform compatibility (Windows PowerShell, Mac, Linux).
 
 ### 1. Prerequisites
-* Python 3.12 (Recommended for Dagster compatibility)
-* A GitHub Personal Access Token (with public_repo scope)
-* A free MotherDuck account and token
+- Python 3.12 (Recommended for Dagster compatibility)
+- A GitHub Personal Access Token (with public_repo scope)
+- A free MotherDuck account and token
 
 ### 2. Setup
 ```powershell
@@ -110,10 +110,16 @@ cd dashboard
 pip install -r requirements.txt
 streamlit run app.py
 ```
-(Open http://localhost:8501)
+*(Open http://localhost:8501)*
 
 ## 🛡️ Engineering Rigor & Guardrails
 
 1. Schema Evolution Handling: The ingestion layer uses an intelligent Upsert pattern that dynamically maps columns, preventing breaks when the GitHub API adds or removes optional fields.
 2. Automated Testing: GitHub Actions runs the entire ELT pipeline (ingestion + dbt build) on every Pull Request. If a custom business logic test fails, the PR is blocked.
 3. Asset-Based Orchestration: Dagster automatically infers the dependency graph between the raw Python extraction and the dbt transformation models, preventing race conditions.
+
+## 🔗 Live Links
+📚 dbt Docs: [https://ricard-alcaraz.github.io/modern-data-stack-health/](https://ricard-alcaraz.github.io/modern-data-stack-health/)
+
+## 📝 License
+MIT
