@@ -13,9 +13,6 @@ on:
 jobs:
   dbt-build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./transform
 
     steps:
       - name: Checkout code
@@ -33,9 +30,12 @@ jobs:
 
       - name: Load test fixtures into local DuckDB
         run: |
-          python ../tests/load_fixtures.py ci_test.duckdb
+          # Run from the root directory so ci_test.duckdb is created in the root
+          python tests/load_fixtures.py ci_test.duckdb
 
       - name: Run dbt build against test data
         run: |
+          # Explicitly change to the transform directory for dbt commands
+          cd transform
           dbt deps
           dbt build --target ci
