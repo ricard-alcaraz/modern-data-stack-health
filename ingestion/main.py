@@ -3,6 +3,7 @@ import logging
 from pathlib import Path
 from dotenv import load_dotenv
 
+from ingestion.config import TOOLS
 from ingestion.utils.api_client import GitHubAPIClient
 from ingestion.utils.db_writer import MotherDuckWriter
 from ingestion.extractors.github_repo import GitHubRepoExtractor
@@ -11,13 +12,6 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
-
-# Easily extensible: add any GitHub repo here
-TOOLS_TO_TRACK = [
-    ("dbt-labs", "dbt-core"),
-    ("apache", "airflow"),
-    ("dagster-io", "dagster"),
-]
 
 def main():
     root_dir = Path(__file__).parent.parent
@@ -44,17 +38,17 @@ def main():
             logging.warning(f"Could not initialize MotherDuck writer: {e}. Continuing without durable storage.")
 
     client = GitHubAPIClient(token=github_token)
-
+    
     # Instantiate the generic extractor for each tool
     extractors = [
         GitHubRepoExtractor(
             client=client,
-            repo_owner=owner,
-            repo_name=name,
+            repo_owner=tool.owner,
+            repo_name=tool.repo,
             landing_dir=landing_dir,
             db_writer=db_writer
         )
-        for owner, name in TOOLS_TO_TRACK
+        for tool in TOOLS
     ]
 
     for extractor in extractors:

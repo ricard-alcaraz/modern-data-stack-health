@@ -35,11 +35,21 @@ class GitHubRepoExtractor(BaseExtractor):
         table_name_pr = f"{self.repo_name.replace('-', '_')}_pulls"
         pulls_since = self._get_latest_timestamp_from_warehouse(table_name_pr)
         logger.info(f"Fetching pull requests updated since: {pulls_since}")
-        pulls_params = {"state": "all", "since": pulls_since, "sort": "updated", "direction": "desc"}
-        pulls_data = list(self.client.paginate(
+        
+        pulls_params = {"state": "all", "sort": "updated", "direction": "desc"}
+        
+        pulls_data = []
+        for pr in self.client.paginate(
             f"/repos/{self.repo_owner}/{self.repo_name}/pulls", 
             params=pulls_params
-        ))
+        ):
+            pr_updated = pr.get("updated_at")
+            # String comparison works perfectly for ISO 8601 dates from the same source
+            if pulls_since and pr_updated and pr_updated < pulls_since:
+                logger.info("Reached PRs older than the incremental threshold, stopping pagination early.")
+                break
+            pulls_data.append(pr)
+            
         self._save_raw(pulls_data, "pulls.jsonl")
 
         # 4. Releases
