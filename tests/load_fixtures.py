@@ -31,7 +31,7 @@ def load_fixtures(db_path: str = "ci_test.duckdb"):
     
     for tool in TOOLS:
         for data_type in data_types:
-            table_name = f"{tool.repo}_{data_type}"
+            table_name = f"{tool.table_prefix}_{data_type}"
             fixture_path = fixtures_dir / f"{table_name}.jsonl"
             
             if not fixture_path.exists():
