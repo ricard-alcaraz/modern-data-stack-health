@@ -2,7 +2,7 @@
     
 
     create  table
-      "mds_health_db"."main"."fct_tool_weekly_snapshot__dbt_tmp"
+      "ci_test"."main"."fct_tool_weekly_snapshot__dbt_tmp"
   
     
     as (
@@ -15,7 +15,7 @@ with issues as (
         count_if(state = 'open') as issues_opened,
         count_if(state = 'closed') as issues_closed,
         avg(datediff('day', created_at, closed_at)) as avg_issue_close_time_days
-    from "mds_health_db"."main"."stg_github_issues"
+    from "ci_test"."main"."stg_github_issues"
     group by 1, 2
 ),
 
@@ -25,7 +25,7 @@ pulls as (
         date_trunc('week', created_at) as week_start,
         count_if(state = 'open') as prs_opened,
         count_if(merged_at is not null) as prs_merged
-    from "mds_health_db"."main"."stg_github_pulls"
+    from "ci_test"."main"."stg_github_pulls"
     group by 1, 2
 )
 

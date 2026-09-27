@@ -10,7 +10,8 @@ models:
       - name: state
         tests:
           - accepted_values:
-              values: ['open', 'closed']
+              arguments:
+                values: ['open', 'closed']
 
   - name: stg_github_pulls
     columns:

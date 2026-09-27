@@ -4,3 +4,4 @@ __pycache__/
 data/landing/
 *.egg-info/
 *.tmp*
+*.duckdb

@@ -3,4 +3,8 @@ mds_health:
   outputs:
     prod:
       type: duckdb
-      path: 'md:mds_health_db' 
+      path: 'md:mds_health_db'
+    ci:
+      type: duckdb
+      path: '../ci_test.duckdb'
+      schema: main

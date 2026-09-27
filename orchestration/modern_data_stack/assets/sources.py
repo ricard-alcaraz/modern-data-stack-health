@@ -1,21 +1,21 @@
 from dagster import AssetSpec, AssetKey
 
-# Define specs for each raw source table
-# These tell Dagster that these "assets" are produced by the ingestion asset
-raw_github_sources = [
-    AssetSpec(
-        key=AssetKey(["raw_github", "dbt_core_issues"]),
-        deps=[AssetKey("raw_dbt_core_data")],
-        description="Raw GitHub issues for dbt-core",
-    ),
-    AssetSpec(
-        key=AssetKey(["raw_github", "dbt_core_pulls"]),
-        deps=[AssetKey("raw_dbt_core_data")],
-        description="Raw GitHub pull requests for dbt-core",
-    ),
-    AssetSpec(
-        key=AssetKey(["raw_github", "dbt_core_releases"]),
-        deps=[AssetKey("raw_dbt_core_data")],
-        description="Raw GitHub releases for dbt-core",
-    ),
-]
+# Define the tools and entities to map
+TOOLS = ["dbt_core", "airflow", "dagster"]
+ENTITIES = ["issues", "pulls", "releases"]
+
+raw_github_sources = []
+
+# Dynamically generate an AssetSpec for every combination
+for tool in TOOLS:
+    for entity in ENTITIES:
+        table_name = f"{tool}_{entity}"
+        raw_github_sources.append(
+            AssetSpec(
+                # This key must match the source name in dbt's sources.yml
+                key=AssetKey(["raw_github", table_name]),
+                # This tells Dagster that this source is produced by the ingestion asset
+                deps=[AssetKey("raw_tools_data")], 
+                description=f"Raw GitHub {entity} for {tool.replace('_', ' ').title()}",
+            )
+        )

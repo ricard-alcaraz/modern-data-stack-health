@@ -1,8 +1,41 @@
--- Reads all JSONL files for dbt-core issues across all dates
 {{ config(materialized='view') }}
 
-with source as (
-    select * from {{ source('raw_github', 'dbt_core_issues') }}
+with dbt_core as (
+    select 
+        id, number, title, state, created_at, closed_at, updated_at, 
+        user, pull_request, 'dbt-core' as tool_name 
+    from {{ source('raw_github', 'dbt_core_issues') }}
+),
+
+airflow as (
+    select 
+        id, number, title, state, created_at, closed_at, updated_at, 
+        user, pull_request, 'airflow' as tool_name 
+    from {{ source('raw_github', 'airflow_issues') }}
+),
+
+dagster as (
+    select 
+        id, number, title, state, created_at, closed_at, updated_at, 
+        user, pull_request, 'dagster' as tool_name 
+    from {{ source('raw_github', 'dagster_issues') }}
+),
+
+combined as (
+    select * from dbt_core
+    union all
+    select * from airflow
+    union all
+    select * from dagster
+),
+
+-- Filter out PRs (GitHub's /issues endpoint includes both) and deduplicate
+deduplicated as (
+    select 
+        *,
+        row_number() over (partition by id order by updated_at desc) as rn
+    from combined
+    where pull_request is null
 ),
 
 renamed as (
@@ -14,10 +47,9 @@ renamed as (
         created_at::timestamp as created_at,
         closed_at::timestamp as closed_at,
         user.login as author_login,
-        pull_request is not null as is_pull_request,
-        'dbt-core' as tool_name
-    from source
-    where pull_request is null
+        tool_name
+    from deduplicated
+    where rn = 1
 )
 
 select * from renamed

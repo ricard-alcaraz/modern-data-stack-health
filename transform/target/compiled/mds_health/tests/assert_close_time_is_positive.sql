@@ -6,6 +6,6 @@ select
     created_at,
     closed_at,
     datediff('day', created_at, closed_at) as close_time_days
-from "mds_health_db"."main"."stg_github_issues"
+from "ci_test"."main"."stg_github_issues"
 where closed_at is not null 
   and datediff('day', created_at, closed_at) < 0

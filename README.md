@@ -92,7 +92,7 @@ cd modern-data-stack-health
 make setup
 
 cp .env.example .env
-# Edit .env and add GITHUB_TOKEN and MOTHERDUCK_TOKEN
+# Edit .env and add TOKEN and MOTHERDUCK_TOKEN
 ```
 ### 3. Run the pipeline
 Use the provided PowerShell wrapper to ensure environment variables are loaded correctly:
