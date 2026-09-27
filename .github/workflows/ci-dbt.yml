@@ -32,14 +32,15 @@ jobs:
         run: |
           pip install dbt-duckdb
 
-      - name: Run data ingestion
+      - name: Run data ingestion (writes to MotherDuck)
         env:
           TOKEN: ${{ secrets.TOKEN }}
+          MOTHERDUCK_TOKEN: ${{ secrets.MOTHERDUCK_TOKEN }}
           LANDING_DIR: data/landing
         run: |
           python -m ingestion.main
 
-      - name: Run dbt build
+      - name: Run dbt build (reads from MotherDuck)
         env:
           MOTHERDUCK_TOKEN: ${{ secrets.MOTHERDUCK_TOKEN }}
         working-directory: ./transform
