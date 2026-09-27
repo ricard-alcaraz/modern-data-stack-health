@@ -3,18 +3,17 @@ name: CD - Deploy dbt Docs to GitHub Pages
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - 'transform/**'
       - '.github/workflows/deploy-docs.yml'
+  workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -22,9 +21,6 @@ concurrency:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./transform
 
     steps:
       - name: Checkout code
@@ -35,14 +31,34 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install dependencies
+      - name: Cache raw landing data
+        uses: actions/cache@v4
+        with:
+          path: data/landing
+          key: landing-data-${{ runner.os }}-${{ hashFiles('ingestion/**') }}
+          restore-keys: |
+            landing-data-${{ runner.os }}-
+
+      - name: Install ingestion dependencies
         run: |
           python -m pip install --upgrade pip
+          pip install -r ingestion/requirements.txt
+
+      - name: Install dbt dependencies
+        run: |
           pip install dbt-duckdb
+
+      - name: Run data ingestion
+        env:
+          TOKEN: ${{ secrets.TOKEN }}
+          LANDING_DIR: data/landing
+        run: |
+          python -m ingestion.main
 
       - name: Generate dbt docs
         env:
           MOTHERDUCK_TOKEN: ${{ secrets.MOTHERDUCK_TOKEN }}
+        working-directory: ./transform
         run: |
           dbt deps
           dbt docs generate --target prod

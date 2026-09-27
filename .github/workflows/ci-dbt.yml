@@ -1,19 +1,18 @@
-name: CI - dbt Build & Test
+name: CI - Full Pipeline Build & Test
 
 on:
   pull_request:
     branches:
-      - main
+      - master
     paths:
       - 'transform/**'
+      - 'ingestion/**'
       - '.github/workflows/ci-dbt.yml'
+  workflow_dispatch:
 
 jobs:
-  dbt-build:
+  pipeline-build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./transform
 
     steps:
       - name: Checkout code
@@ -24,14 +23,27 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install dependencies
+      - name: Install ingestion dependencies
         run: |
           python -m pip install --upgrade pip
+          pip install -r ingestion/requirements.txt
+
+      - name: Install dbt dependencies
+        run: |
           pip install dbt-duckdb
 
-      - name: Run dbt build
+      - name: Run data ingestion (writes to MotherDuck)
+        env:
+          TOKEN: ${{ secrets.TOKEN }}
+          MOTHERDUCK_TOKEN: ${{ secrets.MOTHERDUCK_TOKEN }}
+          LANDING_DIR: data/landing
+        run: |
+          python -m ingestion.main
+
+      - name: Run dbt build (reads from MotherDuck)
         env:
           MOTHERDUCK_TOKEN: ${{ secrets.MOTHERDUCK_TOKEN }}
+        working-directory: ./transform
         run: |
           dbt deps
           dbt build --target prod
