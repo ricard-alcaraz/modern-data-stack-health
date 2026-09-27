@@ -2,15 +2,29 @@ version: 2
 
 sources:
   - name: raw_github
-    description: "Raw GitHub data stored in MotherDuck raw schema"
-    database: mds_health_db
+    description: "Raw GitHub data"
     schema: raw
     tables:
+      # dbt-core
       - name: dbt_core_issues
         description: "Raw GitHub issues for dbt-core"
-      
       - name: dbt_core_pulls
         description: "Raw GitHub pull requests for dbt-core"
-      
       - name: dbt_core_releases
         description: "Raw GitHub releases for dbt-core"
+      
+      # Apache Airflow
+      - name: airflow_issues
+        description: "Raw GitHub issues for Apache Airflow"
+      - name: airflow_pulls
+        description: "Raw GitHub pull requests for Apache Airflow"
+      - name: airflow_releases
+        description: "Raw GitHub releases for Apache Airflow"
+      
+      # Dagster
+      - name: dagster_issues
+        description: "Raw GitHub issues for Dagster"
+      - name: dagster_pulls
+        description: "Raw GitHub pull requests for Dagster"
+      - name: dagster_releases
+        description: "Raw GitHub releases for Dagster"

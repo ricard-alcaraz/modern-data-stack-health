@@ -2778,3 +2778,2036 @@ alter table "mds_health_db"."main"."fct_tool_weekly_snapshot__dbt_tmp" rename to
 [0m18:51:33.232202 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000236057F6F00>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000023603240C20>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000023602BEE840>]}
 [0m18:51:33.233205 [debug] [MainThread]: Flushing usage events
 [0m18:51:33.812336 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m15:57:34.415322 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000170F8C26000>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000170F93732C0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000170F94DE360>]}
+
+
+============================== 15:57:34.431040 | 06216691-c7f9-4f89-a34f-823be24c2530 ==============================
+[0m15:57:34.431040 [info ] [MainThread]: Running with dbt=1.10.23
+[0m15:57:34.431040 [debug] [MainThread]: running dbt with arguments {'static_parser': 'True', 'no_print': 'None', 'version_check': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'target_path': 'None', 'printer_width': '80', 'write_json': 'True', 'empty': 'False', 'log_cache_events': 'False', 'introspect': 'True', 'cache_selected_only': 'False', 'log_format': 'default', 'debug': 'False', 'fail_fast': 'False', 'profiles_dir': 'C:\\Projects\\modern-data-stack-health\\transform', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'partial_parse': 'True', 'invocation_command': 'dbt build --target ci', 'use_colors': 'True', 'indirect_selection': 'eager', 'use_experimental_parser': 'False', 'log_path': 'C:\\Projects\\modern-data-stack-health\\transform\\logs'}
+[0m15:57:34.431040 [info ] [MainThread]: This version of dbt is deprecated and no longer receives regular patches, including for known bugs. We recommend upgrading to a newer supported version of dbt: https://docs.getdbt.com/docs/dbt-versions
+[0m15:57:34.431040 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'deprecated_version_invocation', 'label': '06216691-c7f9-4f89-a34f-823be24c2530', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000170F96F0920>]}
+[0m15:57:34.770404 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '06216691-c7f9-4f89-a34f-823be24c2530', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000170FAEE4D10>]}
+[0m15:57:34.845628 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '06216691-c7f9-4f89-a34f-823be24c2530', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000170FB21FD40>]}
+[0m15:57:34.847637 [info ] [MainThread]: Registered adapter: duckdb=1.11.0
+[0m15:57:35.080499 [debug] [MainThread]: checksum: 6ebfa2de25ebe8cf47d1434afe1ed2b370cfa55abb66bcd624539401f3e62734, vars: {}, profile: , target: ci, version: 1.10.23
+[0m15:57:35.169653 [info ] [MainThread]: Unable to do partial parsing because config vars, config profile, or config target have changed
+[0m15:57:35.169653 [debug] [MainThread]: previous checksum: 6ebfa2de25ebe8cf47d1434afe1ed2b370cfa55abb66bcd624539401f3e62734, current checksum: 2b1352ea083ab2415ad0dbf54db2d1ac6054af1cb939f9d756e37438b9e9a7cf
+[0m15:57:35.169653 [info ] [MainThread]: Unable to do partial parsing because profile has changed
+[0m15:57:35.169653 [info ] [MainThread]: Unable to do partial parsing because a project config has changed
+[0m15:57:35.169653 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'partial_parser', 'label': '06216691-c7f9-4f89-a34f-823be24c2530', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000170F971F770>]}
+[0m15:57:36.396023 [warn ] [MainThread]: [[33mWARNING[0m][MissingArgumentsPropertyInGenericTestDeprecation]: Deprecated
+functionality
+Found top-level arguments to test `accepted_values`. Arguments to generic tests
+should be nested under the `arguments` property.`
+[0m15:57:36.396023 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'deprecation', 'label': '06216691-c7f9-4f89-a34f-823be24c2530', 'property_': 'warn', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000170FB744E90>]}
+[0m15:57:36.596031 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': '06216691-c7f9-4f89-a34f-823be24c2530', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000170FBA71C40>]}
+[0m15:57:36.662860 [debug] [MainThread]: Wrote artifact WritableManifest to C:\Projects\modern-data-stack-health\transform\target\manifest.json
+[0m15:57:36.669939 [debug] [MainThread]: Wrote artifact SemanticManifest to C:\Projects\modern-data-stack-health\transform\target\semantic_manifest.json
+[0m15:57:36.718735 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': '06216691-c7f9-4f89-a34f-823be24c2530', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000170FBAF6F60>]}
+[0m15:57:36.726794 [info ] [MainThread]: Found 3 models, 6 data tests, 9 sources, 500 macros
+[0m15:57:36.726794 [info ] [MainThread]: 
+[0m15:57:36.726794 [info ] [MainThread]: Concurrency: 1 threads (target='ci')
+[0m15:57:36.726794 [info ] [MainThread]: 
+[0m15:57:36.726794 [debug] [MainThread]: Acquiring new duckdb connection 'master'
+[0m15:57:36.735114 [debug] [ThreadPool]: Acquiring new duckdb connection 'list_ci_test'
+[0m15:57:36.958386 [debug] [ThreadPool]: Using duckdb connection "list_ci_test"
+[0m15:57:36.958386 [debug] [ThreadPool]: On list_ci_test: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "connection_name": "list_ci_test"} */
+
+    
+    select schema_name
+    from system.information_schema.schemata
+    
+    where lower(catalog_name) = '"ci_test"'
+    
+  
+  
+[0m15:57:36.958386 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m15:57:37.057640 [debug] [ThreadPool]: SQL status: OK in 0.099 seconds
+[0m15:57:37.059810 [debug] [ThreadPool]: On list_ci_test: Close
+[0m15:57:37.059810 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list_ci_test, now create_ci_test_main)
+[0m15:57:37.059810 [debug] [ThreadPool]: Creating schema "database: "ci_test"
+schema: "main"
+"
+[0m15:57:37.067969 [debug] [ThreadPool]: Using duckdb connection "create_ci_test_main"
+[0m15:57:37.067969 [debug] [ThreadPool]: On create_ci_test_main: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "connection_name": "create_ci_test_main"} */
+
+    
+        select type from duckdb_databases()
+        where lower(database_name)='ci_test'
+        and type != 'duckdb'
+    
+  
+[0m15:57:37.067969 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m15:57:37.067969 [debug] [ThreadPool]: SQL status: OK in 0.001 seconds
+[0m15:57:37.067969 [debug] [ThreadPool]: Using duckdb connection "create_ci_test_main"
+[0m15:57:37.067969 [debug] [ThreadPool]: On create_ci_test_main: BEGIN
+[0m15:57:37.067969 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m15:57:37.067969 [debug] [ThreadPool]: Using duckdb connection "create_ci_test_main"
+[0m15:57:37.067969 [debug] [ThreadPool]: On create_ci_test_main: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "connection_name": "create_ci_test_main"} */
+
+    
+    
+        create schema if not exists "ci_test"."main"
+    
+[0m15:57:37.067969 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m15:57:37.067969 [debug] [ThreadPool]: On create_ci_test_main: COMMIT
+[0m15:57:37.067969 [debug] [ThreadPool]: Using duckdb connection "create_ci_test_main"
+[0m15:57:37.067969 [debug] [ThreadPool]: On create_ci_test_main: COMMIT
+[0m15:57:37.067969 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m15:57:37.067969 [debug] [ThreadPool]: On create_ci_test_main: Close
+[0m15:57:37.076538 [debug] [ThreadPool]: Acquiring new duckdb connection 'list_ci_test_main'
+[0m15:57:37.077665 [debug] [ThreadPool]: Using duckdb connection "list_ci_test_main"
+[0m15:57:37.077665 [debug] [ThreadPool]: On list_ci_test_main: BEGIN
+[0m15:57:37.077665 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m15:57:37.077665 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m15:57:37.077665 [debug] [ThreadPool]: Using duckdb connection "list_ci_test_main"
+[0m15:57:37.077665 [debug] [ThreadPool]: On list_ci_test_main: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "connection_name": "list_ci_test_main"} */
+select
+      'ci_test' as database,
+      table_name as name,
+      table_schema as schema,
+      CASE table_type
+        WHEN 'BASE TABLE' THEN 'table'
+        WHEN 'VIEW' THEN 'view'
+        WHEN 'LOCAL TEMPORARY' THEN 'table'
+        END as type
+    from system.information_schema.tables
+    where lower(table_schema) = 'main'
+    and lower(table_catalog) = 'ci_test'
+  
+[0m15:57:37.084956 [debug] [ThreadPool]: SQL status: OK in 0.003 seconds
+[0m15:57:37.084956 [debug] [ThreadPool]: On list_ci_test_main: ROLLBACK
+[0m15:57:37.084956 [debug] [ThreadPool]: On list_ci_test_main: Close
+[0m15:57:37.084956 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '06216691-c7f9-4f89-a34f-823be24c2530', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000170FBA39880>]}
+[0m15:57:37.084956 [debug] [MainThread]: Using duckdb connection "master"
+[0m15:57:37.084956 [debug] [MainThread]: On master: BEGIN
+[0m15:57:37.084956 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m15:57:37.084956 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m15:57:37.084956 [debug] [MainThread]: On master: COMMIT
+[0m15:57:37.084956 [debug] [MainThread]: Using duckdb connection "master"
+[0m15:57:37.084956 [debug] [MainThread]: On master: COMMIT
+[0m15:57:37.084956 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m15:57:37.084956 [debug] [MainThread]: On master: Close
+[0m15:57:37.093287 [debug] [Thread-1 (]: Began running node model.mds_health.stg_github_issues
+[0m15:57:37.093287 [info ] [Thread-1 (]: 1 of 9 START sql view model main.stg_github_issues ............................. [RUN]
+[0m15:57:37.093287 [debug] [Thread-1 (]: Acquiring new duckdb connection 'model.mds_health.stg_github_issues'
+[0m15:57:37.093287 [debug] [Thread-1 (]: Began compiling node model.mds_health.stg_github_issues
+[0m15:57:37.098870 [debug] [Thread-1 (]: Writing injected SQL for node "model.mds_health.stg_github_issues"
+[0m15:57:37.104896 [debug] [Thread-1 (]: Began executing node model.mds_health.stg_github_issues
+[0m15:57:37.133986 [debug] [Thread-1 (]: Writing runtime sql for node "model.mds_health.stg_github_issues"
+[0m15:57:37.133986 [debug] [Thread-1 (]: Using duckdb connection "model.mds_health.stg_github_issues"
+[0m15:57:37.133986 [debug] [Thread-1 (]: On model.mds_health.stg_github_issues: BEGIN
+[0m15:57:37.133986 [debug] [Thread-1 (]: Opening a new connection, currently in state init
+[0m15:57:37.133986 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m15:57:37.133986 [debug] [Thread-1 (]: Using duckdb connection "model.mds_health.stg_github_issues"
+[0m15:57:37.133986 [debug] [Thread-1 (]: On model.mds_health.stg_github_issues: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "node_id": "model.mds_health.stg_github_issues"} */
+
+  
+  create view "ci_test"."main"."stg_github_issues__dbt_tmp" as (
+    
+
+with dbt_core as (
+    select *, 'dbt-core' as tool_name from "ci_test"."raw_github"."dbt_core_issues"
+),
+
+airflow as (
+    select *, 'airflow' as tool_name from "ci_test"."raw_github"."airflow_issues"
+),
+
+dagster as (
+    select *, 'dagster' as tool_name from "ci_test"."raw_github"."dagster_issues"
+),
+
+combined as (
+    select * from dbt_core
+    union all
+    select * from airflow
+    union all
+    select * from dagster
+),
+
+-- Filter out PRs (GitHub's /issues endpoint includes both) and deduplicate
+deduplicated as (
+    select 
+        *,
+        row_number() over (partition by id order by updated_at desc) as rn
+    from combined
+    where pull_request is null
+),
+
+renamed as (
+    select
+        id as issue_id,
+        number as issue_number,
+        title,
+        state,
+        created_at::timestamp as created_at,
+        closed_at::timestamp as closed_at,
+        user.login as author_login,
+        tool_name
+    from deduplicated
+    where rn = 1
+)
+
+select * from renamed
+  );
+
+[0m15:57:37.142603 [debug] [Thread-1 (]: DuckDB adapter: duckdb error: Catalog Error: Table with name "raw_github.dbt_core_issues" does not exist because schema "raw_github" does not exist.
+
+LINE 8:     select *, 'dbt-core' as tool_name from "ci_test"."raw_github"."dbt_core_issues"
+                                                   ^
+[0m15:57:37.142603 [debug] [Thread-1 (]: DuckDB adapter: Error running SQL: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "node_id": "model.mds_health.stg_github_issues"} */
+
+  
+  create view "ci_test"."main"."stg_github_issues__dbt_tmp" as (
+    
+
+with dbt_core as (
+    select *, 'dbt-core' as tool_name from "ci_test"."raw_github"."dbt_core_issues"
+),
+
+airflow as (
+    select *, 'airflow' as tool_name from "ci_test"."raw_github"."airflow_issues"
+),
+
+dagster as (
+    select *, 'dagster' as tool_name from "ci_test"."raw_github"."dagster_issues"
+),
+
+combined as (
+    select * from dbt_core
+    union all
+    select * from airflow
+    union all
+    select * from dagster
+),
+
+-- Filter out PRs (GitHub's /issues endpoint includes both) and deduplicate
+deduplicated as (
+    select 
+        *,
+        row_number() over (partition by id order by updated_at desc) as rn
+    from combined
+    where pull_request is null
+),
+
+renamed as (
+    select
+        id as issue_id,
+        number as issue_number,
+        title,
+        state,
+        created_at::timestamp as created_at,
+        closed_at::timestamp as closed_at,
+        user.login as author_login,
+        tool_name
+    from deduplicated
+    where rn = 1
+)
+
+select * from renamed
+  );
+
+[0m15:57:37.142603 [debug] [Thread-1 (]: DuckDB adapter: Rolling back transaction.
+[0m15:57:37.142603 [debug] [Thread-1 (]: On model.mds_health.stg_github_issues: ROLLBACK
+[0m15:57:37.144390 [debug] [Thread-1 (]: On model.mds_health.stg_github_issues: Close
+[0m15:57:37.152306 [debug] [Thread-1 (]: Runtime Error in model stg_github_issues (models\staging\stg_github_issues.sql)
+  Catalog Error: Table with name "raw_github.dbt_core_issues" does not exist because schema "raw_github" does not exist.
+  
+  LINE 8:     select *, 'dbt-core' as tool_name from "ci_test"."raw_github"."dbt_core_issues"
+                                                     ^
+[0m15:57:37.157186 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '06216691-c7f9-4f89-a34f-823be24c2530', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000170FCD2B830>]}
+[0m15:57:37.158694 [error] [Thread-1 (]: 1 of 9 ERROR creating sql view model main.stg_github_issues .................... [[31mERROR[0m in 0.06s]
+[0m15:57:37.158694 [debug] [Thread-1 (]: Finished running node model.mds_health.stg_github_issues
+[0m15:57:37.158694 [debug] [Thread-1 (]: Began running node model.mds_health.stg_github_pulls
+[0m15:57:37.158694 [debug] [Thread-4 (]: Marking all children of 'model.mds_health.stg_github_issues' to be skipped because of status 'error'.  Reason: Runtime Error in model stg_github_issues (models\staging\stg_github_issues.sql)
+  Catalog Error: Table with name "raw_github.dbt_core_issues" does not exist because schema "raw_github" does not exist.
+  
+  LINE 8:     select *, 'dbt-core' as tool_name from "ci_test"."raw_github"."dbt_core_issues"
+                                                     ^.
+[0m15:57:37.158694 [info ] [Thread-1 (]: 2 of 9 START sql view model main.stg_github_pulls .............................. [RUN]
+[0m15:57:37.161926 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.mds_health.stg_github_issues, now model.mds_health.stg_github_pulls)
+[0m15:57:37.161926 [debug] [Thread-1 (]: Began compiling node model.mds_health.stg_github_pulls
+[0m15:57:37.164573 [debug] [Thread-1 (]: Writing injected SQL for node "model.mds_health.stg_github_pulls"
+[0m15:57:37.166582 [debug] [Thread-1 (]: Began executing node model.mds_health.stg_github_pulls
+[0m15:57:37.168591 [debug] [Thread-1 (]: Writing runtime sql for node "model.mds_health.stg_github_pulls"
+[0m15:57:37.174630 [debug] [Thread-1 (]: Using duckdb connection "model.mds_health.stg_github_pulls"
+[0m15:57:37.174630 [debug] [Thread-1 (]: On model.mds_health.stg_github_pulls: BEGIN
+[0m15:57:37.174630 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m15:57:37.174630 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m15:57:37.174630 [debug] [Thread-1 (]: Using duckdb connection "model.mds_health.stg_github_pulls"
+[0m15:57:37.174630 [debug] [Thread-1 (]: On model.mds_health.stg_github_pulls: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "node_id": "model.mds_health.stg_github_pulls"} */
+
+  
+  create view "ci_test"."main"."stg_github_pulls__dbt_tmp" as (
+    
+
+with dbt_core as (
+    select *, 'dbt-core' as tool_name from "ci_test"."raw_github"."dbt_core_pulls"
+),
+
+airflow as (
+    select *, 'airflow' as tool_name from "ci_test"."raw_github"."airflow_pulls"
+),
+
+dagster as (
+    select *, 'dagster' as tool_name from "ci_test"."raw_github"."dagster_pulls"
+),
+
+combined as (
+    select * from dbt_core
+    union all
+    select * from airflow
+    union all
+    select * from dagster
+),
+
+deduplicated as (
+    select 
+        *,
+        row_number() over (partition by id order by updated_at desc) as rn
+    from combined
+),
+
+renamed as (
+    select
+        id as pr_id,
+        number as pr_number,
+        title,
+        state,
+        created_at::timestamp as created_at,
+        merged_at::timestamp as merged_at,
+        closed_at::timestamp as closed_at,
+        user.login as author_login,
+        tool_name
+    from deduplicated
+    where rn = 1
+)
+
+select * from renamed
+  );
+
+[0m15:57:37.174630 [debug] [Thread-1 (]: DuckDB adapter: duckdb error: Catalog Error: Table with name "raw_github.dbt_core_pulls" does not exist because schema "raw_github" does not exist.
+
+LINE 8:     select *, 'dbt-core' as tool_name from "ci_test"."raw_github"."dbt_core_pulls"
+                                                   ^
+[0m15:57:37.174630 [debug] [Thread-1 (]: DuckDB adapter: Error running SQL: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "node_id": "model.mds_health.stg_github_pulls"} */
+
+  
+  create view "ci_test"."main"."stg_github_pulls__dbt_tmp" as (
+    
+
+with dbt_core as (
+    select *, 'dbt-core' as tool_name from "ci_test"."raw_github"."dbt_core_pulls"
+),
+
+airflow as (
+    select *, 'airflow' as tool_name from "ci_test"."raw_github"."airflow_pulls"
+),
+
+dagster as (
+    select *, 'dagster' as tool_name from "ci_test"."raw_github"."dagster_pulls"
+),
+
+combined as (
+    select * from dbt_core
+    union all
+    select * from airflow
+    union all
+    select * from dagster
+),
+
+deduplicated as (
+    select 
+        *,
+        row_number() over (partition by id order by updated_at desc) as rn
+    from combined
+),
+
+renamed as (
+    select
+        id as pr_id,
+        number as pr_number,
+        title,
+        state,
+        created_at::timestamp as created_at,
+        merged_at::timestamp as merged_at,
+        closed_at::timestamp as closed_at,
+        user.login as author_login,
+        tool_name
+    from deduplicated
+    where rn = 1
+)
+
+select * from renamed
+  );
+
+[0m15:57:37.174630 [debug] [Thread-1 (]: DuckDB adapter: Rolling back transaction.
+[0m15:57:37.174630 [debug] [Thread-1 (]: On model.mds_health.stg_github_pulls: ROLLBACK
+[0m15:57:37.174630 [debug] [Thread-1 (]: On model.mds_health.stg_github_pulls: Close
+[0m15:57:37.184995 [debug] [Thread-1 (]: Runtime Error in model stg_github_pulls (models\staging\stg_github_pulls.sql)
+  Catalog Error: Table with name "raw_github.dbt_core_pulls" does not exist because schema "raw_github" does not exist.
+  
+  LINE 8:     select *, 'dbt-core' as tool_name from "ci_test"."raw_github"."dbt_core_pulls"
+                                                     ^
+[0m15:57:37.187006 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '06216691-c7f9-4f89-a34f-823be24c2530', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000170FB863620>]}
+[0m15:57:37.187006 [error] [Thread-1 (]: 2 of 9 ERROR creating sql view model main.stg_github_pulls ..................... [[31mERROR[0m in 0.02s]
+[0m15:57:37.187006 [debug] [Thread-1 (]: Finished running node model.mds_health.stg_github_pulls
+[0m15:57:37.187006 [debug] [Thread-1 (]: Began running node test.mds_health.accepted_values_stg_github_issues_state__open__closed.bf17d7173b
+[0m15:57:37.187006 [debug] [Thread-4 (]: Marking all children of 'model.mds_health.stg_github_pulls' to be skipped because of status 'error'.  Reason: Runtime Error in model stg_github_pulls (models\staging\stg_github_pulls.sql)
+  Catalog Error: Table with name "raw_github.dbt_core_pulls" does not exist because schema "raw_github" does not exist.
+  
+  LINE 8:     select *, 'dbt-core' as tool_name from "ci_test"."raw_github"."dbt_core_pulls"
+                                                     ^.
+[0m15:57:37.191297 [info ] [Thread-1 (]: 3 of 9 SKIP test accepted_values_stg_github_issues_state__open__closed ......... [[33mSKIP[0m]
+[0m15:57:37.191683 [debug] [Thread-1 (]: Finished running node test.mds_health.accepted_values_stg_github_issues_state__open__closed.bf17d7173b
+[0m15:57:37.191683 [debug] [Thread-1 (]: Began running node test.mds_health.assert_close_time_is_positive
+[0m15:57:37.191683 [debug] [Thread-4 (]: Marking all children of 'test.mds_health.accepted_values_stg_github_issues_state__open__closed.bf17d7173b' to be skipped because of status 'skipped'. 
+[0m15:57:37.191683 [info ] [Thread-1 (]: 4 of 9 SKIP test assert_close_time_is_positive ................................. [[33mSKIP[0m]
+[0m15:57:37.194359 [debug] [Thread-1 (]: Finished running node test.mds_health.assert_close_time_is_positive
+[0m15:57:37.194359 [debug] [Thread-1 (]: Began running node test.mds_health.not_null_stg_github_issues_issue_id.aa9103dba8
+[0m15:57:37.195936 [debug] [Thread-4 (]: Marking all children of 'test.mds_health.assert_close_time_is_positive' to be skipped because of status 'skipped'. 
+[0m15:57:37.195936 [info ] [Thread-1 (]: 5 of 9 SKIP test not_null_stg_github_issues_issue_id ........................... [[33mSKIP[0m]
+[0m15:57:37.195936 [debug] [Thread-1 (]: Finished running node test.mds_health.not_null_stg_github_issues_issue_id.aa9103dba8
+[0m15:57:37.195936 [debug] [Thread-1 (]: Began running node test.mds_health.unique_stg_github_issues_issue_id.44cc6acdf8
+[0m15:57:37.195936 [debug] [Thread-4 (]: Marking all children of 'test.mds_health.not_null_stg_github_issues_issue_id.aa9103dba8' to be skipped because of status 'skipped'. 
+[0m15:57:37.195936 [info ] [Thread-1 (]: 6 of 9 SKIP test unique_stg_github_issues_issue_id ............................. [[33mSKIP[0m]
+[0m15:57:37.195936 [debug] [Thread-1 (]: Finished running node test.mds_health.unique_stg_github_issues_issue_id.44cc6acdf8
+[0m15:57:37.197944 [debug] [Thread-1 (]: Began running node test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f
+[0m15:57:37.197944 [debug] [Thread-4 (]: Marking all children of 'test.mds_health.unique_stg_github_issues_issue_id.44cc6acdf8' to be skipped because of status 'skipped'. 
+[0m15:57:37.197944 [info ] [Thread-1 (]: 7 of 9 SKIP test not_null_stg_github_pulls_pr_id ............................... [[33mSKIP[0m]
+[0m15:57:37.199693 [debug] [Thread-1 (]: Finished running node test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f
+[0m15:57:37.199693 [debug] [Thread-1 (]: Began running node test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f
+[0m15:57:37.199693 [debug] [Thread-4 (]: Marking all children of 'test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f' to be skipped because of status 'skipped'. 
+[0m15:57:37.199693 [info ] [Thread-1 (]: 8 of 9 SKIP test unique_stg_github_pulls_pr_id ................................. [[33mSKIP[0m]
+[0m15:57:37.199693 [debug] [Thread-1 (]: Finished running node test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f
+[0m15:57:37.199693 [debug] [Thread-4 (]: Marking all children of 'test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f' to be skipped because of status 'skipped'. 
+[0m15:57:37.199693 [debug] [Thread-1 (]: Began running node model.mds_health.fct_tool_weekly_snapshot
+[0m15:57:37.199693 [info ] [Thread-1 (]: 9 of 9 SKIP relation main.fct_tool_weekly_snapshot ............................. [[33mSKIP[0m]
+[0m15:57:37.199693 [debug] [Thread-1 (]: Finished running node model.mds_health.fct_tool_weekly_snapshot
+[0m15:57:37.199693 [debug] [Thread-4 (]: Marking all children of 'model.mds_health.fct_tool_weekly_snapshot' to be skipped because of status 'skipped'. 
+[0m15:57:37.204908 [debug] [MainThread]: Using duckdb connection "master"
+[0m15:57:37.204908 [debug] [MainThread]: On master: BEGIN
+[0m15:57:37.204908 [debug] [MainThread]: Opening a new connection, currently in state closed
+[0m15:57:37.207743 [debug] [MainThread]: SQL status: OK in 0.001 seconds
+[0m15:57:37.207743 [debug] [MainThread]: On master: COMMIT
+[0m15:57:37.208824 [debug] [MainThread]: Using duckdb connection "master"
+[0m15:57:37.208824 [debug] [MainThread]: On master: COMMIT
+[0m15:57:37.210934 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m15:57:37.210934 [debug] [MainThread]: On master: Close
+[0m15:57:37.210934 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m15:57:37.212940 [debug] [MainThread]: Connection 'create_ci_test_main' was properly closed.
+[0m15:57:37.212940 [debug] [MainThread]: Connection 'list_ci_test_main' was properly closed.
+[0m15:57:37.212940 [debug] [MainThread]: Connection 'model.mds_health.stg_github_pulls' was properly closed.
+[0m15:57:37.212940 [info ] [MainThread]: 
+[0m15:57:37.212940 [info ] [MainThread]: Finished running 1 table model, 6 data tests, 2 view models in 0 hours 0 minutes and 0.49 seconds (0.49s).
+[0m15:57:37.216192 [debug] [MainThread]: Command end result
+[0m15:57:37.232240 [debug] [MainThread]: Wrote artifact WritableManifest to C:\Projects\modern-data-stack-health\transform\target\manifest.json
+[0m15:57:37.241012 [debug] [MainThread]: Wrote artifact SemanticManifest to C:\Projects\modern-data-stack-health\transform\target\semantic_manifest.json
+[0m15:57:37.253723 [debug] [MainThread]: Wrote artifact RunExecutionResult to C:\Projects\modern-data-stack-health\transform\target\run_results.json
+[0m15:57:37.253723 [info ] [MainThread]: 
+[0m15:57:37.253723 [info ] [MainThread]: [31mCompleted with 2 errors, 0 partial successes, and 0 warnings:[0m
+[0m15:57:37.253723 [info ] [MainThread]: 
+[0m15:57:37.253723 [error] [MainThread]: [31mFailure in model stg_github_issues (models\staging\stg_github_issues.sql)[0m
+[0m15:57:37.253723 [error] [MainThread]:   Runtime Error in model stg_github_issues (models\staging\stg_github_issues.sql)
+  Catalog Error: Table with name "raw_github.dbt_core_issues" does not exist because schema "raw_github" does not exist.
+  
+  LINE 8:     select *, 'dbt-core' as tool_name from "ci_test"."raw_github"."dbt_core_issues"
+                                                     ^
+[0m15:57:37.256979 [info ] [MainThread]: 
+[0m15:57:37.257325 [info ] [MainThread]:   compiled code at target\compiled\mds_health\models\staging\stg_github_issues.sql
+[0m15:57:37.257325 [info ] [MainThread]: 
+[0m15:57:37.257325 [error] [MainThread]: [31mFailure in model stg_github_pulls (models\staging\stg_github_pulls.sql)[0m
+[0m15:57:37.257325 [error] [MainThread]:   Runtime Error in model stg_github_pulls (models\staging\stg_github_pulls.sql)
+  Catalog Error: Table with name "raw_github.dbt_core_pulls" does not exist because schema "raw_github" does not exist.
+  
+  LINE 8:     select *, 'dbt-core' as tool_name from "ci_test"."raw_github"."dbt_core_pulls"
+                                                     ^
+[0m15:57:37.257325 [info ] [MainThread]: 
+[0m15:57:37.257325 [info ] [MainThread]:   compiled code at target\compiled\mds_health\models\staging\stg_github_pulls.sql
+[0m15:57:37.257325 [info ] [MainThread]: 
+[0m15:57:37.257325 [info ] [MainThread]: Done. PASS=0 WARN=0 ERROR=2 SKIP=7 NO-OP=0 TOTAL=9
+[0m15:57:37.257325 [warn ] [MainThread]: [[33mWARNING[0m][DeprecationsSummary]: Deprecated functionality
+Summary of encountered deprecations:
+- MissingArgumentsPropertyInGenericTestDeprecation: 1 occurrence
+To see all deprecation instances instead of just the first occurrence of each,
+run command again with the `--show-all-deprecations` flag. You may also need to
+run with `--no-partial-parse` as some deprecations are only encountered during
+parsing.
+[0m15:57:37.257325 [debug] [MainThread]: Command `dbt build` failed at 15:57:37.257325 after 3.22 seconds
+[0m15:57:37.263136 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000170F94DE360>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000170FB79C8F0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000170FB79E1E0>]}
+[0m15:57:37.263136 [debug] [MainThread]: Flushing usage events
+[0m15:57:38.151060 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m16:02:28.887067 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002104601A5A0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002104618DCD0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002104618DC40>]}
+
+
+============================== 16:02:28.890209 | d1f7d7db-c12d-4e17-ae16-14e26ab340dd ==============================
+[0m16:02:28.890209 [info ] [MainThread]: Running with dbt=1.10.23
+[0m16:02:28.890209 [debug] [MainThread]: running dbt with arguments {'static_parser': 'True', 'no_print': 'None', 'version_check': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'target_path': 'None', 'printer_width': '80', 'write_json': 'True', 'introspect': 'True', 'log_cache_events': 'False', 'empty': 'False', 'cache_selected_only': 'False', 'fail_fast': 'False', 'debug': 'False', 'log_format': 'default', 'profiles_dir': 'C:\\Projects\\modern-data-stack-health\\transform', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'partial_parse': 'True', 'indirect_selection': 'eager', 'use_colors': 'True', 'invocation_command': 'dbt build --target ci', 'use_experimental_parser': 'False', 'log_path': 'C:\\Projects\\modern-data-stack-health\\transform\\logs'}
+[0m16:02:28.890209 [info ] [MainThread]: This version of dbt is deprecated and no longer receives regular patches, including for known bugs. We recommend upgrading to a newer supported version of dbt: https://docs.getdbt.com/docs/dbt-versions
+[0m16:02:28.890209 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'deprecated_version_invocation', 'label': 'd1f7d7db-c12d-4e17-ae16-14e26ab340dd', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002104666D070>]}
+[0m16:02:29.104609 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': 'd1f7d7db-c12d-4e17-ae16-14e26ab340dd', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000021047C60B30>]}
+[0m16:02:29.162512 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': 'd1f7d7db-c12d-4e17-ae16-14e26ab340dd', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000021045B08CB0>]}
+[0m16:02:29.170733 [info ] [MainThread]: Registered adapter: duckdb=1.11.0
+[0m16:02:29.322121 [debug] [MainThread]: checksum: 6ebfa2de25ebe8cf47d1434afe1ed2b370cfa55abb66bcd624539401f3e62734, vars: {}, profile: , target: ci, version: 1.10.23
+[0m16:02:29.403446 [debug] [MainThread]: Partial parsing enabled: 0 files deleted, 0 files added, 2 files changed.
+[0m16:02:29.403446 [info ] [MainThread]: Unable to do partial parsing because an error occurred. Switching to full reparse.
+[0m16:02:29.446798 [debug] [MainThread]: Partial parsing exception processing file mds_health://models\staging\sources.yml
+[0m16:02:29.446798 [debug] [MainThread]: PP exception info: {'code': 'if child_test.attached_node:', 'location': 'line 920 in remove_tests', 'exception': "AttributeError: 'SingularTestNode' object has no attribute 'attached_node'", 'traceback': 'Traceback (most recent call last):\n  File "C:\\Projects\\modern-data-stack-health\\.venv\\Lib\\site-packages\\dbt\\parser\\manifest.py", line 545, in safe_update_project_parser_files_partially\n    project_parser_files = self.partial_parser.get_parsing_files()\n                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "C:\\Projects\\modern-data-stack-health\\.venv\\Lib\\site-packages\\dbt\\parser\\partial.py", line 188, in get_parsing_files\n    self.change_schema_file(file_id)\n  File "C:\\Projects\\modern-data-stack-health\\.venv\\Lib\\site-packages\\dbt\\parser\\partial.py", line 642, in change_schema_file\n    self.handle_schema_file_changes(saved_schema_file, saved_yaml_dict, new_yaml_dict)\n  File "C:\\Projects\\modern-data-stack-health\\.venv\\Lib\\site-packages\\dbt\\parser\\partial.py", line 710, in handle_schema_file_changes\n    self.delete_schema_source(schema_file, source)\n  File "C:\\Projects\\modern-data-stack-health\\.venv\\Lib\\site-packages\\dbt\\parser\\partial.py", line 951, in delete_schema_source\n    self.schedule_referencing_nodes_for_parsing(unique_id)\n  File "C:\\Projects\\modern-data-stack-health\\.venv\\Lib\\site-packages\\dbt\\parser\\partial.py", line 422, in schedule_referencing_nodes_for_parsing\n    self.schedule_nodes_for_parsing(self.saved_manifest.child_map[unique_id])\n  File "C:\\Projects\\modern-data-stack-health\\.venv\\Lib\\site-packages\\dbt\\parser\\partial.py", line 434, in schedule_nodes_for_parsing\n    self.remove_mssat_file(source_file)\n  File "C:\\Projects\\modern-data-stack-health\\.venv\\Lib\\site-packages\\dbt\\parser\\partial.py", line 415, in remove_mssat_file\n    self.remove_node_in_saved(source_file, unique_id)\n  File "C:\\Projects\\modern-data-stack-health\\.venv\\Lib\\site-packages\\dbt\\parser\\partial.py", line 376, in remove_node_in_saved\n    self.delete_schema_mssa_links(schema_file, dict_key, elem_patch)\n  File "C:\\Projects\\modern-data-stack-health\\.venv\\Lib\\site-packages\\dbt\\parser\\partial.py", line 852, in delete_schema_mssa_links\n    self._delete_schema_mssa_links(schema_file, dict_key, elem, elem_unique_ids)\n  File "C:\\Projects\\modern-data-stack-health\\.venv\\Lib\\site-packages\\dbt\\parser\\partial.py", line 905, in _delete_schema_mssa_links\n    self.remove_tests(schema_file, dict_key, elem["name"])\n  File "C:\\Projects\\modern-data-stack-health\\.venv\\Lib\\site-packages\\dbt\\parser\\partial.py", line 920, in remove_tests\n    if child_test.attached_node:\n       ^^^^^^^^^^^^^^^^^^^^^^^^\nAttributeError: \'SingularTestNode\' object has no attribute \'attached_node\'\n', 'parse_file_type': 'schema'}
+[0m16:02:29.446798 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'partial_parser', 'label': 'd1f7d7db-c12d-4e17-ae16-14e26ab340dd', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002104787B050>]}
+[0m16:02:30.423983 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': 'd1f7d7db-c12d-4e17-ae16-14e26ab340dd', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000021048613710>]}
+[0m16:02:30.482098 [debug] [MainThread]: Wrote artifact WritableManifest to C:\Projects\modern-data-stack-health\transform\target\manifest.json
+[0m16:02:30.485115 [debug] [MainThread]: Wrote artifact SemanticManifest to C:\Projects\modern-data-stack-health\transform\target\semantic_manifest.json
+[0m16:02:30.507529 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': 'd1f7d7db-c12d-4e17-ae16-14e26ab340dd', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000021048613530>]}
+[0m16:02:30.507529 [info ] [MainThread]: Found 3 models, 6 data tests, 9 sources, 500 macros
+[0m16:02:30.507529 [info ] [MainThread]: 
+[0m16:02:30.509901 [info ] [MainThread]: Concurrency: 1 threads (target='ci')
+[0m16:02:30.510503 [info ] [MainThread]: 
+[0m16:02:30.510503 [debug] [MainThread]: Acquiring new duckdb connection 'master'
+[0m16:02:30.510503 [debug] [ThreadPool]: Acquiring new duckdb connection 'list_ci_test'
+[0m16:02:30.611678 [debug] [ThreadPool]: Using duckdb connection "list_ci_test"
+[0m16:02:30.616105 [debug] [ThreadPool]: On list_ci_test: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "connection_name": "list_ci_test"} */
+
+    
+    select schema_name
+    from system.information_schema.schemata
+    
+    where lower(catalog_name) = '"ci_test"'
+    
+  
+  
+[0m16:02:30.616105 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m16:02:30.627671 [debug] [ThreadPool]: SQL status: OK in 0.012 seconds
+[0m16:02:30.627671 [debug] [ThreadPool]: On list_ci_test: Close
+[0m16:02:30.627671 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list_ci_test, now create_ci_test_main)
+[0m16:02:30.627671 [debug] [ThreadPool]: Creating schema "database: "ci_test"
+schema: "main"
+"
+[0m16:02:30.631892 [debug] [ThreadPool]: Using duckdb connection "create_ci_test_main"
+[0m16:02:30.631892 [debug] [ThreadPool]: On create_ci_test_main: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "connection_name": "create_ci_test_main"} */
+
+    
+        select type from duckdb_databases()
+        where lower(database_name)='ci_test'
+        and type != 'duckdb'
+    
+  
+[0m16:02:30.631892 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m16:02:30.631892 [debug] [ThreadPool]: SQL status: OK in 0.001 seconds
+[0m16:02:30.631892 [debug] [ThreadPool]: Using duckdb connection "create_ci_test_main"
+[0m16:02:30.631892 [debug] [ThreadPool]: On create_ci_test_main: BEGIN
+[0m16:02:30.631892 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m16:02:30.631892 [debug] [ThreadPool]: Using duckdb connection "create_ci_test_main"
+[0m16:02:30.631892 [debug] [ThreadPool]: On create_ci_test_main: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "connection_name": "create_ci_test_main"} */
+
+    
+    
+        create schema if not exists "ci_test"."main"
+    
+[0m16:02:30.631892 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m16:02:30.631892 [debug] [ThreadPool]: On create_ci_test_main: COMMIT
+[0m16:02:30.631892 [debug] [ThreadPool]: Using duckdb connection "create_ci_test_main"
+[0m16:02:30.631892 [debug] [ThreadPool]: On create_ci_test_main: COMMIT
+[0m16:02:30.631892 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m16:02:30.631892 [debug] [ThreadPool]: On create_ci_test_main: Close
+[0m16:02:30.640292 [debug] [ThreadPool]: Acquiring new duckdb connection 'list_ci_test_main'
+[0m16:02:30.640292 [debug] [ThreadPool]: Using duckdb connection "list_ci_test_main"
+[0m16:02:30.640292 [debug] [ThreadPool]: On list_ci_test_main: BEGIN
+[0m16:02:30.640292 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m16:02:30.646771 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m16:02:30.646771 [debug] [ThreadPool]: Using duckdb connection "list_ci_test_main"
+[0m16:02:30.646771 [debug] [ThreadPool]: On list_ci_test_main: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "connection_name": "list_ci_test_main"} */
+select
+      'ci_test' as database,
+      table_name as name,
+      table_schema as schema,
+      CASE table_type
+        WHEN 'BASE TABLE' THEN 'table'
+        WHEN 'VIEW' THEN 'view'
+        WHEN 'LOCAL TEMPORARY' THEN 'table'
+        END as type
+    from system.information_schema.tables
+    where lower(table_schema) = 'main'
+    and lower(table_catalog) = 'ci_test'
+  
+[0m16:02:30.649214 [debug] [ThreadPool]: SQL status: OK in 0.002 seconds
+[0m16:02:30.649214 [debug] [ThreadPool]: On list_ci_test_main: ROLLBACK
+[0m16:02:30.649214 [debug] [ThreadPool]: On list_ci_test_main: Close
+[0m16:02:30.649214 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': 'd1f7d7db-c12d-4e17-ae16-14e26ab340dd', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000210485E3FB0>]}
+[0m16:02:30.649214 [debug] [MainThread]: Using duckdb connection "master"
+[0m16:02:30.649214 [debug] [MainThread]: On master: BEGIN
+[0m16:02:30.649214 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m16:02:30.649214 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m16:02:30.649214 [debug] [MainThread]: On master: COMMIT
+[0m16:02:30.649214 [debug] [MainThread]: Using duckdb connection "master"
+[0m16:02:30.649214 [debug] [MainThread]: On master: COMMIT
+[0m16:02:30.649214 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m16:02:30.649214 [debug] [MainThread]: On master: Close
+[0m16:02:30.649214 [debug] [Thread-1 (]: Began running node model.mds_health.stg_github_issues
+[0m16:02:30.649214 [info ] [Thread-1 (]: 1 of 9 START sql view model main.stg_github_issues ............................. [RUN]
+[0m16:02:30.649214 [debug] [Thread-1 (]: Acquiring new duckdb connection 'model.mds_health.stg_github_issues'
+[0m16:02:30.649214 [debug] [Thread-1 (]: Began compiling node model.mds_health.stg_github_issues
+[0m16:02:30.656946 [debug] [Thread-1 (]: Writing injected SQL for node "model.mds_health.stg_github_issues"
+[0m16:02:30.656946 [debug] [Thread-1 (]: Began executing node model.mds_health.stg_github_issues
+[0m16:02:30.681460 [debug] [Thread-1 (]: Writing runtime sql for node "model.mds_health.stg_github_issues"
+[0m16:02:30.681460 [debug] [Thread-1 (]: Using duckdb connection "model.mds_health.stg_github_issues"
+[0m16:02:30.681460 [debug] [Thread-1 (]: On model.mds_health.stg_github_issues: BEGIN
+[0m16:02:30.681460 [debug] [Thread-1 (]: Opening a new connection, currently in state init
+[0m16:02:30.681460 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m16:02:30.681460 [debug] [Thread-1 (]: Using duckdb connection "model.mds_health.stg_github_issues"
+[0m16:02:30.685111 [debug] [Thread-1 (]: On model.mds_health.stg_github_issues: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "node_id": "model.mds_health.stg_github_issues"} */
+
+  
+  create view "ci_test"."main"."stg_github_issues__dbt_tmp" as (
+    
+
+with dbt_core as (
+    select *, 'dbt-core' as tool_name from "ci_test"."raw"."dbt_core_issues"
+),
+
+airflow as (
+    select *, 'airflow' as tool_name from "ci_test"."raw"."airflow_issues"
+),
+
+dagster as (
+    select *, 'dagster' as tool_name from "ci_test"."raw"."dagster_issues"
+),
+
+combined as (
+    select * from dbt_core
+    union all
+    select * from airflow
+    union all
+    select * from dagster
+),
+
+-- Filter out PRs (GitHub's /issues endpoint includes both) and deduplicate
+deduplicated as (
+    select 
+        *,
+        row_number() over (partition by id order by updated_at desc) as rn
+    from combined
+    where pull_request is null
+),
+
+renamed as (
+    select
+        id as issue_id,
+        number as issue_number,
+        title,
+        state,
+        created_at::timestamp as created_at,
+        closed_at::timestamp as closed_at,
+        user.login as author_login,
+        tool_name
+    from deduplicated
+    where rn = 1
+)
+
+select * from renamed
+  );
+
+[0m16:02:30.685111 [debug] [Thread-1 (]: DuckDB adapter: duckdb error: Catalog Error: Table with name "raw.dbt_core_issues" does not exist because schema "raw" does not exist.
+
+LINE 8:     select *, 'dbt-core' as tool_name from "ci_test"."raw"."dbt_core_issues"
+                                                   ^
+[0m16:02:30.685111 [debug] [Thread-1 (]: DuckDB adapter: Error running SQL: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "node_id": "model.mds_health.stg_github_issues"} */
+
+  
+  create view "ci_test"."main"."stg_github_issues__dbt_tmp" as (
+    
+
+with dbt_core as (
+    select *, 'dbt-core' as tool_name from "ci_test"."raw"."dbt_core_issues"
+),
+
+airflow as (
+    select *, 'airflow' as tool_name from "ci_test"."raw"."airflow_issues"
+),
+
+dagster as (
+    select *, 'dagster' as tool_name from "ci_test"."raw"."dagster_issues"
+),
+
+combined as (
+    select * from dbt_core
+    union all
+    select * from airflow
+    union all
+    select * from dagster
+),
+
+-- Filter out PRs (GitHub's /issues endpoint includes both) and deduplicate
+deduplicated as (
+    select 
+        *,
+        row_number() over (partition by id order by updated_at desc) as rn
+    from combined
+    where pull_request is null
+),
+
+renamed as (
+    select
+        id as issue_id,
+        number as issue_number,
+        title,
+        state,
+        created_at::timestamp as created_at,
+        closed_at::timestamp as closed_at,
+        user.login as author_login,
+        tool_name
+    from deduplicated
+    where rn = 1
+)
+
+select * from renamed
+  );
+
+[0m16:02:30.685111 [debug] [Thread-1 (]: DuckDB adapter: Rolling back transaction.
+[0m16:02:30.685111 [debug] [Thread-1 (]: On model.mds_health.stg_github_issues: ROLLBACK
+[0m16:02:30.685111 [debug] [Thread-1 (]: On model.mds_health.stg_github_issues: Close
+[0m16:02:30.689588 [debug] [Thread-1 (]: Runtime Error in model stg_github_issues (models\staging\stg_github_issues.sql)
+  Catalog Error: Table with name "raw.dbt_core_issues" does not exist because schema "raw" does not exist.
+  
+  LINE 8:     select *, 'dbt-core' as tool_name from "ci_test"."raw"."dbt_core_issues"
+                                                     ^
+[0m16:02:30.689588 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'd1f7d7db-c12d-4e17-ae16-14e26ab340dd', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000210483F41D0>]}
+[0m16:02:30.689588 [error] [Thread-1 (]: 1 of 9 ERROR creating sql view model main.stg_github_issues .................... [[31mERROR[0m in 0.04s]
+[0m16:02:30.689588 [debug] [Thread-1 (]: Finished running node model.mds_health.stg_github_issues
+[0m16:02:30.689588 [debug] [Thread-1 (]: Began running node model.mds_health.stg_github_pulls
+[0m16:02:30.689588 [debug] [Thread-4 (]: Marking all children of 'model.mds_health.stg_github_issues' to be skipped because of status 'error'.  Reason: Runtime Error in model stg_github_issues (models\staging\stg_github_issues.sql)
+  Catalog Error: Table with name "raw.dbt_core_issues" does not exist because schema "raw" does not exist.
+  
+  LINE 8:     select *, 'dbt-core' as tool_name from "ci_test"."raw"."dbt_core_issues"
+                                                     ^.
+[0m16:02:30.689588 [info ] [Thread-1 (]: 2 of 9 START sql view model main.stg_github_pulls .............................. [RUN]
+[0m16:02:30.689588 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.mds_health.stg_github_issues, now model.mds_health.stg_github_pulls)
+[0m16:02:30.689588 [debug] [Thread-1 (]: Began compiling node model.mds_health.stg_github_pulls
+[0m16:02:30.697627 [debug] [Thread-1 (]: Writing injected SQL for node "model.mds_health.stg_github_pulls"
+[0m16:02:30.697627 [debug] [Thread-1 (]: Began executing node model.mds_health.stg_github_pulls
+[0m16:02:30.697627 [debug] [Thread-1 (]: Writing runtime sql for node "model.mds_health.stg_github_pulls"
+[0m16:02:30.697627 [debug] [Thread-1 (]: Using duckdb connection "model.mds_health.stg_github_pulls"
+[0m16:02:30.697627 [debug] [Thread-1 (]: On model.mds_health.stg_github_pulls: BEGIN
+[0m16:02:30.697627 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m16:02:30.697627 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m16:02:30.697627 [debug] [Thread-1 (]: Using duckdb connection "model.mds_health.stg_github_pulls"
+[0m16:02:30.697627 [debug] [Thread-1 (]: On model.mds_health.stg_github_pulls: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "node_id": "model.mds_health.stg_github_pulls"} */
+
+  
+  create view "ci_test"."main"."stg_github_pulls__dbt_tmp" as (
+    
+
+with dbt_core as (
+    select *, 'dbt-core' as tool_name from "ci_test"."raw"."dbt_core_pulls"
+),
+
+airflow as (
+    select *, 'airflow' as tool_name from "ci_test"."raw"."airflow_pulls"
+),
+
+dagster as (
+    select *, 'dagster' as tool_name from "ci_test"."raw"."dagster_pulls"
+),
+
+combined as (
+    select * from dbt_core
+    union all
+    select * from airflow
+    union all
+    select * from dagster
+),
+
+deduplicated as (
+    select 
+        *,
+        row_number() over (partition by id order by updated_at desc) as rn
+    from combined
+),
+
+renamed as (
+    select
+        id as pr_id,
+        number as pr_number,
+        title,
+        state,
+        created_at::timestamp as created_at,
+        merged_at::timestamp as merged_at,
+        closed_at::timestamp as closed_at,
+        user.login as author_login,
+        tool_name
+    from deduplicated
+    where rn = 1
+)
+
+select * from renamed
+  );
+
+[0m16:02:30.697627 [debug] [Thread-1 (]: DuckDB adapter: duckdb error: Catalog Error: Table with name "raw.dbt_core_pulls" does not exist because schema "raw" does not exist.
+
+LINE 8:     select *, 'dbt-core' as tool_name from "ci_test"."raw"."dbt_core_pulls"
+                                                   ^
+[0m16:02:30.697627 [debug] [Thread-1 (]: DuckDB adapter: Error running SQL: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "node_id": "model.mds_health.stg_github_pulls"} */
+
+  
+  create view "ci_test"."main"."stg_github_pulls__dbt_tmp" as (
+    
+
+with dbt_core as (
+    select *, 'dbt-core' as tool_name from "ci_test"."raw"."dbt_core_pulls"
+),
+
+airflow as (
+    select *, 'airflow' as tool_name from "ci_test"."raw"."airflow_pulls"
+),
+
+dagster as (
+    select *, 'dagster' as tool_name from "ci_test"."raw"."dagster_pulls"
+),
+
+combined as (
+    select * from dbt_core
+    union all
+    select * from airflow
+    union all
+    select * from dagster
+),
+
+deduplicated as (
+    select 
+        *,
+        row_number() over (partition by id order by updated_at desc) as rn
+    from combined
+),
+
+renamed as (
+    select
+        id as pr_id,
+        number as pr_number,
+        title,
+        state,
+        created_at::timestamp as created_at,
+        merged_at::timestamp as merged_at,
+        closed_at::timestamp as closed_at,
+        user.login as author_login,
+        tool_name
+    from deduplicated
+    where rn = 1
+)
+
+select * from renamed
+  );
+
+[0m16:02:30.697627 [debug] [Thread-1 (]: DuckDB adapter: Rolling back transaction.
+[0m16:02:30.697627 [debug] [Thread-1 (]: On model.mds_health.stg_github_pulls: ROLLBACK
+[0m16:02:30.697627 [debug] [Thread-1 (]: On model.mds_health.stg_github_pulls: Close
+[0m16:02:30.697627 [debug] [Thread-1 (]: Runtime Error in model stg_github_pulls (models\staging\stg_github_pulls.sql)
+  Catalog Error: Table with name "raw.dbt_core_pulls" does not exist because schema "raw" does not exist.
+  
+  LINE 8:     select *, 'dbt-core' as tool_name from "ci_test"."raw"."dbt_core_pulls"
+                                                     ^
+[0m16:02:30.705874 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'd1f7d7db-c12d-4e17-ae16-14e26ab340dd', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000021048397F20>]}
+[0m16:02:30.705874 [error] [Thread-1 (]: 2 of 9 ERROR creating sql view model main.stg_github_pulls ..................... [[31mERROR[0m in 0.02s]
+[0m16:02:30.705874 [debug] [Thread-1 (]: Finished running node model.mds_health.stg_github_pulls
+[0m16:02:30.705874 [debug] [Thread-1 (]: Began running node test.mds_health.accepted_values_stg_github_issues_state__open__closed.bf17d7173b
+[0m16:02:30.705874 [debug] [Thread-4 (]: Marking all children of 'model.mds_health.stg_github_pulls' to be skipped because of status 'error'.  Reason: Runtime Error in model stg_github_pulls (models\staging\stg_github_pulls.sql)
+  Catalog Error: Table with name "raw.dbt_core_pulls" does not exist because schema "raw" does not exist.
+  
+  LINE 8:     select *, 'dbt-core' as tool_name from "ci_test"."raw"."dbt_core_pulls"
+                                                     ^.
+[0m16:02:30.705874 [info ] [Thread-1 (]: 3 of 9 SKIP test accepted_values_stg_github_issues_state__open__closed ......... [[33mSKIP[0m]
+[0m16:02:30.705874 [debug] [Thread-1 (]: Finished running node test.mds_health.accepted_values_stg_github_issues_state__open__closed.bf17d7173b
+[0m16:02:30.705874 [debug] [Thread-1 (]: Began running node test.mds_health.assert_close_time_is_positive
+[0m16:02:30.705874 [debug] [Thread-4 (]: Marking all children of 'test.mds_health.accepted_values_stg_github_issues_state__open__closed.bf17d7173b' to be skipped because of status 'skipped'. 
+[0m16:02:30.705874 [info ] [Thread-1 (]: 4 of 9 SKIP test assert_close_time_is_positive ................................. [[33mSKIP[0m]
+[0m16:02:30.705874 [debug] [Thread-1 (]: Finished running node test.mds_health.assert_close_time_is_positive
+[0m16:02:30.705874 [debug] [Thread-1 (]: Began running node test.mds_health.not_null_stg_github_issues_issue_id.aa9103dba8
+[0m16:02:30.705874 [debug] [Thread-4 (]: Marking all children of 'test.mds_health.assert_close_time_is_positive' to be skipped because of status 'skipped'. 
+[0m16:02:30.705874 [info ] [Thread-1 (]: 5 of 9 SKIP test not_null_stg_github_issues_issue_id ........................... [[33mSKIP[0m]
+[0m16:02:30.705874 [debug] [Thread-1 (]: Finished running node test.mds_health.not_null_stg_github_issues_issue_id.aa9103dba8
+[0m16:02:30.705874 [debug] [Thread-1 (]: Began running node test.mds_health.unique_stg_github_issues_issue_id.44cc6acdf8
+[0m16:02:30.705874 [debug] [Thread-4 (]: Marking all children of 'test.mds_health.not_null_stg_github_issues_issue_id.aa9103dba8' to be skipped because of status 'skipped'. 
+[0m16:02:30.705874 [info ] [Thread-1 (]: 6 of 9 SKIP test unique_stg_github_issues_issue_id ............................. [[33mSKIP[0m]
+[0m16:02:30.705874 [debug] [Thread-1 (]: Finished running node test.mds_health.unique_stg_github_issues_issue_id.44cc6acdf8
+[0m16:02:30.705874 [debug] [Thread-1 (]: Began running node test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f
+[0m16:02:30.705874 [debug] [Thread-4 (]: Marking all children of 'test.mds_health.unique_stg_github_issues_issue_id.44cc6acdf8' to be skipped because of status 'skipped'. 
+[0m16:02:30.705874 [info ] [Thread-1 (]: 7 of 9 SKIP test not_null_stg_github_pulls_pr_id ............................... [[33mSKIP[0m]
+[0m16:02:30.705874 [debug] [Thread-1 (]: Finished running node test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f
+[0m16:02:30.705874 [debug] [Thread-1 (]: Began running node test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f
+[0m16:02:30.705874 [debug] [Thread-4 (]: Marking all children of 'test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f' to be skipped because of status 'skipped'. 
+[0m16:02:30.705874 [info ] [Thread-1 (]: 8 of 9 SKIP test unique_stg_github_pulls_pr_id ................................. [[33mSKIP[0m]
+[0m16:02:30.713898 [debug] [Thread-1 (]: Finished running node test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f
+[0m16:02:30.713898 [debug] [Thread-4 (]: Marking all children of 'test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f' to be skipped because of status 'skipped'. 
+[0m16:02:30.713898 [debug] [Thread-1 (]: Began running node model.mds_health.fct_tool_weekly_snapshot
+[0m16:02:30.713898 [info ] [Thread-1 (]: 9 of 9 SKIP relation main.fct_tool_weekly_snapshot ............................. [[33mSKIP[0m]
+[0m16:02:30.713898 [debug] [Thread-1 (]: Finished running node model.mds_health.fct_tool_weekly_snapshot
+[0m16:02:30.713898 [debug] [Thread-4 (]: Marking all children of 'model.mds_health.fct_tool_weekly_snapshot' to be skipped because of status 'skipped'. 
+[0m16:02:30.713898 [debug] [MainThread]: Using duckdb connection "master"
+[0m16:02:30.717291 [debug] [MainThread]: On master: BEGIN
+[0m16:02:30.717291 [debug] [MainThread]: Opening a new connection, currently in state closed
+[0m16:02:30.718157 [debug] [MainThread]: SQL status: OK in 0.001 seconds
+[0m16:02:30.718157 [debug] [MainThread]: On master: COMMIT
+[0m16:02:30.718157 [debug] [MainThread]: Using duckdb connection "master"
+[0m16:02:30.718157 [debug] [MainThread]: On master: COMMIT
+[0m16:02:30.718157 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m16:02:30.718157 [debug] [MainThread]: On master: Close
+[0m16:02:30.718157 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m16:02:30.718157 [debug] [MainThread]: Connection 'create_ci_test_main' was properly closed.
+[0m16:02:30.718157 [debug] [MainThread]: Connection 'list_ci_test_main' was properly closed.
+[0m16:02:30.718157 [debug] [MainThread]: Connection 'model.mds_health.stg_github_pulls' was properly closed.
+[0m16:02:30.718157 [info ] [MainThread]: 
+[0m16:02:30.718157 [info ] [MainThread]: Finished running 1 table model, 6 data tests, 2 view models in 0 hours 0 minutes and 0.21 seconds (0.21s).
+[0m16:02:30.718157 [debug] [MainThread]: Command end result
+[0m16:02:30.730426 [debug] [MainThread]: Wrote artifact WritableManifest to C:\Projects\modern-data-stack-health\transform\target\manifest.json
+[0m16:02:30.738700 [debug] [MainThread]: Wrote artifact SemanticManifest to C:\Projects\modern-data-stack-health\transform\target\semantic_manifest.json
+[0m16:02:30.741404 [debug] [MainThread]: Wrote artifact RunExecutionResult to C:\Projects\modern-data-stack-health\transform\target\run_results.json
+[0m16:02:30.741404 [info ] [MainThread]: 
+[0m16:02:30.741404 [info ] [MainThread]: [31mCompleted with 2 errors, 0 partial successes, and 0 warnings:[0m
+[0m16:02:30.741404 [info ] [MainThread]: 
+[0m16:02:30.741404 [error] [MainThread]: [31mFailure in model stg_github_issues (models\staging\stg_github_issues.sql)[0m
+[0m16:02:30.741404 [error] [MainThread]:   Runtime Error in model stg_github_issues (models\staging\stg_github_issues.sql)
+  Catalog Error: Table with name "raw.dbt_core_issues" does not exist because schema "raw" does not exist.
+  
+  LINE 8:     select *, 'dbt-core' as tool_name from "ci_test"."raw"."dbt_core_issues"
+                                                     ^
+[0m16:02:30.741404 [info ] [MainThread]: 
+[0m16:02:30.741404 [info ] [MainThread]:   compiled code at target\compiled\mds_health\models\staging\stg_github_issues.sql
+[0m16:02:30.741404 [info ] [MainThread]: 
+[0m16:02:30.741404 [error] [MainThread]: [31mFailure in model stg_github_pulls (models\staging\stg_github_pulls.sql)[0m
+[0m16:02:30.747669 [error] [MainThread]:   Runtime Error in model stg_github_pulls (models\staging\stg_github_pulls.sql)
+  Catalog Error: Table with name "raw.dbt_core_pulls" does not exist because schema "raw" does not exist.
+  
+  LINE 8:     select *, 'dbt-core' as tool_name from "ci_test"."raw"."dbt_core_pulls"
+                                                     ^
+[0m16:02:30.747669 [info ] [MainThread]: 
+[0m16:02:30.747669 [info ] [MainThread]:   compiled code at target\compiled\mds_health\models\staging\stg_github_pulls.sql
+[0m16:02:30.748800 [info ] [MainThread]: 
+[0m16:02:30.748800 [info ] [MainThread]: Done. PASS=0 WARN=0 ERROR=2 SKIP=7 NO-OP=0 TOTAL=9
+[0m16:02:30.749818 [debug] [MainThread]: Command `dbt build` failed at 16:02:30.749818 after 2.03 seconds
+[0m16:02:30.749818 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000210482F07D0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000210482F3B00>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000210482F10D0>]}
+[0m16:02:30.750833 [debug] [MainThread]: Flushing usage events
+[0m16:02:31.364078 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m16:05:43.019942 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000017A31C79B80>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000017A3211FD10>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000017A322DA180>]}
+
+
+============================== 16:05:43.019942 | c3054e17-5f0d-4ccf-b332-d56c4c8376b0 ==============================
+[0m16:05:43.019942 [info ] [MainThread]: Running with dbt=1.10.23
+[0m16:05:43.028096 [debug] [MainThread]: running dbt with arguments {'version_check': 'True', 'no_print': 'None', 'static_parser': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'target_path': 'None', 'printer_width': '80', 'write_json': 'True', 'introspect': 'True', 'log_cache_events': 'False', 'empty': 'False', 'cache_selected_only': 'False', 'fail_fast': 'False', 'debug': 'False', 'log_format': 'default', 'profiles_dir': 'C:\\Projects\\modern-data-stack-health\\transform', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'partial_parse': 'True', 'use_colors': 'True', 'invocation_command': 'dbt build --target ci', 'indirect_selection': 'eager', 'use_experimental_parser': 'False', 'log_path': 'C:\\Projects\\modern-data-stack-health\\transform\\logs'}
+[0m16:05:43.030112 [info ] [MainThread]: This version of dbt is deprecated and no longer receives regular patches, including for known bugs. We recommend upgrading to a newer supported version of dbt: https://docs.getdbt.com/docs/dbt-versions
+[0m16:05:43.030112 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'deprecated_version_invocation', 'label': 'c3054e17-5f0d-4ccf-b332-d56c4c8376b0', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000017A31EFFBC0>]}
+[0m16:05:43.268261 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': 'c3054e17-5f0d-4ccf-b332-d56c4c8376b0', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000017A2F369CD0>]}
+[0m16:05:43.344426 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': 'c3054e17-5f0d-4ccf-b332-d56c4c8376b0', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000017A32000470>]}
+[0m16:05:43.344426 [info ] [MainThread]: Registered adapter: duckdb=1.11.0
+[0m16:05:43.516316 [debug] [MainThread]: checksum: 6ebfa2de25ebe8cf47d1434afe1ed2b370cfa55abb66bcd624539401f3e62734, vars: {}, profile: , target: ci, version: 1.10.23
+[0m16:05:43.599409 [info ] [MainThread]: Unable to do partial parsing because profile has changed
+[0m16:05:43.599409 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'partial_parser', 'label': 'c3054e17-5f0d-4ccf-b332-d56c4c8376b0', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000017A31C4B680>]}
+[0m16:05:44.912964 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': 'c3054e17-5f0d-4ccf-b332-d56c4c8376b0', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000017A3405D580>]}
+[0m16:05:44.979163 [debug] [MainThread]: Wrote artifact WritableManifest to C:\Projects\modern-data-stack-health\transform\target\manifest.json
+[0m16:05:44.987348 [debug] [MainThread]: Wrote artifact SemanticManifest to C:\Projects\modern-data-stack-health\transform\target\semantic_manifest.json
+[0m16:05:45.020355 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': 'c3054e17-5f0d-4ccf-b332-d56c4c8376b0', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000017A322DA6F0>]}
+[0m16:05:45.020355 [info ] [MainThread]: Found 3 models, 6 data tests, 9 sources, 500 macros
+[0m16:05:45.020355 [info ] [MainThread]: 
+[0m16:05:45.020355 [info ] [MainThread]: Concurrency: 1 threads (target='ci')
+[0m16:05:45.020355 [info ] [MainThread]: 
+[0m16:05:45.020355 [debug] [MainThread]: Acquiring new duckdb connection 'master'
+[0m16:05:45.028483 [debug] [ThreadPool]: Acquiring new duckdb connection 'list_ci_test'
+[0m16:05:45.172560 [debug] [ThreadPool]: Using duckdb connection "list_ci_test"
+[0m16:05:45.172560 [debug] [ThreadPool]: On list_ci_test: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "connection_name": "list_ci_test"} */
+
+    
+    select schema_name
+    from system.information_schema.schemata
+    
+    where lower(catalog_name) = '"ci_test"'
+    
+  
+  
+[0m16:05:45.172560 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m16:05:45.193900 [debug] [ThreadPool]: SQL status: OK in 0.023 seconds
+[0m16:05:45.197284 [debug] [ThreadPool]: On list_ci_test: Close
+[0m16:05:45.199019 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list_ci_test, now create_ci_test_main)
+[0m16:05:45.199019 [debug] [ThreadPool]: Creating schema "database: "ci_test"
+schema: "main"
+"
+[0m16:05:45.205057 [debug] [ThreadPool]: Using duckdb connection "create_ci_test_main"
+[0m16:05:45.205057 [debug] [ThreadPool]: On create_ci_test_main: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "connection_name": "create_ci_test_main"} */
+
+    
+        select type from duckdb_databases()
+        where lower(database_name)='ci_test'
+        and type != 'duckdb'
+    
+  
+[0m16:05:45.205057 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m16:05:45.205057 [debug] [ThreadPool]: SQL status: OK in 0.001 seconds
+[0m16:05:45.207066 [debug] [ThreadPool]: Using duckdb connection "create_ci_test_main"
+[0m16:05:45.209082 [debug] [ThreadPool]: On create_ci_test_main: BEGIN
+[0m16:05:45.209082 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m16:05:45.209082 [debug] [ThreadPool]: Using duckdb connection "create_ci_test_main"
+[0m16:05:45.209082 [debug] [ThreadPool]: On create_ci_test_main: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "connection_name": "create_ci_test_main"} */
+
+    
+    
+        create schema if not exists "ci_test"."main"
+    
+[0m16:05:45.209082 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m16:05:45.211093 [debug] [ThreadPool]: On create_ci_test_main: COMMIT
+[0m16:05:45.211093 [debug] [ThreadPool]: Using duckdb connection "create_ci_test_main"
+[0m16:05:45.211093 [debug] [ThreadPool]: On create_ci_test_main: COMMIT
+[0m16:05:45.211093 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m16:05:45.211093 [debug] [ThreadPool]: On create_ci_test_main: Close
+[0m16:05:45.213102 [debug] [ThreadPool]: Acquiring new duckdb connection 'list_ci_test_main'
+[0m16:05:45.217119 [debug] [ThreadPool]: Using duckdb connection "list_ci_test_main"
+[0m16:05:45.217119 [debug] [ThreadPool]: On list_ci_test_main: BEGIN
+[0m16:05:45.217119 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m16:05:45.218361 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m16:05:45.218361 [debug] [ThreadPool]: Using duckdb connection "list_ci_test_main"
+[0m16:05:45.218361 [debug] [ThreadPool]: On list_ci_test_main: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "connection_name": "list_ci_test_main"} */
+select
+      'ci_test' as database,
+      table_name as name,
+      table_schema as schema,
+      CASE table_type
+        WHEN 'BASE TABLE' THEN 'table'
+        WHEN 'VIEW' THEN 'view'
+        WHEN 'LOCAL TEMPORARY' THEN 'table'
+        END as type
+    from system.information_schema.tables
+    where lower(table_schema) = 'main'
+    and lower(table_catalog) = 'ci_test'
+  
+[0m16:05:45.223385 [debug] [ThreadPool]: SQL status: OK in 0.004 seconds
+[0m16:05:45.223385 [debug] [ThreadPool]: On list_ci_test_main: ROLLBACK
+[0m16:05:45.223385 [debug] [ThreadPool]: On list_ci_test_main: Close
+[0m16:05:45.223385 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': 'c3054e17-5f0d-4ccf-b332-d56c4c8376b0', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000017A340262A0>]}
+[0m16:05:45.223385 [debug] [MainThread]: Using duckdb connection "master"
+[0m16:05:45.223385 [debug] [MainThread]: On master: BEGIN
+[0m16:05:45.223385 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m16:05:45.223385 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m16:05:45.223385 [debug] [MainThread]: On master: COMMIT
+[0m16:05:45.223385 [debug] [MainThread]: Using duckdb connection "master"
+[0m16:05:45.223385 [debug] [MainThread]: On master: COMMIT
+[0m16:05:45.223385 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m16:05:45.223385 [debug] [MainThread]: On master: Close
+[0m16:05:45.231835 [debug] [Thread-1 (]: Began running node model.mds_health.stg_github_issues
+[0m16:05:45.232236 [info ] [Thread-1 (]: 1 of 9 START sql view model main.stg_github_issues ............................. [RUN]
+[0m16:05:45.232618 [debug] [Thread-1 (]: Acquiring new duckdb connection 'model.mds_health.stg_github_issues'
+[0m16:05:45.232618 [debug] [Thread-1 (]: Began compiling node model.mds_health.stg_github_issues
+[0m16:05:45.235733 [debug] [Thread-1 (]: Writing injected SQL for node "model.mds_health.stg_github_issues"
+[0m16:05:45.235733 [debug] [Thread-1 (]: Began executing node model.mds_health.stg_github_issues
+[0m16:05:45.256700 [debug] [Thread-1 (]: Writing runtime sql for node "model.mds_health.stg_github_issues"
+[0m16:05:45.256700 [debug] [Thread-1 (]: Using duckdb connection "model.mds_health.stg_github_issues"
+[0m16:05:45.256700 [debug] [Thread-1 (]: On model.mds_health.stg_github_issues: BEGIN
+[0m16:05:45.256700 [debug] [Thread-1 (]: Opening a new connection, currently in state init
+[0m16:05:45.264900 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m16:05:45.264900 [debug] [Thread-1 (]: Using duckdb connection "model.mds_health.stg_github_issues"
+[0m16:05:45.264900 [debug] [Thread-1 (]: On model.mds_health.stg_github_issues: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "node_id": "model.mds_health.stg_github_issues"} */
+
+  
+  create view "ci_test"."main"."stg_github_issues__dbt_tmp" as (
+    
+
+with dbt_core as (
+    select *, 'dbt-core' as tool_name from "ci_test"."raw"."dbt_core_issues"
+),
+
+airflow as (
+    select *, 'airflow' as tool_name from "ci_test"."raw"."airflow_issues"
+),
+
+dagster as (
+    select *, 'dagster' as tool_name from "ci_test"."raw"."dagster_issues"
+),
+
+combined as (
+    select * from dbt_core
+    union all
+    select * from airflow
+    union all
+    select * from dagster
+),
+
+-- Filter out PRs (GitHub's /issues endpoint includes both) and deduplicate
+deduplicated as (
+    select 
+        *,
+        row_number() over (partition by id order by updated_at desc) as rn
+    from combined
+    where pull_request is null
+),
+
+renamed as (
+    select
+        id as issue_id,
+        number as issue_number,
+        title,
+        state,
+        created_at::timestamp as created_at,
+        closed_at::timestamp as closed_at,
+        user.login as author_login,
+        tool_name
+    from deduplicated
+    where rn = 1
+)
+
+select * from renamed
+  );
+
+[0m16:05:45.264900 [debug] [Thread-1 (]: DuckDB adapter: duckdb error: Binder Error: Set operations can only apply to expressions with the same number of result columns
+[0m16:05:45.264900 [debug] [Thread-1 (]: DuckDB adapter: Error running SQL: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "node_id": "model.mds_health.stg_github_issues"} */
+
+  
+  create view "ci_test"."main"."stg_github_issues__dbt_tmp" as (
+    
+
+with dbt_core as (
+    select *, 'dbt-core' as tool_name from "ci_test"."raw"."dbt_core_issues"
+),
+
+airflow as (
+    select *, 'airflow' as tool_name from "ci_test"."raw"."airflow_issues"
+),
+
+dagster as (
+    select *, 'dagster' as tool_name from "ci_test"."raw"."dagster_issues"
+),
+
+combined as (
+    select * from dbt_core
+    union all
+    select * from airflow
+    union all
+    select * from dagster
+),
+
+-- Filter out PRs (GitHub's /issues endpoint includes both) and deduplicate
+deduplicated as (
+    select 
+        *,
+        row_number() over (partition by id order by updated_at desc) as rn
+    from combined
+    where pull_request is null
+),
+
+renamed as (
+    select
+        id as issue_id,
+        number as issue_number,
+        title,
+        state,
+        created_at::timestamp as created_at,
+        closed_at::timestamp as closed_at,
+        user.login as author_login,
+        tool_name
+    from deduplicated
+    where rn = 1
+)
+
+select * from renamed
+  );
+
+[0m16:05:45.264900 [debug] [Thread-1 (]: DuckDB adapter: Rolling back transaction.
+[0m16:05:45.264900 [debug] [Thread-1 (]: On model.mds_health.stg_github_issues: ROLLBACK
+[0m16:05:45.264900 [debug] [Thread-1 (]: On model.mds_health.stg_github_issues: Close
+[0m16:05:45.273193 [debug] [Thread-1 (]: Runtime Error in model stg_github_issues (models\staging\stg_github_issues.sql)
+  Binder Error: Set operations can only apply to expressions with the same number of result columns
+[0m16:05:45.273193 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'c3054e17-5f0d-4ccf-b332-d56c4c8376b0', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000017A353FFD40>]}
+[0m16:05:45.273193 [error] [Thread-1 (]: 1 of 9 ERROR creating sql view model main.stg_github_issues .................... [[31mERROR[0m in 0.04s]
+[0m16:05:45.273193 [debug] [Thread-1 (]: Finished running node model.mds_health.stg_github_issues
+[0m16:05:45.281221 [debug] [Thread-1 (]: Began running node model.mds_health.stg_github_pulls
+[0m16:05:45.281546 [debug] [Thread-4 (]: Marking all children of 'model.mds_health.stg_github_issues' to be skipped because of status 'error'.  Reason: Runtime Error in model stg_github_issues (models\staging\stg_github_issues.sql)
+  Binder Error: Set operations can only apply to expressions with the same number of result columns.
+[0m16:05:45.281546 [info ] [Thread-1 (]: 2 of 9 START sql view model main.stg_github_pulls .............................. [RUN]
+[0m16:05:45.281546 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.mds_health.stg_github_issues, now model.mds_health.stg_github_pulls)
+[0m16:05:45.281546 [debug] [Thread-1 (]: Began compiling node model.mds_health.stg_github_pulls
+[0m16:05:45.281546 [debug] [Thread-1 (]: Writing injected SQL for node "model.mds_health.stg_github_pulls"
+[0m16:05:45.281546 [debug] [Thread-1 (]: Began executing node model.mds_health.stg_github_pulls
+[0m16:05:45.289538 [debug] [Thread-1 (]: Writing runtime sql for node "model.mds_health.stg_github_pulls"
+[0m16:05:45.289538 [debug] [Thread-1 (]: Using duckdb connection "model.mds_health.stg_github_pulls"
+[0m16:05:45.289538 [debug] [Thread-1 (]: On model.mds_health.stg_github_pulls: BEGIN
+[0m16:05:45.289538 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m16:05:45.289538 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m16:05:45.289538 [debug] [Thread-1 (]: Using duckdb connection "model.mds_health.stg_github_pulls"
+[0m16:05:45.289538 [debug] [Thread-1 (]: On model.mds_health.stg_github_pulls: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "node_id": "model.mds_health.stg_github_pulls"} */
+
+  
+  create view "ci_test"."main"."stg_github_pulls__dbt_tmp" as (
+    
+
+with dbt_core as (
+    select *, 'dbt-core' as tool_name from "ci_test"."raw"."dbt_core_pulls"
+),
+
+airflow as (
+    select *, 'airflow' as tool_name from "ci_test"."raw"."airflow_pulls"
+),
+
+dagster as (
+    select *, 'dagster' as tool_name from "ci_test"."raw"."dagster_pulls"
+),
+
+combined as (
+    select * from dbt_core
+    union all
+    select * from airflow
+    union all
+    select * from dagster
+),
+
+deduplicated as (
+    select 
+        *,
+        row_number() over (partition by id order by updated_at desc) as rn
+    from combined
+),
+
+renamed as (
+    select
+        id as pr_id,
+        number as pr_number,
+        title,
+        state,
+        created_at::timestamp as created_at,
+        merged_at::timestamp as merged_at,
+        closed_at::timestamp as closed_at,
+        user.login as author_login,
+        tool_name
+    from deduplicated
+    where rn = 1
+)
+
+select * from renamed
+  );
+
+[0m16:05:45.333544 [debug] [Thread-1 (]: SQL status: OK in 0.042 seconds
+[0m16:05:45.345964 [debug] [Thread-1 (]: Using duckdb connection "model.mds_health.stg_github_pulls"
+[0m16:05:45.345964 [debug] [Thread-1 (]: On model.mds_health.stg_github_pulls: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "node_id": "model.mds_health.stg_github_pulls"} */
+alter view "ci_test"."main"."stg_github_pulls__dbt_tmp" rename to "stg_github_pulls"
+[0m16:05:45.354226 [debug] [Thread-1 (]: SQL status: OK in 0.002 seconds
+[0m16:05:45.369349 [debug] [Thread-1 (]: On model.mds_health.stg_github_pulls: COMMIT
+[0m16:05:45.369349 [debug] [Thread-1 (]: Using duckdb connection "model.mds_health.stg_github_pulls"
+[0m16:05:45.369349 [debug] [Thread-1 (]: On model.mds_health.stg_github_pulls: COMMIT
+[0m16:05:45.377827 [debug] [Thread-1 (]: SQL status: OK in 0.004 seconds
+[0m16:05:45.377827 [debug] [Thread-1 (]: Using duckdb connection "model.mds_health.stg_github_pulls"
+[0m16:05:45.377827 [debug] [Thread-1 (]: On model.mds_health.stg_github_pulls: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "node_id": "model.mds_health.stg_github_pulls"} */
+
+      drop view if exists "ci_test"."main"."stg_github_pulls__dbt_backup" cascade
+    
+[0m16:05:45.377827 [debug] [Thread-1 (]: SQL status: OK in 0.000 seconds
+[0m16:05:45.377827 [debug] [Thread-1 (]: On model.mds_health.stg_github_pulls: Close
+[0m16:05:45.386035 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'c3054e17-5f0d-4ccf-b332-d56c4c8376b0', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000017A33CD4680>]}
+[0m16:05:45.386035 [info ] [Thread-1 (]: 2 of 9 OK created sql view model main.stg_github_pulls ......................... [[32mOK[0m in 0.10s]
+[0m16:05:45.386035 [debug] [Thread-1 (]: Finished running node model.mds_health.stg_github_pulls
+[0m16:05:45.386035 [debug] [Thread-1 (]: Began running node test.mds_health.accepted_values_stg_github_issues_state__open__closed.bf17d7173b
+[0m16:05:45.386035 [info ] [Thread-1 (]: 3 of 9 SKIP test accepted_values_stg_github_issues_state__open__closed ......... [[33mSKIP[0m]
+[0m16:05:45.386035 [debug] [Thread-1 (]: Finished running node test.mds_health.accepted_values_stg_github_issues_state__open__closed.bf17d7173b
+[0m16:05:45.386035 [debug] [Thread-1 (]: Began running node test.mds_health.assert_close_time_is_positive
+[0m16:05:45.386035 [debug] [Thread-4 (]: Marking all children of 'test.mds_health.accepted_values_stg_github_issues_state__open__closed.bf17d7173b' to be skipped because of status 'skipped'. 
+[0m16:05:45.386035 [info ] [Thread-1 (]: 4 of 9 SKIP test assert_close_time_is_positive ................................. [[33mSKIP[0m]
+[0m16:05:45.386035 [debug] [Thread-1 (]: Finished running node test.mds_health.assert_close_time_is_positive
+[0m16:05:45.386035 [debug] [Thread-1 (]: Began running node test.mds_health.not_null_stg_github_issues_issue_id.aa9103dba8
+[0m16:05:45.386035 [debug] [Thread-4 (]: Marking all children of 'test.mds_health.assert_close_time_is_positive' to be skipped because of status 'skipped'. 
+[0m16:05:45.386035 [info ] [Thread-1 (]: 5 of 9 SKIP test not_null_stg_github_issues_issue_id ........................... [[33mSKIP[0m]
+[0m16:05:45.395585 [debug] [Thread-1 (]: Finished running node test.mds_health.not_null_stg_github_issues_issue_id.aa9103dba8
+[0m16:05:45.395585 [debug] [Thread-1 (]: Began running node test.mds_health.unique_stg_github_issues_issue_id.44cc6acdf8
+[0m16:05:45.395585 [debug] [Thread-4 (]: Marking all children of 'test.mds_health.not_null_stg_github_issues_issue_id.aa9103dba8' to be skipped because of status 'skipped'. 
+[0m16:05:45.395585 [info ] [Thread-1 (]: 6 of 9 SKIP test unique_stg_github_issues_issue_id ............................. [[33mSKIP[0m]
+[0m16:05:45.395585 [debug] [Thread-1 (]: Finished running node test.mds_health.unique_stg_github_issues_issue_id.44cc6acdf8
+[0m16:05:45.395585 [debug] [Thread-1 (]: Began running node test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f
+[0m16:05:45.395585 [debug] [Thread-4 (]: Marking all children of 'test.mds_health.unique_stg_github_issues_issue_id.44cc6acdf8' to be skipped because of status 'skipped'. 
+[0m16:05:45.395585 [info ] [Thread-1 (]: 7 of 9 START test not_null_stg_github_pulls_pr_id .............................. [RUN]
+[0m16:05:45.395585 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.mds_health.stg_github_pulls, now test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f)
+[0m16:05:45.395585 [debug] [Thread-1 (]: Began compiling node test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f
+[0m16:05:45.409395 [debug] [Thread-1 (]: Writing injected SQL for node "test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f"
+[0m16:05:45.410409 [debug] [Thread-1 (]: Began executing node test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f
+[0m16:05:45.432796 [debug] [Thread-1 (]: Writing runtime sql for node "test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f"
+[0m16:05:45.435818 [debug] [Thread-1 (]: Using duckdb connection "test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f"
+[0m16:05:45.435818 [debug] [Thread-1 (]: On test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f: BEGIN
+[0m16:05:45.437828 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m16:05:45.439661 [debug] [Thread-1 (]: SQL status: OK in 0.002 seconds
+[0m16:05:45.439661 [debug] [Thread-1 (]: Using duckdb connection "test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f"
+[0m16:05:45.439661 [debug] [Thread-1 (]: On test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "node_id": "test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+
+
+select pr_id
+from "ci_test"."main"."stg_github_pulls"
+where pr_id is null
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m16:05:45.450609 [debug] [Thread-1 (]: SQL status: OK in 0.010 seconds
+[0m16:05:45.452423 [debug] [Thread-1 (]: On test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f: ROLLBACK
+[0m16:05:45.452423 [debug] [Thread-1 (]: On test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f: Close
+[0m16:05:45.452423 [info ] [Thread-1 (]: 7 of 9 PASS not_null_stg_github_pulls_pr_id .................................... [[32mPASS[0m in 0.06s]
+[0m16:05:45.452423 [debug] [Thread-1 (]: Finished running node test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f
+[0m16:05:45.452423 [debug] [Thread-1 (]: Began running node test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f
+[0m16:05:45.452423 [info ] [Thread-1 (]: 8 of 9 START test unique_stg_github_pulls_pr_id ................................ [RUN]
+[0m16:05:45.452423 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f, now test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f)
+[0m16:05:45.452423 [debug] [Thread-1 (]: Began compiling node test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f
+[0m16:05:45.460666 [debug] [Thread-1 (]: Writing injected SQL for node "test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f"
+[0m16:05:45.460666 [debug] [Thread-1 (]: Began executing node test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f
+[0m16:05:45.469889 [debug] [Thread-1 (]: Writing runtime sql for node "test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f"
+[0m16:05:45.469889 [debug] [Thread-1 (]: Using duckdb connection "test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f"
+[0m16:05:45.469889 [debug] [Thread-1 (]: On test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f: BEGIN
+[0m16:05:45.469889 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m16:05:45.469889 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m16:05:45.469889 [debug] [Thread-1 (]: Using duckdb connection "test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f"
+[0m16:05:45.469889 [debug] [Thread-1 (]: On test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "node_id": "test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+select
+    pr_id as unique_field,
+    count(*) as n_records
+
+from "ci_test"."main"."stg_github_pulls"
+where pr_id is not null
+group by pr_id
+having count(*) > 1
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m16:05:45.485302 [debug] [Thread-1 (]: SQL status: OK in 0.011 seconds
+[0m16:05:45.485302 [debug] [Thread-1 (]: On test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f: ROLLBACK
+[0m16:05:45.485302 [debug] [Thread-1 (]: On test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f: Close
+[0m16:05:45.485302 [info ] [Thread-1 (]: 8 of 9 PASS unique_stg_github_pulls_pr_id ...................................... [[32mPASS[0m in 0.03s]
+[0m16:05:45.485302 [debug] [Thread-1 (]: Finished running node test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f
+[0m16:05:45.485302 [debug] [Thread-1 (]: Began running node model.mds_health.fct_tool_weekly_snapshot
+[0m16:05:45.485302 [info ] [Thread-1 (]: 9 of 9 SKIP relation main.fct_tool_weekly_snapshot ............................. [[33mSKIP[0m]
+[0m16:05:45.493348 [debug] [Thread-1 (]: Finished running node model.mds_health.fct_tool_weekly_snapshot
+[0m16:05:45.493348 [debug] [Thread-4 (]: Marking all children of 'model.mds_health.fct_tool_weekly_snapshot' to be skipped because of status 'skipped'. 
+[0m16:05:45.495127 [debug] [MainThread]: Using duckdb connection "master"
+[0m16:05:45.495127 [debug] [MainThread]: On master: BEGIN
+[0m16:05:45.495127 [debug] [MainThread]: Opening a new connection, currently in state closed
+[0m16:05:45.495127 [debug] [MainThread]: SQL status: OK in 0.001 seconds
+[0m16:05:45.495127 [debug] [MainThread]: On master: COMMIT
+[0m16:05:45.495127 [debug] [MainThread]: Using duckdb connection "master"
+[0m16:05:45.495127 [debug] [MainThread]: On master: COMMIT
+[0m16:05:45.495127 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m16:05:45.495127 [debug] [MainThread]: On master: Close
+[0m16:05:45.495127 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m16:05:45.495127 [debug] [MainThread]: Connection 'create_ci_test_main' was properly closed.
+[0m16:05:45.495127 [debug] [MainThread]: Connection 'list_ci_test_main' was properly closed.
+[0m16:05:45.495127 [debug] [MainThread]: Connection 'test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f' was properly closed.
+[0m16:05:45.495127 [info ] [MainThread]: 
+[0m16:05:45.495127 [info ] [MainThread]: Finished running 1 table model, 6 data tests, 2 view models in 0 hours 0 minutes and 0.47 seconds (0.47s).
+[0m16:05:45.495127 [debug] [MainThread]: Command end result
+[0m16:05:45.517945 [debug] [MainThread]: Wrote artifact WritableManifest to C:\Projects\modern-data-stack-health\transform\target\manifest.json
+[0m16:05:45.518532 [debug] [MainThread]: Wrote artifact SemanticManifest to C:\Projects\modern-data-stack-health\transform\target\semantic_manifest.json
+[0m16:05:45.526169 [debug] [MainThread]: Wrote artifact RunExecutionResult to C:\Projects\modern-data-stack-health\transform\target\run_results.json
+[0m16:05:45.526169 [info ] [MainThread]: 
+[0m16:05:45.526169 [info ] [MainThread]: [31mCompleted with 1 error, 0 partial successes, and 0 warnings:[0m
+[0m16:05:45.526169 [info ] [MainThread]: 
+[0m16:05:45.526169 [error] [MainThread]: [31mFailure in model stg_github_issues (models\staging\stg_github_issues.sql)[0m
+[0m16:05:45.526169 [error] [MainThread]:   Runtime Error in model stg_github_issues (models\staging\stg_github_issues.sql)
+  Binder Error: Set operations can only apply to expressions with the same number of result columns
+[0m16:05:45.526169 [info ] [MainThread]: 
+[0m16:05:45.526169 [info ] [MainThread]:   compiled code at target\compiled\mds_health\models\staging\stg_github_issues.sql
+[0m16:05:45.526169 [info ] [MainThread]: 
+[0m16:05:45.526169 [info ] [MainThread]: Done. PASS=3 WARN=0 ERROR=1 SKIP=5 NO-OP=0 TOTAL=9
+[0m16:05:45.526169 [debug] [MainThread]: Command `dbt build` failed at 16:05:45.526169 after 2.69 seconds
+[0m16:05:45.526169 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000017A31EFFBC0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000017A340C9790>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000017A351AFC20>]}
+[0m16:05:45.526169 [debug] [MainThread]: Flushing usage events
+[0m16:05:46.233005 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m16:08:37.633506 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000026E781A6EA0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000026E7761EB40>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000026E7761E720>]}
+
+
+============================== 16:08:37.641640 | d72d42b9-4a59-4e34-ace1-f4bb87f85af4 ==============================
+[0m16:08:37.641640 [info ] [MainThread]: Running with dbt=1.10.23
+[0m16:08:37.641640 [debug] [MainThread]: running dbt with arguments {'version_check': 'True', 'no_print': 'None', 'static_parser': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'target_path': 'None', 'printer_width': '80', 'write_json': 'True', 'introspect': 'True', 'log_cache_events': 'False', 'empty': 'False', 'cache_selected_only': 'False', 'fail_fast': 'False', 'debug': 'False', 'log_format': 'default', 'profiles_dir': 'C:\\Projects\\modern-data-stack-health\\transform', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'partial_parse': 'True', 'indirect_selection': 'eager', 'invocation_command': 'dbt build --target ci', 'use_colors': 'True', 'use_experimental_parser': 'False', 'log_path': 'C:\\Projects\\modern-data-stack-health\\transform\\logs'}
+[0m16:08:37.641640 [info ] [MainThread]: This version of dbt is deprecated and no longer receives regular patches, including for known bugs. We recommend upgrading to a newer supported version of dbt: https://docs.getdbt.com/docs/dbt-versions
+[0m16:08:37.641640 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'deprecated_version_invocation', 'label': 'd72d42b9-4a59-4e34-ace1-f4bb87f85af4', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000026E78417620>]}
+[0m16:08:37.988394 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': 'd72d42b9-4a59-4e34-ace1-f4bb87f85af4', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000026E781E0A10>]}
+[0m16:08:38.094960 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': 'd72d42b9-4a59-4e34-ace1-f4bb87f85af4', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000026E77F589E0>]}
+[0m16:08:38.094960 [info ] [MainThread]: Registered adapter: duckdb=1.11.0
+[0m16:08:38.310846 [debug] [MainThread]: checksum: 6ebfa2de25ebe8cf47d1434afe1ed2b370cfa55abb66bcd624539401f3e62734, vars: {}, profile: , target: ci, version: 1.10.23
+[0m16:08:38.401699 [debug] [MainThread]: Partial parsing enabled: 0 files deleted, 0 files added, 2 files changed.
+[0m16:08:38.401699 [debug] [MainThread]: Partial parsing: updated file: mds_health://models\staging\stg_github_pulls.sql
+[0m16:08:38.401699 [info ] [MainThread]: Unable to do partial parsing because an error occurred. Switching to full reparse.
+[0m16:08:38.410357 [debug] [MainThread]: Partial parsing exception processing file mds_health://models\staging\stg_github_issues.sql
+[0m16:08:38.410357 [debug] [MainThread]: PP exception info: {'code': 'if child_test.attached_node:', 'location': 'line 920 in remove_tests', 'exception': "AttributeError: 'SingularTestNode' object has no attribute 'attached_node'", 'traceback': 'Traceback (most recent call last):\n  File "C:\\Projects\\modern-data-stack-health\\.venv\\Lib\\site-packages\\dbt\\parser\\manifest.py", line 545, in safe_update_project_parser_files_partially\n    project_parser_files = self.partial_parser.get_parsing_files()\n                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "C:\\Projects\\modern-data-stack-health\\.venv\\Lib\\site-packages\\dbt\\parser\\partial.py", line 197, in get_parsing_files\n    self.update_in_saved(file_id)\n  File "C:\\Projects\\modern-data-stack-health\\.venv\\Lib\\site-packages\\dbt\\parser\\partial.py", line 306, in update_in_saved\n    self.update_mssat_in_saved(new_source_file, old_source_file)\n  File "C:\\Projects\\modern-data-stack-health\\.venv\\Lib\\site-packages\\dbt\\parser\\partial.py", line 336, in update_mssat_in_saved\n    self.remove_node_in_saved(new_source_file, unique_id)\n  File "C:\\Projects\\modern-data-stack-health\\.venv\\Lib\\site-packages\\dbt\\parser\\partial.py", line 376, in remove_node_in_saved\n    self.delete_schema_mssa_links(schema_file, dict_key, elem_patch)\n  File "C:\\Projects\\modern-data-stack-health\\.venv\\Lib\\site-packages\\dbt\\parser\\partial.py", line 852, in delete_schema_mssa_links\n    self._delete_schema_mssa_links(schema_file, dict_key, elem, elem_unique_ids)\n  File "C:\\Projects\\modern-data-stack-health\\.venv\\Lib\\site-packages\\dbt\\parser\\partial.py", line 905, in _delete_schema_mssa_links\n    self.remove_tests(schema_file, dict_key, elem["name"])\n  File "C:\\Projects\\modern-data-stack-health\\.venv\\Lib\\site-packages\\dbt\\parser\\partial.py", line 920, in remove_tests\n    if child_test.attached_node:\n       ^^^^^^^^^^^^^^^^^^^^^^^^\nAttributeError: \'SingularTestNode\' object has no attribute \'attached_node\'\n', 'parse_file_type': 'model'}
+[0m16:08:38.410357 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'partial_parser', 'label': 'd72d42b9-4a59-4e34-ace1-f4bb87f85af4', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000026E79E0C440>]}
+[0m16:08:39.612940 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': 'd72d42b9-4a59-4e34-ace1-f4bb87f85af4', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000026E7A44FDD0>]}
+[0m16:08:39.695183 [debug] [MainThread]: Wrote artifact WritableManifest to C:\Projects\modern-data-stack-health\transform\target\manifest.json
+[0m16:08:39.695183 [debug] [MainThread]: Wrote artifact SemanticManifest to C:\Projects\modern-data-stack-health\transform\target\semantic_manifest.json
+[0m16:08:39.727871 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': 'd72d42b9-4a59-4e34-ace1-f4bb87f85af4', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000026E785682C0>]}
+[0m16:08:39.727871 [info ] [MainThread]: Found 3 models, 6 data tests, 9 sources, 500 macros
+[0m16:08:39.727871 [info ] [MainThread]: 
+[0m16:08:39.736301 [info ] [MainThread]: Concurrency: 1 threads (target='ci')
+[0m16:08:39.736301 [info ] [MainThread]: 
+[0m16:08:39.736301 [debug] [MainThread]: Acquiring new duckdb connection 'master'
+[0m16:08:39.736301 [debug] [ThreadPool]: Acquiring new duckdb connection 'list_ci_test'
+[0m16:08:39.891856 [debug] [ThreadPool]: Using duckdb connection "list_ci_test"
+[0m16:08:39.891856 [debug] [ThreadPool]: On list_ci_test: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "connection_name": "list_ci_test"} */
+
+    
+    select schema_name
+    from system.information_schema.schemata
+    
+    where lower(catalog_name) = '"ci_test"'
+    
+  
+  
+[0m16:08:39.891856 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m16:08:39.918637 [debug] [ThreadPool]: SQL status: OK in 0.023 seconds
+[0m16:08:39.920649 [debug] [ThreadPool]: On list_ci_test: Close
+[0m16:08:39.920649 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list_ci_test, now create_ci_test_main)
+[0m16:08:39.920649 [debug] [ThreadPool]: Creating schema "database: "ci_test"
+schema: "main"
+"
+[0m16:08:39.929773 [debug] [ThreadPool]: Using duckdb connection "create_ci_test_main"
+[0m16:08:39.929773 [debug] [ThreadPool]: On create_ci_test_main: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "connection_name": "create_ci_test_main"} */
+
+    
+        select type from duckdb_databases()
+        where lower(database_name)='ci_test'
+        and type != 'duckdb'
+    
+  
+[0m16:08:39.929773 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m16:08:39.931342 [debug] [ThreadPool]: SQL status: OK in 0.001 seconds
+[0m16:08:39.931342 [debug] [ThreadPool]: Using duckdb connection "create_ci_test_main"
+[0m16:08:39.932893 [debug] [ThreadPool]: On create_ci_test_main: BEGIN
+[0m16:08:39.932893 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m16:08:39.932893 [debug] [ThreadPool]: Using duckdb connection "create_ci_test_main"
+[0m16:08:39.932893 [debug] [ThreadPool]: On create_ci_test_main: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "connection_name": "create_ci_test_main"} */
+
+    
+    
+        create schema if not exists "ci_test"."main"
+    
+[0m16:08:39.932893 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m16:08:39.934706 [debug] [ThreadPool]: On create_ci_test_main: COMMIT
+[0m16:08:39.934706 [debug] [ThreadPool]: Using duckdb connection "create_ci_test_main"
+[0m16:08:39.934706 [debug] [ThreadPool]: On create_ci_test_main: COMMIT
+[0m16:08:39.936406 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m16:08:39.936406 [debug] [ThreadPool]: On create_ci_test_main: Close
+[0m16:08:39.938088 [debug] [ThreadPool]: Acquiring new duckdb connection 'list_ci_test_main'
+[0m16:08:39.942826 [debug] [ThreadPool]: Using duckdb connection "list_ci_test_main"
+[0m16:08:39.942826 [debug] [ThreadPool]: On list_ci_test_main: BEGIN
+[0m16:08:39.942826 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m16:08:39.942826 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m16:08:39.942826 [debug] [ThreadPool]: Using duckdb connection "list_ci_test_main"
+[0m16:08:39.942826 [debug] [ThreadPool]: On list_ci_test_main: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "connection_name": "list_ci_test_main"} */
+select
+      'ci_test' as database,
+      table_name as name,
+      table_schema as schema,
+      CASE table_type
+        WHEN 'BASE TABLE' THEN 'table'
+        WHEN 'VIEW' THEN 'view'
+        WHEN 'LOCAL TEMPORARY' THEN 'table'
+        END as type
+    from system.information_schema.tables
+    where lower(table_schema) = 'main'
+    and lower(table_catalog) = 'ci_test'
+  
+[0m16:08:39.961711 [debug] [ThreadPool]: SQL status: OK in 0.018 seconds
+[0m16:08:39.961711 [debug] [ThreadPool]: On list_ci_test_main: ROLLBACK
+[0m16:08:39.961711 [debug] [ThreadPool]: On list_ci_test_main: Close
+[0m16:08:39.965167 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': 'd72d42b9-4a59-4e34-ace1-f4bb87f85af4', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000026E7A121550>]}
+[0m16:08:39.965167 [debug] [MainThread]: Using duckdb connection "master"
+[0m16:08:39.965167 [debug] [MainThread]: On master: BEGIN
+[0m16:08:39.965167 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m16:08:39.965167 [debug] [MainThread]: SQL status: OK in 0.001 seconds
+[0m16:08:39.965167 [debug] [MainThread]: On master: COMMIT
+[0m16:08:39.965167 [debug] [MainThread]: Using duckdb connection "master"
+[0m16:08:39.970236 [debug] [MainThread]: On master: COMMIT
+[0m16:08:39.970236 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m16:08:39.970236 [debug] [MainThread]: On master: Close
+[0m16:08:39.975280 [debug] [Thread-1 (]: Began running node model.mds_health.stg_github_issues
+[0m16:08:39.977290 [info ] [Thread-1 (]: 1 of 9 START sql view model main.stg_github_issues ............................. [RUN]
+[0m16:08:39.977290 [debug] [Thread-1 (]: Acquiring new duckdb connection 'model.mds_health.stg_github_issues'
+[0m16:08:39.977290 [debug] [Thread-1 (]: Began compiling node model.mds_health.stg_github_issues
+[0m16:08:39.981307 [debug] [Thread-1 (]: Writing injected SQL for node "model.mds_health.stg_github_issues"
+[0m16:08:39.981307 [debug] [Thread-1 (]: Began executing node model.mds_health.stg_github_issues
+[0m16:08:40.014181 [debug] [Thread-1 (]: Writing runtime sql for node "model.mds_health.stg_github_issues"
+[0m16:08:40.014181 [debug] [Thread-1 (]: Using duckdb connection "model.mds_health.stg_github_issues"
+[0m16:08:40.014181 [debug] [Thread-1 (]: On model.mds_health.stg_github_issues: BEGIN
+[0m16:08:40.014181 [debug] [Thread-1 (]: Opening a new connection, currently in state init
+[0m16:08:40.016830 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m16:08:40.016830 [debug] [Thread-1 (]: Using duckdb connection "model.mds_health.stg_github_issues"
+[0m16:08:40.016830 [debug] [Thread-1 (]: On model.mds_health.stg_github_issues: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "node_id": "model.mds_health.stg_github_issues"} */
+
+  
+  create view "ci_test"."main"."stg_github_issues__dbt_tmp" as (
+    
+
+with dbt_core as (
+    select 
+        id, number, title, state, created_at, closed_at, updated_at, 
+        user, pull_request, 'dbt-core' as tool_name 
+    from "ci_test"."raw"."dbt_core_issues"
+),
+
+airflow as (
+    select 
+        id, number, title, state, created_at, closed_at, updated_at, 
+        user, pull_request, 'airflow' as tool_name 
+    from "ci_test"."raw"."airflow_issues"
+),
+
+dagster as (
+    select 
+        id, number, title, state, created_at, closed_at, updated_at, 
+        user, pull_request, 'dagster' as tool_name 
+    from "ci_test"."raw"."dagster_issues"
+),
+
+combined as (
+    select * from dbt_core
+    union all
+    select * from airflow
+    union all
+    select * from dagster
+),
+
+-- Filter out PRs (GitHub's /issues endpoint includes both) and deduplicate
+deduplicated as (
+    select 
+        *,
+        row_number() over (partition by id order by updated_at desc) as rn
+    from combined
+    where pull_request is null
+),
+
+renamed as (
+    select
+        id as issue_id,
+        number as issue_number,
+        title,
+        state,
+        created_at::timestamp as created_at,
+        closed_at::timestamp as closed_at,
+        user.login as author_login,
+        tool_name
+    from deduplicated
+    where rn = 1
+)
+
+select * from renamed
+  );
+
+[0m16:08:40.018839 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m16:08:40.026200 [debug] [Thread-1 (]: Using duckdb connection "model.mds_health.stg_github_issues"
+[0m16:08:40.026200 [debug] [Thread-1 (]: On model.mds_health.stg_github_issues: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "node_id": "model.mds_health.stg_github_issues"} */
+alter view "ci_test"."main"."stg_github_issues__dbt_tmp" rename to "stg_github_issues"
+[0m16:08:40.028208 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m16:08:40.029963 [debug] [Thread-1 (]: On model.mds_health.stg_github_issues: COMMIT
+[0m16:08:40.029963 [debug] [Thread-1 (]: Using duckdb connection "model.mds_health.stg_github_issues"
+[0m16:08:40.029963 [debug] [Thread-1 (]: On model.mds_health.stg_github_issues: COMMIT
+[0m16:08:40.038315 [debug] [Thread-1 (]: SQL status: OK in 0.007 seconds
+[0m16:08:40.046761 [debug] [Thread-1 (]: Using duckdb connection "model.mds_health.stg_github_issues"
+[0m16:08:40.046761 [debug] [Thread-1 (]: On model.mds_health.stg_github_issues: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "node_id": "model.mds_health.stg_github_issues"} */
+
+      drop view if exists "ci_test"."main"."stg_github_issues__dbt_backup" cascade
+    
+[0m16:08:40.046761 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m16:08:40.054943 [debug] [Thread-1 (]: On model.mds_health.stg_github_issues: Close
+[0m16:08:40.058966 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'd72d42b9-4a59-4e34-ace1-f4bb87f85af4', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000026E7A40F8F0>]}
+[0m16:08:40.058966 [info ] [Thread-1 (]: 1 of 9 OK created sql view model main.stg_github_issues ........................ [[32mOK[0m in 0.08s]
+[0m16:08:40.060972 [debug] [Thread-1 (]: Finished running node model.mds_health.stg_github_issues
+[0m16:08:40.060972 [debug] [Thread-1 (]: Began running node model.mds_health.stg_github_pulls
+[0m16:08:40.062992 [info ] [Thread-1 (]: 2 of 9 START sql view model main.stg_github_pulls .............................. [RUN]
+[0m16:08:40.063622 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.mds_health.stg_github_issues, now model.mds_health.stg_github_pulls)
+[0m16:08:40.063622 [debug] [Thread-1 (]: Began compiling node model.mds_health.stg_github_pulls
+[0m16:08:40.069147 [debug] [Thread-1 (]: Writing injected SQL for node "model.mds_health.stg_github_pulls"
+[0m16:08:40.071155 [debug] [Thread-1 (]: Began executing node model.mds_health.stg_github_pulls
+[0m16:08:40.073164 [debug] [Thread-1 (]: Writing runtime sql for node "model.mds_health.stg_github_pulls"
+[0m16:08:40.075173 [debug] [Thread-1 (]: Using duckdb connection "model.mds_health.stg_github_pulls"
+[0m16:08:40.075173 [debug] [Thread-1 (]: On model.mds_health.stg_github_pulls: BEGIN
+[0m16:08:40.075173 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m16:08:40.079188 [debug] [Thread-1 (]: SQL status: OK in 0.003 seconds
+[0m16:08:40.080361 [debug] [Thread-1 (]: Using duckdb connection "model.mds_health.stg_github_pulls"
+[0m16:08:40.080867 [debug] [Thread-1 (]: On model.mds_health.stg_github_pulls: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "node_id": "model.mds_health.stg_github_pulls"} */
+
+  
+  create view "ci_test"."main"."stg_github_pulls__dbt_tmp" as (
+    
+
+with dbt_core as (
+    select 
+        id, number, title, state, created_at, merged_at, closed_at, updated_at, 
+        user, 'dbt-core' as tool_name 
+    from "ci_test"."raw"."dbt_core_pulls"
+),
+
+airflow as (
+    select 
+        id, number, title, state, created_at, merged_at, closed_at, updated_at, 
+        user, 'airflow' as tool_name 
+    from "ci_test"."raw"."airflow_pulls"
+),
+
+dagster as (
+    select 
+        id, number, title, state, created_at, merged_at, closed_at, updated_at, 
+        user, 'dagster' as tool_name 
+    from "ci_test"."raw"."dagster_pulls"
+),
+
+combined as (
+    select * from dbt_core
+    union all
+    select * from airflow
+    union all
+    select * from dagster
+),
+
+deduplicated as (
+    select 
+        *,
+        row_number() over (partition by id order by updated_at desc) as rn
+    from combined
+),
+
+renamed as (
+    select
+        id as pr_id,
+        number as pr_number,
+        title,
+        state,
+        created_at::timestamp as created_at,
+        merged_at::timestamp as merged_at,
+        closed_at::timestamp as closed_at,
+        user.login as author_login,
+        tool_name
+    from deduplicated
+    where rn = 1
+)
+
+select * from renamed
+  );
+
+[0m16:08:40.080867 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m16:08:40.084882 [debug] [Thread-1 (]: Using duckdb connection "model.mds_health.stg_github_pulls"
+[0m16:08:40.084882 [debug] [Thread-1 (]: On model.mds_health.stg_github_pulls: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "node_id": "model.mds_health.stg_github_pulls"} */
+alter view "ci_test"."main"."stg_github_pulls" rename to "stg_github_pulls__dbt_backup"
+[0m16:08:40.086890 [debug] [Thread-1 (]: SQL status: OK in 0.000 seconds
+[0m16:08:40.086890 [debug] [Thread-1 (]: Using duckdb connection "model.mds_health.stg_github_pulls"
+[0m16:08:40.086890 [debug] [Thread-1 (]: On model.mds_health.stg_github_pulls: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "node_id": "model.mds_health.stg_github_pulls"} */
+alter view "ci_test"."main"."stg_github_pulls__dbt_tmp" rename to "stg_github_pulls"
+[0m16:08:40.086890 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m16:08:40.095250 [debug] [Thread-1 (]: On model.mds_health.stg_github_pulls: COMMIT
+[0m16:08:40.095250 [debug] [Thread-1 (]: Using duckdb connection "model.mds_health.stg_github_pulls"
+[0m16:08:40.095250 [debug] [Thread-1 (]: On model.mds_health.stg_github_pulls: COMMIT
+[0m16:08:40.098313 [debug] [Thread-1 (]: SQL status: OK in 0.003 seconds
+[0m16:08:40.102958 [debug] [Thread-1 (]: Using duckdb connection "model.mds_health.stg_github_pulls"
+[0m16:08:40.102958 [debug] [Thread-1 (]: On model.mds_health.stg_github_pulls: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "node_id": "model.mds_health.stg_github_pulls"} */
+
+      drop view if exists "ci_test"."main"."stg_github_pulls__dbt_backup" cascade
+    
+[0m16:08:40.102958 [debug] [Thread-1 (]: SQL status: OK in 0.002 seconds
+[0m16:08:40.106529 [debug] [Thread-1 (]: On model.mds_health.stg_github_pulls: Close
+[0m16:08:40.106529 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'd72d42b9-4a59-4e34-ace1-f4bb87f85af4', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000026E7A421460>]}
+[0m16:08:40.106529 [info ] [Thread-1 (]: 2 of 9 OK created sql view model main.stg_github_pulls ......................... [[32mOK[0m in 0.04s]
+[0m16:08:40.106529 [debug] [Thread-1 (]: Finished running node model.mds_health.stg_github_pulls
+[0m16:08:40.106529 [debug] [Thread-1 (]: Began running node test.mds_health.accepted_values_stg_github_issues_state__open__closed.bf17d7173b
+[0m16:08:40.106529 [info ] [Thread-1 (]: 3 of 9 START test accepted_values_stg_github_issues_state__open__closed ........ [RUN]
+[0m16:08:40.106529 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.mds_health.stg_github_pulls, now test.mds_health.accepted_values_stg_github_issues_state__open__closed.bf17d7173b)
+[0m16:08:40.111096 [debug] [Thread-1 (]: Began compiling node test.mds_health.accepted_values_stg_github_issues_state__open__closed.bf17d7173b
+[0m16:08:40.111096 [debug] [Thread-1 (]: Writing injected SQL for node "test.mds_health.accepted_values_stg_github_issues_state__open__closed.bf17d7173b"
+[0m16:08:40.111096 [debug] [Thread-1 (]: Began executing node test.mds_health.accepted_values_stg_github_issues_state__open__closed.bf17d7173b
+[0m16:08:40.135802 [debug] [Thread-1 (]: Writing runtime sql for node "test.mds_health.accepted_values_stg_github_issues_state__open__closed.bf17d7173b"
+[0m16:08:40.135802 [debug] [Thread-1 (]: Using duckdb connection "test.mds_health.accepted_values_stg_github_issues_state__open__closed.bf17d7173b"
+[0m16:08:40.135802 [debug] [Thread-1 (]: On test.mds_health.accepted_values_stg_github_issues_state__open__closed.bf17d7173b: BEGIN
+[0m16:08:40.135802 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m16:08:40.135802 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m16:08:40.135802 [debug] [Thread-1 (]: Using duckdb connection "test.mds_health.accepted_values_stg_github_issues_state__open__closed.bf17d7173b"
+[0m16:08:40.135802 [debug] [Thread-1 (]: On test.mds_health.accepted_values_stg_github_issues_state__open__closed.bf17d7173b: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "node_id": "test.mds_health.accepted_values_stg_github_issues_state__open__closed.bf17d7173b"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+with all_values as (
+
+    select
+        state as value_field,
+        count(*) as n_records
+
+    from "ci_test"."main"."stg_github_issues"
+    group by state
+
+)
+
+select *
+from all_values
+where value_field not in (
+    'open','closed'
+)
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m16:08:40.146136 [debug] [Thread-1 (]: SQL status: OK in 0.007 seconds
+[0m16:08:40.152283 [debug] [Thread-1 (]: On test.mds_health.accepted_values_stg_github_issues_state__open__closed.bf17d7173b: ROLLBACK
+[0m16:08:40.154294 [debug] [Thread-1 (]: On test.mds_health.accepted_values_stg_github_issues_state__open__closed.bf17d7173b: Close
+[0m16:08:40.154294 [info ] [Thread-1 (]: 3 of 9 PASS accepted_values_stg_github_issues_state__open__closed .............. [[32mPASS[0m in 0.05s]
+[0m16:08:40.156302 [debug] [Thread-1 (]: Finished running node test.mds_health.accepted_values_stg_github_issues_state__open__closed.bf17d7173b
+[0m16:08:40.156302 [debug] [Thread-1 (]: Began running node test.mds_health.assert_close_time_is_positive
+[0m16:08:40.156302 [info ] [Thread-1 (]: 4 of 9 START test assert_close_time_is_positive ................................ [RUN]
+[0m16:08:40.156302 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly test.mds_health.accepted_values_stg_github_issues_state__open__closed.bf17d7173b, now test.mds_health.assert_close_time_is_positive)
+[0m16:08:40.156302 [debug] [Thread-1 (]: Began compiling node test.mds_health.assert_close_time_is_positive
+[0m16:08:40.160456 [debug] [Thread-1 (]: Writing injected SQL for node "test.mds_health.assert_close_time_is_positive"
+[0m16:08:40.160456 [debug] [Thread-1 (]: Began executing node test.mds_health.assert_close_time_is_positive
+[0m16:08:40.163386 [debug] [Thread-1 (]: Writing runtime sql for node "test.mds_health.assert_close_time_is_positive"
+[0m16:08:40.163386 [debug] [Thread-1 (]: Using duckdb connection "test.mds_health.assert_close_time_is_positive"
+[0m16:08:40.163386 [debug] [Thread-1 (]: On test.mds_health.assert_close_time_is_positive: BEGIN
+[0m16:08:40.163386 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m16:08:40.163386 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m16:08:40.163386 [debug] [Thread-1 (]: Using duckdb connection "test.mds_health.assert_close_time_is_positive"
+[0m16:08:40.163386 [debug] [Thread-1 (]: On test.mds_health.assert_close_time_is_positive: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "node_id": "test.mds_health.assert_close_time_is_positive"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  -- Business rule: An issue cannot be closed before it is created.
+-- If this returns any rows, the test fails.
+
+select 
+    issue_id,
+    created_at,
+    closed_at,
+    datediff('day', created_at, closed_at) as close_time_days
+from "ci_test"."main"."stg_github_issues"
+where closed_at is not null 
+  and datediff('day', created_at, closed_at) < 0
+  
+  
+      
+    ) dbt_internal_test
+[0m16:08:40.171942 [debug] [Thread-1 (]: SQL status: OK in 0.005 seconds
+[0m16:08:40.173950 [debug] [Thread-1 (]: On test.mds_health.assert_close_time_is_positive: ROLLBACK
+[0m16:08:40.175958 [debug] [Thread-1 (]: On test.mds_health.assert_close_time_is_positive: Close
+[0m16:08:40.176965 [info ] [Thread-1 (]: 4 of 9 PASS assert_close_time_is_positive ...................................... [[32mPASS[0m in 0.02s]
+[0m16:08:40.176965 [debug] [Thread-1 (]: Finished running node test.mds_health.assert_close_time_is_positive
+[0m16:08:40.176965 [debug] [Thread-1 (]: Began running node test.mds_health.not_null_stg_github_issues_issue_id.aa9103dba8
+[0m16:08:40.176965 [info ] [Thread-1 (]: 5 of 9 START test not_null_stg_github_issues_issue_id .......................... [RUN]
+[0m16:08:40.176965 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly test.mds_health.assert_close_time_is_positive, now test.mds_health.not_null_stg_github_issues_issue_id.aa9103dba8)
+[0m16:08:40.176965 [debug] [Thread-1 (]: Began compiling node test.mds_health.not_null_stg_github_issues_issue_id.aa9103dba8
+[0m16:08:40.185073 [debug] [Thread-1 (]: Writing injected SQL for node "test.mds_health.not_null_stg_github_issues_issue_id.aa9103dba8"
+[0m16:08:40.185073 [debug] [Thread-1 (]: Began executing node test.mds_health.not_null_stg_github_issues_issue_id.aa9103dba8
+[0m16:08:40.193253 [debug] [Thread-1 (]: Writing runtime sql for node "test.mds_health.not_null_stg_github_issues_issue_id.aa9103dba8"
+[0m16:08:40.193253 [debug] [Thread-1 (]: Using duckdb connection "test.mds_health.not_null_stg_github_issues_issue_id.aa9103dba8"
+[0m16:08:40.193253 [debug] [Thread-1 (]: On test.mds_health.not_null_stg_github_issues_issue_id.aa9103dba8: BEGIN
+[0m16:08:40.193253 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m16:08:40.193253 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m16:08:40.193253 [debug] [Thread-1 (]: Using duckdb connection "test.mds_health.not_null_stg_github_issues_issue_id.aa9103dba8"
+[0m16:08:40.193253 [debug] [Thread-1 (]: On test.mds_health.not_null_stg_github_issues_issue_id.aa9103dba8: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "node_id": "test.mds_health.not_null_stg_github_issues_issue_id.aa9103dba8"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+
+
+select issue_id
+from "ci_test"."main"."stg_github_issues"
+where issue_id is null
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m16:08:40.193253 [debug] [Thread-1 (]: SQL status: OK in 0.002 seconds
+[0m16:08:40.201366 [debug] [Thread-1 (]: On test.mds_health.not_null_stg_github_issues_issue_id.aa9103dba8: ROLLBACK
+[0m16:08:40.201366 [debug] [Thread-1 (]: On test.mds_health.not_null_stg_github_issues_issue_id.aa9103dba8: Close
+[0m16:08:40.201366 [info ] [Thread-1 (]: 5 of 9 PASS not_null_stg_github_issues_issue_id ................................ [[32mPASS[0m in 0.02s]
+[0m16:08:40.205905 [debug] [Thread-1 (]: Finished running node test.mds_health.not_null_stg_github_issues_issue_id.aa9103dba8
+[0m16:08:40.205905 [debug] [Thread-1 (]: Began running node test.mds_health.unique_stg_github_issues_issue_id.44cc6acdf8
+[0m16:08:40.205905 [info ] [Thread-1 (]: 6 of 9 START test unique_stg_github_issues_issue_id ............................ [RUN]
+[0m16:08:40.205905 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly test.mds_health.not_null_stg_github_issues_issue_id.aa9103dba8, now test.mds_health.unique_stg_github_issues_issue_id.44cc6acdf8)
+[0m16:08:40.205905 [debug] [Thread-1 (]: Began compiling node test.mds_health.unique_stg_github_issues_issue_id.44cc6acdf8
+[0m16:08:40.214787 [debug] [Thread-1 (]: Writing injected SQL for node "test.mds_health.unique_stg_github_issues_issue_id.44cc6acdf8"
+[0m16:08:40.214787 [debug] [Thread-1 (]: Began executing node test.mds_health.unique_stg_github_issues_issue_id.44cc6acdf8
+[0m16:08:40.217756 [debug] [Thread-1 (]: Writing runtime sql for node "test.mds_health.unique_stg_github_issues_issue_id.44cc6acdf8"
+[0m16:08:40.219765 [debug] [Thread-1 (]: Using duckdb connection "test.mds_health.unique_stg_github_issues_issue_id.44cc6acdf8"
+[0m16:08:40.219765 [debug] [Thread-1 (]: On test.mds_health.unique_stg_github_issues_issue_id.44cc6acdf8: BEGIN
+[0m16:08:40.219765 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m16:08:40.219765 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m16:08:40.221773 [debug] [Thread-1 (]: Using duckdb connection "test.mds_health.unique_stg_github_issues_issue_id.44cc6acdf8"
+[0m16:08:40.221773 [debug] [Thread-1 (]: On test.mds_health.unique_stg_github_issues_issue_id.44cc6acdf8: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "node_id": "test.mds_health.unique_stg_github_issues_issue_id.44cc6acdf8"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+select
+    issue_id as unique_field,
+    count(*) as n_records
+
+from "ci_test"."main"."stg_github_issues"
+where issue_id is not null
+group by issue_id
+having count(*) > 1
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m16:08:40.225809 [debug] [Thread-1 (]: SQL status: OK in 0.004 seconds
+[0m16:08:40.225809 [debug] [Thread-1 (]: On test.mds_health.unique_stg_github_issues_issue_id.44cc6acdf8: ROLLBACK
+[0m16:08:40.225809 [debug] [Thread-1 (]: On test.mds_health.unique_stg_github_issues_issue_id.44cc6acdf8: Close
+[0m16:08:40.225809 [info ] [Thread-1 (]: 6 of 9 PASS unique_stg_github_issues_issue_id .................................. [[32mPASS[0m in 0.02s]
+[0m16:08:40.225809 [debug] [Thread-1 (]: Finished running node test.mds_health.unique_stg_github_issues_issue_id.44cc6acdf8
+[0m16:08:40.225809 [debug] [Thread-1 (]: Began running node test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f
+[0m16:08:40.225809 [info ] [Thread-1 (]: 7 of 9 START test not_null_stg_github_pulls_pr_id .............................. [RUN]
+[0m16:08:40.225809 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly test.mds_health.unique_stg_github_issues_issue_id.44cc6acdf8, now test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f)
+[0m16:08:40.225809 [debug] [Thread-1 (]: Began compiling node test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f
+[0m16:08:40.234045 [debug] [Thread-1 (]: Writing injected SQL for node "test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f"
+[0m16:08:40.234045 [debug] [Thread-1 (]: Began executing node test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f
+[0m16:08:40.243735 [debug] [Thread-1 (]: Writing runtime sql for node "test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f"
+[0m16:08:40.245026 [debug] [Thread-1 (]: Using duckdb connection "test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f"
+[0m16:08:40.245026 [debug] [Thread-1 (]: On test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f: BEGIN
+[0m16:08:40.247012 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m16:08:40.247012 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m16:08:40.247012 [debug] [Thread-1 (]: Using duckdb connection "test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f"
+[0m16:08:40.247012 [debug] [Thread-1 (]: On test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "node_id": "test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+
+
+select pr_id
+from "ci_test"."main"."stg_github_pulls"
+where pr_id is null
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m16:08:40.250611 [debug] [Thread-1 (]: SQL status: OK in 0.003 seconds
+[0m16:08:40.250611 [debug] [Thread-1 (]: On test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f: ROLLBACK
+[0m16:08:40.250611 [debug] [Thread-1 (]: On test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f: Close
+[0m16:08:40.250611 [info ] [Thread-1 (]: 7 of 9 PASS not_null_stg_github_pulls_pr_id .................................... [[32mPASS[0m in 0.02s]
+[0m16:08:40.250611 [debug] [Thread-1 (]: Finished running node test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f
+[0m16:08:40.250611 [debug] [Thread-1 (]: Began running node test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f
+[0m16:08:40.250611 [info ] [Thread-1 (]: 8 of 9 START test unique_stg_github_pulls_pr_id ................................ [RUN]
+[0m16:08:40.250611 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly test.mds_health.not_null_stg_github_pulls_pr_id.22b5d6ec4f, now test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f)
+[0m16:08:40.250611 [debug] [Thread-1 (]: Began compiling node test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f
+[0m16:08:40.259171 [debug] [Thread-1 (]: Writing injected SQL for node "test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f"
+[0m16:08:40.259171 [debug] [Thread-1 (]: Began executing node test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f
+[0m16:08:40.263744 [debug] [Thread-1 (]: Writing runtime sql for node "test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f"
+[0m16:08:40.263744 [debug] [Thread-1 (]: Using duckdb connection "test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f"
+[0m16:08:40.267157 [debug] [Thread-1 (]: On test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f: BEGIN
+[0m16:08:40.267157 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m16:08:40.267766 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m16:08:40.268272 [debug] [Thread-1 (]: Using duckdb connection "test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f"
+[0m16:08:40.268272 [debug] [Thread-1 (]: On test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "node_id": "test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f"} */
+
+    
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+select
+    pr_id as unique_field,
+    count(*) as n_records
+
+from "ci_test"."main"."stg_github_pulls"
+where pr_id is not null
+group by pr_id
+having count(*) > 1
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m16:08:40.275980 [debug] [Thread-1 (]: SQL status: OK in 0.009 seconds
+[0m16:08:40.275980 [debug] [Thread-1 (]: On test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f: ROLLBACK
+[0m16:08:40.275980 [debug] [Thread-1 (]: On test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f: Close
+[0m16:08:40.275980 [info ] [Thread-1 (]: 8 of 9 PASS unique_stg_github_pulls_pr_id ...................................... [[32mPASS[0m in 0.03s]
+[0m16:08:40.275980 [debug] [Thread-1 (]: Finished running node test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f
+[0m16:08:40.275980 [debug] [Thread-1 (]: Began running node model.mds_health.fct_tool_weekly_snapshot
+[0m16:08:40.275980 [info ] [Thread-1 (]: 9 of 9 START sql table model main.fct_tool_weekly_snapshot ..................... [RUN]
+[0m16:08:40.275980 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly test.mds_health.unique_stg_github_pulls_pr_id.719cd2ab4f, now model.mds_health.fct_tool_weekly_snapshot)
+[0m16:08:40.275980 [debug] [Thread-1 (]: Began compiling node model.mds_health.fct_tool_weekly_snapshot
+[0m16:08:40.283571 [debug] [Thread-1 (]: Writing injected SQL for node "model.mds_health.fct_tool_weekly_snapshot"
+[0m16:08:40.283571 [debug] [Thread-1 (]: Began executing node model.mds_health.fct_tool_weekly_snapshot
+[0m16:08:40.316214 [debug] [Thread-1 (]: Writing runtime sql for node "model.mds_health.fct_tool_weekly_snapshot"
+[0m16:08:40.324097 [debug] [Thread-1 (]: Using duckdb connection "model.mds_health.fct_tool_weekly_snapshot"
+[0m16:08:40.324097 [debug] [Thread-1 (]: On model.mds_health.fct_tool_weekly_snapshot: BEGIN
+[0m16:08:40.324097 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m16:08:40.324097 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m16:08:40.324097 [debug] [Thread-1 (]: Using duckdb connection "model.mds_health.fct_tool_weekly_snapshot"
+[0m16:08:40.324097 [debug] [Thread-1 (]: On model.mds_health.fct_tool_weekly_snapshot: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "node_id": "model.mds_health.fct_tool_weekly_snapshot"} */
+
+    
+
+    create  table
+      "ci_test"."main"."fct_tool_weekly_snapshot__dbt_tmp"
+  
+    
+    as (
+      
+
+with issues as (
+    select
+        tool_name,
+        date_trunc('week', created_at) as week_start,
+        count_if(state = 'open') as issues_opened,
+        count_if(state = 'closed') as issues_closed,
+        avg(datediff('day', created_at, closed_at)) as avg_issue_close_time_days
+    from "ci_test"."main"."stg_github_issues"
+    group by 1, 2
+),
+
+pulls as (
+    select
+        tool_name,
+        date_trunc('week', created_at) as week_start,
+        count_if(state = 'open') as prs_opened,
+        count_if(merged_at is not null) as prs_merged
+    from "ci_test"."main"."stg_github_pulls"
+    group by 1, 2
+)
+
+select
+    coalesce(i.tool_name, p.tool_name) as tool_name,
+    coalesce(i.week_start, p.week_start) as week_start,
+    coalesce(i.issues_opened, 0) as issues_opened,
+    coalesce(i.issues_closed, 0) as issues_closed,
+    round(coalesce(i.avg_issue_close_time_days, 0), 2) as avg_issue_close_time_days,
+    coalesce(p.prs_opened, 0) as prs_opened,
+    coalesce(p.prs_merged, 0) as prs_merged
+from issues i
+full outer join pulls p 
+    on i.tool_name = p.tool_name 
+    and i.week_start = p.week_start
+    );
+    
+  
+[0m16:08:40.348574 [debug] [Thread-1 (]: SQL status: OK in 0.026 seconds
+[0m16:08:40.358489 [debug] [Thread-1 (]: Using duckdb connection "model.mds_health.fct_tool_weekly_snapshot"
+[0m16:08:40.358489 [debug] [Thread-1 (]: On model.mds_health.fct_tool_weekly_snapshot: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "node_id": "model.mds_health.fct_tool_weekly_snapshot"} */
+alter table "ci_test"."main"."fct_tool_weekly_snapshot__dbt_tmp" rename to "fct_tool_weekly_snapshot"
+[0m16:08:40.360496 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m16:08:40.364600 [debug] [Thread-1 (]: On model.mds_health.fct_tool_weekly_snapshot: COMMIT
+[0m16:08:40.364600 [debug] [Thread-1 (]: Using duckdb connection "model.mds_health.fct_tool_weekly_snapshot"
+[0m16:08:40.364600 [debug] [Thread-1 (]: On model.mds_health.fct_tool_weekly_snapshot: COMMIT
+[0m16:08:40.364600 [debug] [Thread-1 (]: SQL status: OK in 0.003 seconds
+[0m16:08:40.364600 [debug] [Thread-1 (]: Using duckdb connection "model.mds_health.fct_tool_weekly_snapshot"
+[0m16:08:40.364600 [debug] [Thread-1 (]: On model.mds_health.fct_tool_weekly_snapshot: /* {"app": "dbt", "dbt_version": "1.10.23", "profile_name": "mds_health", "target_name": "ci", "node_id": "model.mds_health.fct_tool_weekly_snapshot"} */
+
+      drop table if exists "ci_test"."main"."fct_tool_weekly_snapshot__dbt_backup" cascade
+    
+[0m16:08:40.372753 [debug] [Thread-1 (]: SQL status: OK in 0.000 seconds
+[0m16:08:40.372753 [debug] [Thread-1 (]: On model.mds_health.fct_tool_weekly_snapshot: Close
+[0m16:08:40.372753 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'd72d42b9-4a59-4e34-ace1-f4bb87f85af4', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000026E7A30D7F0>]}
+[0m16:08:40.374674 [info ] [Thread-1 (]: 9 of 9 OK created sql table model main.fct_tool_weekly_snapshot ................ [[32mOK[0m in 0.10s]
+[0m16:08:40.375299 [debug] [Thread-1 (]: Finished running node model.mds_health.fct_tool_weekly_snapshot
+[0m16:08:40.375299 [debug] [MainThread]: Using duckdb connection "master"
+[0m16:08:40.375299 [debug] [MainThread]: On master: BEGIN
+[0m16:08:40.375299 [debug] [MainThread]: Opening a new connection, currently in state closed
+[0m16:08:40.375299 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m16:08:40.375299 [debug] [MainThread]: On master: COMMIT
+[0m16:08:40.378343 [debug] [MainThread]: Using duckdb connection "master"
+[0m16:08:40.378343 [debug] [MainThread]: On master: COMMIT
+[0m16:08:40.378343 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m16:08:40.378343 [debug] [MainThread]: On master: Close
+[0m16:08:40.378343 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m16:08:40.378343 [debug] [MainThread]: Connection 'create_ci_test_main' was properly closed.
+[0m16:08:40.378343 [debug] [MainThread]: Connection 'list_ci_test_main' was properly closed.
+[0m16:08:40.378343 [debug] [MainThread]: Connection 'model.mds_health.fct_tool_weekly_snapshot' was properly closed.
+[0m16:08:40.378343 [info ] [MainThread]: 
+[0m16:08:40.380352 [info ] [MainThread]: Finished running 1 table model, 6 data tests, 2 view models in 0 hours 0 minutes and 0.64 seconds (0.64s).
+[0m16:08:40.380352 [debug] [MainThread]: Command end result
+[0m16:08:40.398445 [debug] [MainThread]: Wrote artifact WritableManifest to C:\Projects\modern-data-stack-health\transform\target\manifest.json
+[0m16:08:40.398445 [debug] [MainThread]: Wrote artifact SemanticManifest to C:\Projects\modern-data-stack-health\transform\target\semantic_manifest.json
+[0m16:08:40.410600 [debug] [MainThread]: Wrote artifact RunExecutionResult to C:\Projects\modern-data-stack-health\transform\target\run_results.json
+[0m16:08:40.413163 [info ] [MainThread]: 
+[0m16:08:40.413163 [info ] [MainThread]: [32mCompleted successfully[0m
+[0m16:08:40.413163 [info ] [MainThread]: 
+[0m16:08:40.413163 [info ] [MainThread]: Done. PASS=9 WARN=0 ERROR=0 SKIP=0 NO-OP=0 TOTAL=9
+[0m16:08:40.413163 [debug] [MainThread]: Command `dbt build` succeeded at 16:08:40.413163 after 2.94 seconds
+[0m16:08:40.413163 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000026E78417620>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000026E7A18CC20>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000026E7A170E00>]}
+[0m16:08:40.413163 [debug] [MainThread]: Flushing usage events
+[0m16:08:41.248872 [debug] [MainThread]: An error was encountered while trying to flush usage events

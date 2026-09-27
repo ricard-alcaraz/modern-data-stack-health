@@ -5,40 +5,60 @@ from dotenv import load_dotenv
 from dagster import asset, AssetExecutionContext
 
 from ingestion.utils.api_client import GitHubAPIClient
-from ingestion.extractors.dbt_core import DbtCoreExtractor
+from ingestion.utils.db_writer import MotherDuckWriter
+from ingestion.extractors.github_repo import GitHubRepoExtractor
+
+# Keep this in sync with main.py
+TOOLS_TO_TRACK = [
+    ("dbt-labs", "dbt-core"),
+    ("apache", "airflow"),
+    ("dagster-io", "dagster"),
+]
 
 @asset(
     group_name="ingestion",
-    description="Extracts raw GitHub data (issues, PRs, releases) for dbt-core and lands it as JSONL."
+    description="Extracts raw GitHub data for all tracked tools and upserts into MotherDuck."
 )
-def raw_dbt_core_data(context: AssetExecutionContext):
-    """Dagster asset wrapping the custom Python GitHub extractor."""
+def raw_tools_data(context: AssetExecutionContext):
+    """Dagster asset wrapping the multi-tool Python extraction."""
     
-    # 1. Load .env file if it exists (for local development)
     root_dir = Path(__file__).parent.parent.parent.parent
     env_path = root_dir / '.env'
     
     if env_path.exists():
         load_dotenv(dotenv_path=env_path)
         context.log.info(f"Loaded environment variables from {env_path}")
-    else:
-        context.log.info("No .env file found. Relying on environment variables.")
 
-    github_token = os.getenv("TOKEN")
+    github_token = os.getenv("GITHUB_TOKEN")
     if not github_token:
-        raise ValueError("TOKEN not found in environment variables")
+        raise ValueError("GITHUB_TOKEN not found in environment variables")
 
     landing_dir = os.getenv("LANDING_DIR", "data/landing")
+    
+    db_writer = None
+    if os.getenv("MOTHERDUCK_TOKEN"):
+        try:
+            db_writer = MotherDuckWriter()
+            context.log.info("Initialized MotherDuck writer for durable storage")
+        except Exception as e:
+            context.log.warning(f"Could not initialize MotherDuck writer: {e}")
 
-    # 2. Initialize and run the extractor
-    context.log.info("Initializing GitHub API Client...")
     client = GitHubAPIClient(token=github_token)
+
+    extractors = [
+        GitHubRepoExtractor(
+            client=client, repo_owner=owner, repo_name=name, 
+            landing_dir=landing_dir, db_writer=db_writer
+        )
+        for owner, name in TOOLS_TO_TRACK
+    ]
+
+    for extractor in extractors:
+        context.log.info(f"Starting extraction for {extractor.repo_slug}...")
+        extractor.extract()
     
-    extractor = DbtCoreExtractor(client=client, landing_dir=landing_dir)
-    
-    context.log.info(f"Starting extraction for {extractor.repo_slug}...")
-    extractor.extract()
-    
-    context.log.info("Ingestion complete. Raw data landed in data/landing/dbt-core/")
-    
-    return f"{landing_dir}/dbt-core"
+    if db_writer:
+        db_writer.close()
+
+    context.log.info("Ingestion complete for all tracked tools.")
+    return f"Extracted data for {len(extractors)} tools"
