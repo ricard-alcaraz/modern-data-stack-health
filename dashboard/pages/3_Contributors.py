@@ -4,6 +4,7 @@ import duckdb
 import pandas as pd
 import plotly.express as px
 from dotenv import load_dotenv
+from db import get_connection
 
 load_dotenv()
 st.set_page_config(page_title="Contributors", page_icon="👥", layout="wide")
@@ -13,11 +14,6 @@ st.markdown("""
 Analyzing **contributor churn** — are the same people maintaining these tools, 
 or is there healthy turnover? This is a key signal for long-term project health.
 """)
-
-@st.cache_resource
-def get_connection():
-    token = os.getenv("MOTHERDUCK_TOKEN")
-    return duckdb.connect(f"md:mds_health_db?motherduck_token={token}")
 
 conn = get_connection()
 

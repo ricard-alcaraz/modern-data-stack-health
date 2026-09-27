@@ -1,10 +1,13 @@
 import os
 import streamlit as st
 import duckdb
+import re
+
 import pandas as pd
 from openai import OpenAI
 from dotenv import load_dotenv
 from semantic_layer import get_semantic_layer_prompt, get_metric_sql, list_metric_names, METRICS
+from db import get_connection
 
 load_dotenv()
 st.set_page_config(page_title="AI Analyst", page_icon="🤖", layout="wide")
@@ -16,10 +19,6 @@ The AI will generate the SQL, query MotherDuck, and summarize the findings.
 """)
 
 # --- 1. Configuration & Connections ---
-@st.cache_resource
-def get_connection():
-    token = os.getenv("MOTHERDUCK_TOKEN")
-    return duckdb.connect(f"md:mds_health_db?motherduck_token={token}")
 
 def get_llm_client(provider="openai"):
     """Get LLM client based on provider selection."""
@@ -42,8 +41,38 @@ def get_llm_client(provider="openai"):
             return None, None, f"Cannot connect to LM Studio at {base_url}. Is the server running? Error: {e}"
     
     return None, None, "Unknown provider"
+def validate_readonly_sql(sql_query: str) -> bool:
+    """
+    Defense-in-depth: Validates that the generated SQL is strictly a read-only query.
+    Rejects DML, DDL, and multiple statements.
+    """
+    # 1. Strip SQL comments to prevent bypass tricks (e.g., hiding a DROP in a multi-line comment)
+    sql_clean = re.sub(r'--.*$', '', sql_query, flags=re.MULTILINE)
+    sql_clean = re.sub(r'/\*.*?\*/', '', sql_clean, flags=re.DOTALL)
+    sql_clean = re.sub(r'\s+', ' ', sql_clean).strip()
+    
+    # 2. Block multiple statements (DuckDB can execute chained statements separated by ';')
+    if ';' in sql_clean:
+        return False
+        
+    # 3. Block dangerous keywords using word boundaries (\b)
+    dangerous_keywords = [
+        'INSERT', 'UPDATE', 'DELETE', 'DROP', 'ALTER', 'CREATE', 
+        'ATTACH', 'DETACH', 'COPY', 'EXECUTE', 'CALL', 'PREPARE', 
+        'GRANT', 'REVOKE', 'COMMIT', 'ROLLBACK', 'MERGE', 'TRUNCATE',
+        'EXPORT', 'IMPORT', 'INSTALL', 'LOAD' # Prevent loading extensions
+    ]
+    
+    for kw in dangerous_keywords:
+        if re.search(rf'\b{kw}\b', sql_clean, re.IGNORECASE):
+            return False
+    # 4. Ensure it starts with safe read-only commands
+    if not re.match(r'^(SELECT|WITH|EXPLAIN|SUMMARIZE)\b', sql_clean, re.IGNORECASE):
+        return False
+        
+    return True
 
-conn = get_connection()
+conn = get_connection(read_only=True)
 
 # --- 2. Dynamic Schema Extraction ---
 def get_schema_from_motherduck(conn):
@@ -164,30 +193,33 @@ if user_question:
             
             st.code(sql_query, language="sql")
             
-            # Step B: Execute the query
-            with st.spinner("🗄️ Executing query against MotherDuck..."):
-                df = conn.execute(sql_query).df()
-                
-                if df.empty:
-                    st.info("The query ran successfully, but returned no results.")
-                else:
-                    st.success("Query executed successfully!")
-                    st.dataframe(df, use_container_width=True)
+            # Step B: Validate & Execute the query
+            if not validate_readonly_sql(sql_query):
+                st.error("🛡️ **Security Guardrail Triggered:** The AI generated a query that attempted to modify data or execute multiple statements. It was blocked to protect the production database.")
+            else:
+                with st.spinner("🗄️ Executing query against MotherDuck..."):
+                    df = conn.execute(sql_query).df()
                     
-                    # Step C: AI Summary
-                    with st.spinner("📝 AI is summarizing the results..."):
-                        summary_prompt = f"""
-                        The user asked: "{user_question}"
-                        The SQL query returned this data: {df.head(10).to_markdown()}
-                        Provide a concise, 2-3 sentence business summary of these findings.
-                        """
-                        summary_response = client.chat.completions.create(
-                            model=model,
-                            messages=[{"role": "user", "content": summary_prompt}],
-                            temperature=0.3
-                        )
-                        st.markdown("### 💡 AI Summary")
-                        st.info(summary_response.choices[0].message.content)
+                    if df.empty:
+                        st.info("The query ran successfully, but returned no results.")
+                    else:
+                        st.success("Query executed successfully!")
+                        st.dataframe(df, use_container_width=True)
+                        
+                        # Step C: AI Summary
+                        with st.spinner("📝 AI is summarizing the results..."):
+                            summary_prompt = f"""
+                            The user asked: "{user_question}"
+                            The SQL query returned this data: {df.head(10).to_markdown()}
+                            Provide a concise, 2-3 sentence business summary of these findings.
+                            """
+                            summary_response = client.chat.completions.create(
+                                model=model,
+                                messages=[{"role": "user", "content": summary_prompt}],
+                                temperature=0.3
+                            )
+                            st.markdown("### 💡 AI Summary")
+                            st.info(summary_response.choices[0].message.content)
                         
         except Exception as e:
             st.error(f"An error occurred: {e}")

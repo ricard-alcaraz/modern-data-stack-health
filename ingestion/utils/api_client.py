@@ -43,7 +43,11 @@ class GitHubAPIClient:
             if not data:
                 break
                 
-            yield from data
+            if isinstance(data, list):
+                yield from data
+            else:
+                yield data
+                break # Single object endpoints do not have pagination
             
             # Check for 'next' page in Link header
             link_header = response.headers.get("Link")

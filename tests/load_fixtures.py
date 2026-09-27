@@ -7,6 +7,8 @@ external API calls or MotherDuck access.
 import duckdb
 from pathlib import Path
 import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from ingestion.config import TOOLS
 
 def load_fixtures(db_path: str = "ci_test.duckdb"):
     """Load all test fixtures into a local DuckDB database."""
@@ -24,12 +26,12 @@ def load_fixtures(db_path: str = "ci_test.duckdb"):
     conn.execute("CREATE SCHEMA IF NOT EXISTS raw")
     
     # Load each fixture
-    tools = ["dbt_core", "airflow", "dagster"]
+
     data_types = ["issues", "pulls", "releases"]
     
-    for tool in tools:
+    for tool in TOOLS:
         for data_type in data_types:
-            table_name = f"{tool}_{data_type}"
+            table_name = f"{tool.table_prefix}_{data_type}"
             fixture_path = fixtures_dir / f"{table_name}.jsonl"
             
             if not fixture_path.exists():

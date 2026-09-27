@@ -1,10 +1,25 @@
 mds_health:
-  target: prod
+  target: dev
+
   outputs:
-    prod:
+    # Local scratch database. Zero risk, zero cost, works offline.
+    dev:
       type: duckdb
-      path: 'md:mds_health_db'
+      path: "{{ env_var('DBT_DEV_PATH', 'data/db/mds_health_dev.duckdb') }}"
+      schema: main
+      threads: 4
+
+    # Ephemeral in-memory DB for CI + fixture-based tests
     ci:
       type: duckdb
       path: '../ci_test.duckdb'
       schema: main
+      threads: 1
+
+    # Production MotherDuck. Requires MOTHERDUCK_TOKEN or fails fast.
+    prod:
+      type: duckdb
+      path: "md:{{ env_var('MOTHERDUCK_DATABASE', 'md:mds_health_db') }}"
+      token: "{{ env_var('MOTHERDUCK_TOKEN') }}"
+      schema: main
+      threads: 1
