@@ -3,6 +3,7 @@ import streamlit as st
 import duckdb
 import pandas as pd
 from dotenv import load_dotenv
+from db import get_connection
 
 # Load environment variables
 load_dotenv()
@@ -14,16 +15,6 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
-
-# MotherDuck connection
-@st.cache_resource
-def get_connection():
-    token = os.getenv("MOTHERDUCK_TOKEN")
-    database = os.getenv("MOTHERDUCK_DATABASE", "mds_health_db")
-    if not token:
-        st.error("MOTHERDUCK_TOKEN not found. Set it in .env or Streamlit secrets.")
-        st.stop()
-    return duckdb.connect(f"md:{database}?motherduck_token={token}")
 
 # Title
 st.title("🏥 Health of the Modern Data Stack")
