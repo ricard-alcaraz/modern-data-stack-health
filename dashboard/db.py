@@ -11,11 +11,10 @@ load_dotenv()
 @st.cache_resource
 def get_connection() -> duckdb.DuckDBPyConnection:
     """One cached, strictly read-only MotherDuck connection for the whole dashboard.
-
-    DuckDB forbids opening the same database twice in one process with
-    different configurations (read-only vs read-write). Every dashboard page
-    only ever runs SELECTs, so we open a single read-only connection and
-    share it everywhere.
+    
+    SECURITY NOTE: For the strongest protection, the MOTHERDUCK_TOKEN provided in 
+    .env or Streamlit secrets should be a Read-Only scaling token generated from 
+    the MotherDuck UI. This enforces read-only access at the server level.
     """
     token = os.getenv("MOTHERDUCK_TOKEN")
     if not token:

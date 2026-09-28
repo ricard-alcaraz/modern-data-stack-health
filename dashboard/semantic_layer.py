@@ -124,13 +124,13 @@ METRICS = {
 
 def get_semantic_layer_prompt() -> str:
     """Generate a formatted string of all available metrics for the LLM prompt."""
-    lines = ["AVAILABLE BUSINESS METRICS (use these when the user asks about these concepts):"]
+    lines = ["AVAILABLE BUSINESS METRICS (use these exact definitions when the user asks about these concepts):"]
     
     for name, meta in METRICS.items():
         lines.append(f"\n- `{name}`: {meta['description']}")
+        lines.append(f"  Pre-defined SQL:\n  ```sql\n  {meta['sql'].strip()}\n  ```")
     
-    lines.append("\nWhen the user asks about one of these metrics, use the pre-defined SQL.")
-    lines.append("You can add WHERE clauses to filter by tool_name or date range.")
+    lines.append("\nWhen the user asks about one of these metrics, YOU MUST USE the pre-defined SQL. You can wrap it in a CTE or add WHERE clauses to filter by tool_name or date range.")
     lines.append("For any other question, write custom SQL using the table schema.")
     
     return "\n".join(lines)

@@ -22,7 +22,7 @@ ingest:
 
 dbt-run:
 	@echo "Running dbt build (via cross-platform wrapper)..."
-	$(VENV_PY) -m transform.run_dbt build
+	$(VENV_PY) -m transform.run_dbt build --target prod
 
 dbt-docs:
 	@echo "Generating and serving dbt docs..."

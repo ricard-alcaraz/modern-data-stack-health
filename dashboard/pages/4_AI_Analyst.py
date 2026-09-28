@@ -8,6 +8,8 @@ from openai import OpenAI
 from dotenv import load_dotenv
 from semantic_layer import get_semantic_layer_prompt, get_metric_sql, list_metric_names, METRICS
 from db import get_connection
+import sqlglot
+from sqlglot import exp
 
 load_dotenv()
 st.set_page_config(page_title="AI Analyst", page_icon="🤖", layout="wide")
@@ -41,36 +43,74 @@ def get_llm_client(provider="openai"):
             return None, None, f"Cannot connect to LM Studio at {base_url}. Is the server running? Error: {e}"
     
     return None, None, "Unknown provider"
+
 def validate_readonly_sql(sql_query: str) -> bool:
     """
-    Defense-in-depth: Validates that the generated SQL is strictly a read-only query.
-    Rejects DML, DDL, and multiple statements.
+    Defense-in-depth: Validates that the generated SQL is strictly a read-only query
+    using sqlglot to parse the AST.
     """
-    # 1. Strip SQL comments to prevent bypass tricks (e.g., hiding a DROP in a multi-line comment)
-    sql_clean = re.sub(r'--.*$', '', sql_query, flags=re.MULTILINE)
-    sql_clean = re.sub(r'/\*.*?\*/', '', sql_clean, flags=re.DOTALL)
-    sql_clean = re.sub(r'\s+', ' ', sql_clean).strip()
-    
-    # 2. Block multiple statements (DuckDB can execute chained statements separated by ';')
-    if ';' in sql_clean:
-        return False
+    try:
+        # Strip markdown and trailing semicolons
+        sql_clean = sql_query.strip()
+        if sql_clean.lower().startswith("```sql"): sql_clean = sql_clean[6:]
+        if sql_clean.endswith("```"): sql_clean = sql_clean[:-3]
+        sql_clean = sql_clean.strip().rstrip(';')
         
-    # 3. Block dangerous keywords using word boundaries (\b)
-    dangerous_keywords = [
-        'INSERT', 'UPDATE', 'DELETE', 'DROP', 'ALTER', 'CREATE', 
-        'ATTACH', 'DETACH', 'COPY', 'EXECUTE', 'CALL', 'PREPARE', 
-        'GRANT', 'REVOKE', 'COMMIT', 'ROLLBACK', 'MERGE', 'TRUNCATE',
-        'EXPORT', 'IMPORT', 'INSTALL', 'LOAD' # Prevent loading extensions
-    ]
-    
-    for kw in dangerous_keywords:
-        if re.search(rf'\b{kw}\b', sql_clean, re.IGNORECASE):
-            return False
-    # 4. Ensure it starts with safe read-only commands
-    if not re.match(r'^(SELECT|WITH|EXPLAIN|SUMMARIZE)\b', sql_clean, re.IGNORECASE):
-        return False
+        if not sql_clean: return False
+
+        parsed = sqlglot.parse(sql_clean, read="duckdb")
         
-    return True
+        # Must be exactly one statement
+        if len(parsed) != 1 or parsed[0] is None: return False
+            
+        stmt = parsed[0]
+        
+        # Must be a SELECT statement (includes WITH clauses)
+        if not isinstance(stmt, exp.Select): return False
+
+        # 1. Block dangerous functions (exfiltration vectors)
+        DANGEROUS_FUNCS = {
+            'read_csv', 'read_csv_auto', 'read_parquet', 'read_json', 
+            'read_json_auto', 'glob', 'read_text', 'httpfs', 'md_scan',
+            'current_setting' # Prevents leaking MOTHERDUCK_TOKEN
+        }
+        
+        for node in stmt.walk():
+            if isinstance(node, exp.Anonymous) and node.name.lower() in DANGEROUS_FUNCS:
+                return False
+            if isinstance(node, exp.CurrentSetting):
+                return False
+            if isinstance(node, exp.Table):
+                if node.name.lower() in DANGEROUS_FUNCS: return False
+                # Table functions are parsed as Table(this=Func/Anonymous)
+                if node.this and isinstance(node.this, (exp.Func, exp.Anonymous)):
+                    return False
+
+        # 2. Enforce strict table allowlist
+        cte_names = set()
+        with_node = stmt.args.get("with")
+        if with_node:
+            for cte in with_node.expressions:
+                if cte.alias_or_name: cte_names.add(cte.alias_or_name.lower())
+        
+        for table in stmt.find_all(exp.Table):
+            if table.this and isinstance(table.this, (exp.Func, exp.Anonymous)):
+                continue # Skip table functions
+            
+            table_name = table.name.lower().strip('"')
+            schema_name = table.db.lower().strip('"') if table.db else None
+            
+            if schema_name == 'information_schema': continue
+            if table_name in cte_names: continue
+            if schema_name == 'raw': continue # Allow ingestion schema
+            if table_name.startswith('fct_') or table_name.startswith('stg_'): continue
+                
+            return False # Forbidden table
+            
+        return True
+        
+    except Exception:
+        return False
 
 conn = get_connection()
 
@@ -158,69 +198,60 @@ st.markdown("### ⚡ Quick Metrics")
 cols = st.columns(3)
 quick_metrics = list(METRICS.keys())
 
+if "direct_metric" not in st.session_state:
+    st.session_state["direct_metric"] = None
+
 for i, metric_name in enumerate(quick_metrics):
     with cols[i % 3]:
         if st.button(f"📊 {metric_name.replace('_', ' ').title()}", use_container_width=True):
-            st.session_state["user_question"] = f"Show me the {metric_name.replace('_', ' ')}"
+            st.session_state["direct_metric"] = metric_name
 
 # --- 7. Query Interface ---
-user_question = st.text_input(
-    "Ask a question about the data:",
-    placeholder="e.g., What is the total number of merged PRs for dbt-core?",
-    value=st.session_state.get("user_question", ""),
-    key="question_input"
-)
+direct_metric = st.session_state.get("direct_metric")
 
-if user_question:
-    # Clear the session state after use
-    if "user_question" in st.session_state:
-        del st.session_state["user_question"]
+if direct_metric:
+    metric_sql = METRICS[direct_metric]["sql"]
     
-    with st.spinner("🧠 AI is generating the SQL query..."):
+    st.markdown(f"### 📈 Executing Pre-defined Metric: `{direct_metric}`")
+    st.caption(METRICS[direct_metric]["description"])
+    st.code(metric_sql, language="sql")
+    
+    with st.spinner("🗄️ Executing query against MotherDuck..."):
         try:
-            # Step A: Generate SQL
-            response = client.chat.completions.create(
-                model=model,
-                messages=[
-                    {"role": "system", "content": SCHEMA_CONTEXT},
-                    {"role": "user", "content": f"Write a DuckDB SQL query to answer this question: {user_question}"}
-                ],
-                temperature=0.0
-            )
-            
-            sql_query = response.choices[0].message.content.strip()
-            sql_query = sql_query.replace("```sql", "").replace("```", "").strip()
-            
-            st.code(sql_query, language="sql")
-            
-            # Step B: Validate & Execute the query
-            if not validate_readonly_sql(sql_query):
-                st.error("🛡️ **Security Guardrail Triggered:** The AI generated a query that attempted to modify data or execute multiple statements. It was blocked to protect the production database.")
+            df = conn.execute(metric_sql).df()
+            if df.empty:
+                st.info("The query ran successfully, but returned no results.")
             else:
-                with st.spinner("🗄️ Executing query against MotherDuck..."):
-                    df = conn.execute(sql_query).df()
-                    
-                    if df.empty:
-                        st.info("The query ran successfully, but returned no results.")
-                    else:
-                        st.success("Query executed successfully!")
-                        st.dataframe(df, use_container_width=True)
-                        
-                        # Step C: AI Summary
-                        with st.spinner("📝 AI is summarizing the results..."):
-                            summary_prompt = f"""
-                            The user asked: "{user_question}"
-                            The SQL query returned this data: {df.head(10).to_markdown()}
-                            Provide a concise, 2-3 sentence business summary of these findings.
-                            """
-                            summary_response = client.chat.completions.create(
-                                model=model,
-                                messages=[{"role": "user", "content": summary_prompt}],
-                                temperature=0.3
-                            )
-                            st.markdown("### 💡 AI Summary")
-                            st.info(summary_response.choices[0].message.content)
-                        
+                st.success("Query executed successfully!")
+                st.dataframe(df, use_container_width=True)
+                
+                # AI Summary
+                with st.spinner("📝 AI is summarizing the results..."):
+                    summary_prompt = f"""
+                    The user ran the pre-defined metric: "{direct_metric}"
+                    The SQL query returned this data: {df.head(10).to_markdown()}
+                    Provide a concise, 2-3 sentence business summary of these findings.
+                    """
+                    summary_response = client.chat.completions.create(
+                        model=model, messages=[{"role": "user", "content": summary_prompt}], temperature=0.3
+                    )
+                    st.markdown("### 💡 AI Summary")
+                    st.info(summary_response.choices[0].message.content)
         except Exception as e:
             st.error(f"An error occurred: {e}")
-            st.markdown("*Tip: Try rephrasing your question to be more specific.*")
+            
+    if st.button("❌ Clear Metric & Ask Custom Question"):
+        st.session_state["direct_metric"] = None
+        st.rerun()
+
+else:
+    user_question = st.text_input(
+        "Ask a question about the data:",
+        placeholder="e.g., What is the total number of merged PRs for dbt-core?",
+        value=st.session_state.get("user_question", ""),
+        key="question_input"
+    )
+    
+    if user_question:
+        if "user_question" in st.session_state:
+            del st.session_state["user_question"]
