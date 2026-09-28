@@ -20,4 +20,4 @@ dbt_project.prepare_if_dev()
 )
 def mds_dbt_assets(context: AssetExecutionContext, dbt: DbtCliResource):
     """Runs dbt build and streams results to Dagster."""
-    yield from dbt.cli(["build"], context=context).stream()
+    yield from dbt.cli(["build", "--target", "prod"], context=context).stream()

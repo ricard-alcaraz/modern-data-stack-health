@@ -14,7 +14,7 @@ conn = get_connection()
 
 # Load data
 df = conn.execute("""
-    SELECT * FROM mds_health_db.main.fct_tool_weekly_snapshot
+    SELECT * FROM main.fct_tool_weekly_snapshot
     ORDER BY week_start DESC
 """).df()
 

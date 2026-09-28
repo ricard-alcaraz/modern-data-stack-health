@@ -24,6 +24,8 @@ renamed as (
         merged_at::timestamp as merged_at,
         closed_at::timestamp as closed_at,
         user.login as author_login,
+        user.type as author_type,
+        coalesce(user.type = 'Bot', false) as is_bot,
         tool_name
     from deduplicated
     where rn = 1

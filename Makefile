@@ -22,7 +22,7 @@ ingest:
 
 dbt-run:
 	@echo "Running dbt build (via cross-platform wrapper)..."
-	$(VENV_PY) -m transform.run_dbt build
+	$(VENV_PY) -m transform.run_dbt build --target prod
 
 dbt-docs:
 	@echo "Generating and serving dbt docs..."
@@ -32,6 +32,10 @@ dbt-docs:
 dagster-up:
 	@echo "Starting Dagster UI..."
 	$(VENV_DAGS) -m orchestration.modern_data_stack.definitions
+
+test:
+	@echo "Running pytest..."
+	$(VENV_PY) -m pytest tests/
 
 clean:
 	@echo "Cleaning up local cache and landing data..."

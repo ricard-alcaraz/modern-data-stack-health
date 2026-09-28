@@ -12,3 +12,12 @@ models:
         description: The start of the week (Monday).
         tests:
           - not_null
+      - name: avg_issue_close_time_days
+        description: >
+          Average days to close for issues closed in that week. NULL (not zero)
+          when no issues were closed that week.
+      - name: issue_close_time_days_total
+        description: >
+          Sum of close times (days) for issues closed that week. For tool-level
+          velocity use sum(total) / sum(issues_closed) — never average the weekly
+          averages.

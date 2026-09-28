@@ -22,7 +22,7 @@ metrics = conn.execute("""
         SUM(prs_opened) as total_prs_opened,
         SUM(prs_merged) as total_prs_merged,
         COUNT(DISTINCT week_start) as weeks_tracked
-    FROM mds_health_db.main.fct_tool_weekly_snapshot
+    FROM main.fct_tool_weekly_snapshot
     GROUP BY tool_name
     ORDER BY tool_name
 """).df()

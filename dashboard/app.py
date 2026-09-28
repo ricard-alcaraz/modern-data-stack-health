@@ -35,7 +35,7 @@ try:
             MAX(week_start) as latest_week,
             SUM(issues_opened) as total_issues_opened,
             SUM(prs_merged) as total_prs_merged
-        FROM mds_health_db.main.fct_tool_weekly_snapshot
+        FROM main.fct_tool_weekly_snapshot
     """).df()
     
     col1, col2, col3, col4 = st.columns(4)
@@ -49,7 +49,7 @@ try:
     # Tools list
     tools = conn.execute("""
         SELECT DISTINCT tool_name 
-        FROM mds_health_db.main.fct_tool_weekly_snapshot 
+        FROM main.fct_tool_weekly_snapshot 
         ORDER BY tool_name
     """).df()
     
