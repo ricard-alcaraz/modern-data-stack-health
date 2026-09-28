@@ -7,3 +7,5 @@ data/
 *.duckdb
 transform/target/
 transform/logs/
+transform/edr_target
+dbt_packages/

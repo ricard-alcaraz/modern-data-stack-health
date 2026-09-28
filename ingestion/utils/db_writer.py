@@ -102,24 +102,30 @@ class MotherDuckWriter:
             """)
 
             # Get common columns to avoid schema mismatch
-            target_cols = [
-                row[0]
-                for row in self.conn.execute(
-                    f"DESCRIBE {safe_identifier(full_table_name)}"
-                ).fetchall()
-            ]
-            temp_cols = [
-                row[0]
-                for row in self.conn.execute(
-                    f"DESCRIBE {safe_identifier(temp_table)}"
-                ).fetchall()
-            ]
+            target_cols = [row[0] for row in self.conn.execute(f"DESCRIBE {safe_identifier(full_table_name)}").fetchall()]
+            temp_cols = [row[0] for row in self.conn.execute(f"DESCRIBE {safe_identifier(temp_table)}").fetchall()]
             common_cols = [col for col in target_cols if col in temp_cols]
-            cols_str = ", ".join(common_cols)
-
+            
+            select_cols = []
+            for col in common_cols:
+                # Get the target column type
+                target_type = self.conn.execute(f"""
+                    SELECT data_type 
+                    FROM information_schema.columns 
+                    WHERE table_schema = 'raw' 
+                    AND table_name = '{safe_identifier(table_name)}'
+                    AND column_name = '{safe_identifier(col)}'
+                """).fetchone()[0]
+                
+                # Cast the temp column to match target type
+                select_cols.append(f"TRY_CAST({safe_identifier(col)} AS {target_type}) AS {safe_identifier(col)}")
+            
+            cols_str = ", ".join([safe_identifier(col) for col in common_cols])
+            select_str = ", ".join(select_cols)
+            
             self.conn.execute(f"""
                 INSERT INTO {safe_identifier(full_table_name)} ({cols_str})
-                SELECT {cols_str} FROM {safe_identifier(temp_table)}
+                SELECT {select_str} FROM {safe_identifier(temp_table)}
             """)
 
             row_count = self.conn.execute(

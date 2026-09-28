@@ -80,3 +80,11 @@ jobs:
           cd transform
           dbt deps
           dbt build --target ci
+
+      - name: Run Elementary tests
+        run: |
+          cd transform
+          dbt run --select elementary --target ci
+          dbt test --target ci
+        continue-on-error: true
+      

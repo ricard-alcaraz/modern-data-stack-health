@@ -16,9 +16,9 @@ def get_connection() -> duckdb.DuckDBPyConnection:
     .env or Streamlit secrets should be a Read-Only scaling token generated from 
     the MotherDuck UI. This enforces read-only access at the server level.
     """
-    token = os.getenv("MOTHERDUCK_TOKEN")
+    token = os.getenv("MOTHERDUCK_TOKEN_RO")
     if not token:
-        st.error("MOTHERDUCK_TOKEN not found. Set it in .env or Streamlit secrets.")
+        st.error("MOTHERDUCK_TOKEN_RO not found. Set it in .env or Streamlit secrets.")
         st.stop()
     database = os.getenv("MOTHERDUCK_DATABASE", "mds_health_db")
     return duckdb.connect(

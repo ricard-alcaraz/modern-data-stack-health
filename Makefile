@@ -37,6 +37,11 @@ test:
 	@echo "Running pytest..."
 	$(VENV_PY) -m pytest tests/
 
+elementary-report:
+	@echo "Loading environment and generating Elementary report..."
+	$(VENV_PY) -m transform.run_edr report
+	@echo "✅ Report: transform/target/elementary_report.html"
+
 clean:
 	@echo "Cleaning up local cache and landing data..."
 	rm -rf data/landing/*

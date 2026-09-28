@@ -23,3 +23,13 @@ mds_health:
       token: "{{ env_var('MOTHERDUCK_TOKEN') }}"
       schema: main
       threads: 1
+
+elementary:
+  target: prod
+  outputs:
+    prod:
+      type: duckdb
+      path: "md:{{ env_var('MOTHERDUCK_DATABASE', 'mds_health_db') }}"
+      token: "{{ env_var('MOTHERDUCK_TOKEN') }}"
+      schema: main
+      threads: 1

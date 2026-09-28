@@ -6,6 +6,7 @@ from dagster_dbt import DbtCliResource
 from .assets.ingestion import raw_tools_data
 from .assets.dbt import mds_dbt_assets, dbt_project
 from .assets.sources import raw_github_sources
+from .assets.elementary import elementary_tests
 
 # Define a schedule to run the whole pipeline every day at 6:00 AM
 daily_schedule = ScheduleDefinition(
@@ -17,7 +18,7 @@ daily_schedule = ScheduleDefinition(
 # The master Definitions object
 defs = Definitions(
     # Note: we unpack raw_github_sources using *
-    assets=[raw_tools_data, mds_dbt_assets, *raw_github_sources],
+    assets=[raw_tools_data, mds_dbt_assets, *raw_github_sources, elementary_tests],
     schedules=[daily_schedule],
     resources={
         "dbt": DbtCliResource(project_dir=dbt_project),
