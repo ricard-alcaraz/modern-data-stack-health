@@ -22,7 +22,10 @@ class GitHubRepoExtractor(BaseExtractor):
 
         # 2. Issues (incremental)
         table_name = f"{self.repo_name.replace('-', '_')}_issues"
-        issues_since = self._get_latest_timestamp_from_warehouse(table_name)
+        issues_since_dt = self._get_latest_timestamp_from_warehouse(table_name)
+        # GitHub API accepts ISO 8601 format
+        issues_since = issues_since_dt.isoformat() if issues_since_dt else None
+        
         logger.info(f"Fetching issues updated since: {issues_since}")
         issues_params = {"state": "all", "since": issues_since}
         issues_data = list(self.client.paginate(
@@ -33,8 +36,9 @@ class GitHubRepoExtractor(BaseExtractor):
 
         # 3. Pull Requests (incremental)
         table_name_pr = f"{self.repo_name.replace('-', '_')}_pulls"
-        pulls_since = self._get_latest_timestamp_from_warehouse(table_name_pr)
-        logger.info(f"Fetching pull requests updated since: {pulls_since}")
+        pulls_since_dt = self._get_latest_timestamp_from_warehouse(table_name_pr)
+        
+        logger.info(f"Fetching pull requests updated since: {pulls_since_dt.isoformat() if pulls_since_dt else 'N/A'}")
         
         pulls_params = {"state": "all", "sort": "updated", "direction": "desc"}
         
@@ -43,11 +47,19 @@ class GitHubRepoExtractor(BaseExtractor):
             f"/repos/{self.repo_owner}/{self.repo_name}/pulls", 
             params=pulls_params
         ):
-            pr_updated = pr.get("updated_at")
-            # String comparison works perfectly for ISO 8601 dates from the same source
-            if pulls_since and pr_updated and pr_updated < pulls_since:
-                logger.info("Reached PRs older than the incremental threshold, stopping pagination early.")
-                break
+            pr_updated_str = pr.get("updated_at")
+            
+            if pulls_since_dt and pr_updated_str:
+                try:
+                    from datetime import datetime
+                    # Handle 'Z' suffix safely
+                    pr_updated_dt = datetime.fromisoformat(pr_updated_str.replace("Z", "+00:00"))
+                    if pr_updated_dt < pulls_since_dt:
+                        logger.info("Reached PRs older than the incremental threshold, stopping pagination early.")
+                        break
+                except ValueError:
+                    logger.warning(f"Could not parse PR updated_at: {pr_updated_str}")
+                    
             pulls_data.append(pr)
             
         self._save_raw(pulls_data, "pulls.jsonl")
