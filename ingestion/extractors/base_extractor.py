@@ -25,8 +25,10 @@ class BaseExtractor(ABC):
         if not self.db_writer:
             return default_cutoff
         
+        safe_table_name = safe_identifier(table_name)
+        
         try:
-            query = f"SELECT MAX(updated_at) as latest FROM raw.{safe_identifier(table_name)}"
+            query = f"SELECT MAX(updated_at) as latest FROM raw.{safe_table_name}"
             result = self.db_writer.conn.execute(query).fetchone()
             
             if result and result[0]:
@@ -36,13 +38,12 @@ class BaseExtractor(ABC):
                         return latest.replace(tzinfo=timezone.utc)
                     return latest
                 elif isinstance(latest, str):
-                    # Handle ISO strings with or without timezone
                     return datetime.fromisoformat(latest.replace("Z", "+00:00"))
             return default_cutoff
+        
         except Exception as e:
             logger.warning(f"Could not query warehouse for latest timestamp: {e}. Defaulting to 90 days.")
             return default_cutoff
-
     def _save_raw(self, data: List[Dict[str, Any]], filename: str):
         """Saves data as JSONL locally AND upserts to MotherDuck."""
         if not data:

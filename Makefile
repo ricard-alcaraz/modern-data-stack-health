@@ -33,6 +33,10 @@ dagster-up:
 	@echo "Starting Dagster UI..."
 	$(VENV_DAGS) -m orchestration.modern_data_stack.definitions
 
+test:
+	@echo "Running pytest..."
+	$(VENV_PY) -m pytest tests/
+
 clean:
 	@echo "Cleaning up local cache and landing data..."
 	rm -rf data/landing/*
