@@ -1,8 +1,10 @@
 """Helpers for building SQL safely from dynamic values."""
+
 import re
 
 _IDENTIFIER_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
 _MAX_QUALIFIED_PARTS = 3
+
 
 def safe_identifier(name: str) -> str:
     """Validate a table/schema/column name before splicing it into SQL.
