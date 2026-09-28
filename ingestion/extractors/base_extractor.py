@@ -1,10 +1,11 @@
-import os
-import json
 import logging
+import json
 from abc import ABC, abstractmethod
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
+
+from ingestion.utils.sql_utils import safe_identifier
 
 logger = logging.getLogger(__name__)
 
@@ -14,29 +15,33 @@ class BaseExtractor(ABC):
         self.repo_name = repo_name
         self.repo_slug = f"{repo_owner}/{repo_name}"
         self.landing_dir = Path(landing_dir) / self.repo_name
-        self.today_str = datetime.utcnow().strftime("%Y-%m-%d")
+        self.today_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
         self.db_writer = db_writer
 
-    def _get_latest_timestamp_from_warehouse(self, table_name: str) -> str:
+    def _get_latest_timestamp_from_warehouse(self, table_name: str) -> Optional[datetime]:
         """Query MotherDuck to find the latest timestamp we have for this table."""
+        default_cutoff = datetime.now(timezone.utc) - timedelta(days=90)
+        
         if not self.db_writer:
-            return (datetime.utcnow() - timedelta(days=90)).isoformat() + "Z"
+            return default_cutoff
         
         try:
-            query = f"SELECT MAX(updated_at) as latest FROM raw.{table_name}"
+            query = f"SELECT MAX(updated_at) as latest FROM raw.{safe_identifier(table_name)}"
             result = self.db_writer.conn.execute(query).fetchone()
             
             if result and result[0]:
                 latest = result[0]
-                if isinstance(latest, str):
+                if isinstance(latest, datetime):
+                    if latest.tzinfo is None:
+                        return latest.replace(tzinfo=timezone.utc)
                     return latest
-                else:
-                    return latest.isoformat() + "Z"
-            else:
-                return (datetime.utcnow() - timedelta(days=90)).isoformat() + "Z"
+                elif isinstance(latest, str):
+                    # Handle ISO strings with or without timezone
+                    return datetime.fromisoformat(latest.replace("Z", "+00:00"))
+            return default_cutoff
         except Exception as e:
             logger.warning(f"Could not query warehouse for latest timestamp: {e}. Defaulting to 90 days.")
-            return (datetime.utcnow() - timedelta(days=90)).isoformat() + "Z"
+            return default_cutoff
 
     def _save_raw(self, data: List[Dict[str, Any]], filename: str):
         """Saves data as JSONL locally AND upserts to MotherDuck."""
