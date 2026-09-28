@@ -7,7 +7,6 @@ with combined as (
     ) }}
 ),
 
--- Filter out PRs (GitHub's /issues endpoint includes both) and deduplicate
 deduplicated as (
     select
         *,
@@ -25,6 +24,8 @@ renamed as (
         created_at::timestamp as created_at,
         closed_at::timestamp as closed_at,
         user.login as author_login,
+        user.type as author_type,
+        coalesce(user.type = 'Bot', false) as is_bot,
         tool_name
     from deduplicated
     where rn = 1

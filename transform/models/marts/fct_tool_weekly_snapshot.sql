@@ -15,7 +15,8 @@ issue_closed_events as (
         tool_name,
         date_trunc('week', closed_at) as week_start,
         count(*) as issues_closed,
-        avg(datediff('day', created_at, closed_at)) as avg_issue_close_time_days
+        avg(datediff('day', created_at, closed_at)) as avg_issue_close_time_days,
+        sum(datediff('day', created_at, closed_at)) as issue_close_time_days_total
     from {{ ref('stg_github_issues') }}
     where closed_at is not null
     group by 1, 2
@@ -27,7 +28,8 @@ issue_metrics as (
         coalesce(o.week_start, c.week_start) as week_start,
         coalesce(o.issues_opened, 0) as issues_opened,
         coalesce(c.issues_closed, 0) as issues_closed,
-        round(coalesce(c.avg_issue_close_time_days, 0), 2) as avg_issue_close_time_days
+        round(c.avg_issue_close_time_days, 2) as avg_issue_close_time_days,
+        coalesce(c.issue_close_time_days_total, 0) as issue_close_time_days_total
     from issue_opened_events o
     full outer join issue_closed_events c 
         on o.tool_name = c.tool_name 
@@ -64,17 +66,25 @@ pr_metrics as (
     full outer join pr_merged_events m 
         on o.tool_name = m.tool_name 
         and o.week_start = m.week_start
+),
+
+combined as (
+    select
+        coalesce(i.tool_name, p.tool_name) as tool_name,
+        coalesce(i.week_start, p.week_start) as week_start,
+        coalesce(i.issues_opened, 0) as issues_opened,
+        coalesce(i.issues_closed, 0) as issues_closed,
+        i.avg_issue_close_time_days,
+        coalesce(i.issue_close_time_days_total, 0) as issue_close_time_days_total,
+        coalesce(p.prs_opened, 0) as prs_opened,
+        coalesce(p.prs_merged, 0) as prs_merged
+    from issue_metrics i
+    full outer join pr_metrics p 
+        on i.tool_name = p.tool_name 
+        and i.week_start = p.week_start
 )
 
-select
-    coalesce(i.tool_name, p.tool_name) as tool_name,
-    coalesce(i.week_start, p.week_start) as week_start,
-    coalesce(i.issues_opened, 0) as issues_opened,
-    coalesce(i.issues_closed, 0) as issues_closed,
-    coalesce(i.avg_issue_close_time_days, 0) as avg_issue_close_time_days,
-    coalesce(p.prs_opened, 0) as prs_opened,
-    coalesce(p.prs_merged, 0) as prs_merged
-from issue_metrics i
-full outer join pr_metrics p 
-    on i.tool_name = p.tool_name 
-    and i.week_start = p.week_start
+select *
+from combined
+
+where week_start < date_trunc('week', current_date)
