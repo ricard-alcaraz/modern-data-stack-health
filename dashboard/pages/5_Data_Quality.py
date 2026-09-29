@@ -114,14 +114,13 @@ st.divider()
 # --- Source Freshness ---
 st.subheader("⏰ Source Freshness")
 
-# Replace your freshness query with:
 freshness = conn.execute("""
     WITH ranked AS (
         SELECT 
             unique_id,
             max_loaded_at,
             generated_at,
-            (EXTRACT(EPOCH FROM CURRENT_TIMESTAMP) - EXTRACT(EPOCH FROM max_loaded_at::TIMESTAMP)) / 3600 as hours_since_load,
+            status,
             ROW_NUMBER() OVER (
                 PARTITION BY unique_id
                 ORDER BY generated_at DESC
@@ -132,15 +131,14 @@ freshness = conn.execute("""
     SELECT 
         unique_id,
         max_loaded_at,
-        hours_since_load,
         CASE 
-            WHEN hours_since_load > 72 THEN 'Stale'
-            WHEN hours_since_load > 24 THEN 'Warning'
+            WHEN status = 'error' THEN 'Stale'
+            WHEN status = 'warn' THEN 'Warning'
             ELSE 'Fresh'
-        END as status
+        END as display_status
     FROM ranked
     WHERE rn = 1
-    ORDER BY hours_since_load DESC
+    ORDER BY max_loaded_at ASC
 """).df()
 
 if not freshness.empty:
@@ -155,7 +153,7 @@ if not freshness.empty:
             return 'color: green'
     
     st.dataframe(
-        freshness.style.map(color_status, subset=['status']),
+        freshness.style.map(color_status, subset=['display_status']),
         use_container_width=True
     )
 else:
