@@ -206,54 +206,77 @@ def validate_readonly_sql(sql_query: str) -> bool:
     """Validate that generated SQL is a single read-only SELECT against allowed tables."""
     try:
         sql_clean = sql_query.strip()
-        if sql_clean.lower().startswith("```sql"):
+        if sql_clean.lower().startswith("`sql"):
             sql_clean = sql_clean[6:]
-        sql_clean = sql_clean.removesuffix("```")
-        sql_clean = sql_clean.strip()
+            sql_clean = sql_clean.removesuffix("`")
+            sql_clean = sql_clean.strip()
 
         # Strip trailing semicolons BEFORE parsing
         sql_clean = sql_clean.rstrip(";").strip()
-
         if not sql_clean:
             return False
-
+            
         parsed = sqlglot.parse(sql_clean, read="duckdb")
 
-        # Allow multiple statements if they're all identical
-        if len(parsed) == 0 or all(p is None for p in parsed):
+        # Filter out any None statements first (e.g., empty statements).
+        parsed = [p for p in parsed if p is not None]
+        if len(parsed) != 1:
+            # Multi-statement strings are rejected immediately.
             return False
 
-        # Take the first non-None statement
-        stmt = next((p for p in parsed if p is not None), None)
-        if stmt is None:
-            return False
-
+        stmt = parsed[0]
         if not isinstance(stmt, exp.Select):
             return False
 
-        # Dangerous table functions and exfiltration vectors
-        DANGEROUS_FUNCS = {
-            "read_csv",
-            "read_csv_auto",
-            "read_parquet",
-            "read_json",
-            "read_json_auto",
-            "glob",
-            "read_text",
-            "httpfs",
-            "md_scan",
-            "current_setting",
+        # We use the lowercased class name of sqlglot expressions to identify standard functions.
+        ALLOWED_FUNCS = {
+            # Aggregates
+            "count", "sum", "avg", "min", "max", "groupconcat", "arrayagg", "anyvalue", "argmin", "argmax",
+            "corr", "covar_pop", "covar_samp", "var_pop", "var_samp", "stddev_pop", "stddev_samp",
+            "bit_and", "bit_or", "bit_xor", "bool_and", "bool_or",
+            "countif", "sumif", "avgif", "minif", "maxif",
+            # Window Functions
+            "rownumber", "rank", "denserank", "percentrank", "cumedist", "lead", "lag", "firstvalue", "lastvalue", "nthvalue", "ntile",
+            "cume_dist", "percent_rank",
+            # Date/Time
+            "timestamptrunc", "datetrunc", "datepart", "extract", "year", "month", "day", "hour", "minute", "second",
+            "currentdate", "currenttimestamp", "now", "today", "current_time",
+            "datediff", "dateadd", "datesub", "age",
+            "makedate", "maketime", "maketimestamp",
+            "dayname", "monthname", "dayofweek", "dayofyear", "weekofyear", "isodow", "isoyear",
+            "date_diff", "date_add", "date_sub",
+            # Strings
+            "lower", "upper", "trim", "ltrim", "rtrim", "substring", "substr", "concat", "concatws", "replace", "length", "len",
+            "splitpart", "strpos", "startswith", "endswith", "contains", "left", "right", "lpad", "rpad", "reverse",
+            "regexp_extract", "regexp_replace", "regexp_matches", "regexp_full_match",
+            "repeat", "ascii", "char", "chr",
+            # Math
+            "round", "floor", "ceil", "ceiling", "abs", "power", "pow", "mod", "sqrt", "sign", "exp", "log", "log10", "ln",
+            "greatest", "least", "sin", "cos", "tan", "asin", "acos", "atan", "atan2", "degrees", "radians", "pi", "random", "setseed",
+            # Conditional
+            "coalesce", "if", "iif", "nullif", "case",
+            # Conversion
+            "cast", "trycast",
+            # JSON / Other
+            "json_extract", "json_extract_string", "json_keys", "unnest", "generate_series",
+            "typeof", "type_of", "strptime", "strftime", "md5", "sha256", "hash"
         }
 
         for node in stmt.walk():
-            # Check anonymous functions (catches read_csv, current_setting, etc.)
-            if isinstance(node, exp.Anonymous) and node.name.lower() in DANGEROUS_FUNCS:
-                return False
+            if isinstance(node, exp.Func):
+                # For unknown functions (exp.Anonymous), check the `.name` attribute.
+                # For standard functions, the lowercased class name perfectly maps to DuckDB functions.
+                func_name = (
+                    node.name.lower()
+                    if isinstance(node, exp.Anonymous)
+                    else type(node).__name__.lower()
+                )
+                if func_name not in ALLOWED_FUNCS:
+                    return False
+
             # Check table references for table functions
             if isinstance(node, exp.Table):
-                if node.name.lower() in DANGEROUS_FUNCS:
-                    return False
-                # Table functions are parsed as Table(this=Func/Anonymous)
+                # Table functions (like read_csv) are parsed as Table(this=Func/Anonymous)
                 if node.this and isinstance(node.this, (exp.Func, exp.Anonymous)):
                     return False
 
@@ -270,10 +293,8 @@ def validate_readonly_sql(sql_query: str) -> bool:
             # Skip table functions (already checked above)
             if table.this and isinstance(table.this, (exp.Func, exp.Anonymous)):
                 continue
-
             table_name = table.name.lower().strip('"')
             schema_name = table.db.lower().strip('"') if table.db else None
-
             # Allow: information_schema, raw schema, CTE references, staging/mart tables
             if schema_name == "information_schema":
                 continue
@@ -283,15 +304,11 @@ def validate_readonly_sql(sql_query: str) -> bool:
                 continue
             if table_name.startswith(("fct_", "stg_")):
                 continue
-
             return False
-
         return True
-
     except Exception as e:
-        # If parsing fails, show the query with a warning instead of blocking
         st.warning(f"⚠️ SQL validation warning: {e}")
-        return True
+        return False
 
 
 # ---------------------------------------------------------------------------
