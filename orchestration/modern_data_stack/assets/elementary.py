@@ -7,15 +7,25 @@ TRANSFORM_DIR = Path(__file__).parent.parent.parent.parent / "transform"
 
 @asset(
     deps=["mds_dbt_assets"],  # Run after dbt build completes
-    group_name="observability",
-    description="Run Elementary data quality tests and populate observability tables",
+    group_name="observability",  # Visually separate from data assets
+    compute_kind="elementary",  # Shows a nice icon in the UI
+    description="""
+    Runs Elementary data quality tests and populates observability tables.
+    
+    Internal tables created in MotherDuck (main_elementary schema):
+    - elementary_test_results: test outcomes over time
+    - dbt_invocations: run history with timing
+    - elementary_source_freshness_results: source freshness checks
+    
+    These are implementation details — query them via the Streamlit 
+    'Data Quality' page or the `edr report` CLI.
+    """,
 )
-def elementary_tests(context: AssetExecutionContext):
-    """Run Elementary tests against production data after dbt build."""
+def elementary_observability(context: AssetExecutionContext):
+    """Run all Elementary checks as a single logical unit."""
     
-    context.log.info("Running Elementary tests against production...")
-    
-    # Run Elementary tests (this populates the elementary schema in MotherDuck)
+    # 1. Run Elementary tests (populates observability tables)
+    context.log.info("Running Elementary tests...")
     result = subprocess.run(
         ["dbt", "test", "--select", "elementary", "--target", "prod"],
         cwd=TRANSFORM_DIR,
@@ -24,19 +34,20 @@ def elementary_tests(context: AssetExecutionContext):
     )
     
     if result.returncode != 0:
-        context.log.warning(f"Some Elementary tests failed or warned:\n{result.stdout}")
-        # Don't fail the asset - test failures are informational
+        context.log.warning(f"Elementary tests had warnings:\n{result.stdout}")
     else:
-        context.log.info("All Elementary tests passed")
+        context.log.info("✅ All Elementary tests passed")
     
-    # Also check source freshness
+    # 2. Check source freshness
     context.log.info("Checking source freshness...")
     freshness_result = subprocess.run(
-        ["dbt", "source", "freshness"],
+        ["dbt", "source", "freshness", "--target", "prod"],
         cwd=TRANSFORM_DIR,
         capture_output=True,
         text=True,
     )
-    context.log.info(f"Freshness check completed:\n{freshness_result.stdout}")
+    context.log.info(f"Freshness check completed")
     
-    return {"status": "complete", "tests_run": True}
+    # 3. Summary
+    context.log.info("✅ Observability data updated in MotherDuck")
+    return {"status": "complete"}

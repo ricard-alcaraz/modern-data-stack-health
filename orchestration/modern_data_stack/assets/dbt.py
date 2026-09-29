@@ -10,13 +10,14 @@ dbt_project = DbtProject(
     project_dir=DBT_PROJECT_DIR,
 )
 
-# 3. Prepare the project (this runs `dbt parse` to generate the manifest.json)
+# 3. Prepare the project
 dbt_project.prepare_if_dev()
 
-# 4. Define the assets - Dagster will auto-infer dependencies from the dbt manifest
+# 4. Define the assets - ONLY for staging, intermediate and marts
 @dbt_assets(
     manifest=dbt_project.manifest_path,
     project=dbt_project,
+    select="staging itermediate marts",
 )
 def mds_dbt_assets(context: AssetExecutionContext, dbt: DbtCliResource):
     """Runs dbt build and streams results to Dagster."""
