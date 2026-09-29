@@ -34,6 +34,9 @@ vars:
     - repo: "dbt-core"
     - repo: "airflow"
     - repo: "dagster"
+  elementary:
+    schema_suffix: elementary
+    enable_tests: true
 
 models:
   mds_health:

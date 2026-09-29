@@ -22,6 +22,7 @@ ingest:
 
 dbt-run:
 	@echo "Running dbt build (via cross-platform wrapper)..."
+	$(VENV_PY) -m transform.run_dbt source freshness --target prod
 	$(VENV_PY) -m transform.run_dbt build --target prod
 
 dbt-docs:
@@ -36,6 +37,25 @@ dagster-up:
 test:
 	@echo "Running pytest..."
 	$(VENV_PY) -m pytest tests/
+
+elementary-report:
+	@echo "Loading environment and generating Elementary report..."
+	$(VENV_PY) -m transform.run_edr report
+	@echo "✅ Report: transform/target/elementary_report.html"
+
+format:
+	@echo "Formatting code with Ruff..."
+	$(VENV_PY) -m ruff format ingestion/ tests/ dashboard/ orchestration/
+	@echo "✅ Formatting complete."
+
+lint:
+	@echo "Linting and auto-fixing code with Ruff..."
+	$(VENV_PY) -m ruff check --fix ingestion/ tests/ dashboard/ orchestration/
+	@echo "✅ Linting complete."
+
+# Run both to fix everything before pushing
+fix-all: format lint
+	@echo "🚀 Ready to commit!"
 
 clean:
 	@echo "Cleaning up local cache and landing data..."

@@ -4,6 +4,10 @@ sources:
   - name: raw_github
     description: "Raw GitHub data"
     schema: raw
+    freshness:
+      warn_after: {count: 2, period: day}
+      error_after: {count: 3, period: day}
+    loaded_at_field: updated_at
     tables:
       # dbt-core
       - name: dbt_core_issues
@@ -12,6 +16,9 @@ sources:
         description: "Raw GitHub pull requests for dbt-core"
       - name: dbt_core_releases
         description: "Raw GitHub releases for dbt-core"
+        freshness:
+          warn_after: {count: 30, period: day}
+          error_after: {count: 60, period: day}
       
       # Apache Airflow
       - name: airflow_issues
@@ -20,6 +27,9 @@ sources:
         description: "Raw GitHub pull requests for Apache Airflow"
       - name: airflow_releases
         description: "Raw GitHub releases for Apache Airflow"
+        freshness:
+          warn_after: {count: 30, period: day}
+          error_after: {count: 60, period: day}
       
       # Dagster
       - name: dagster_issues
@@ -28,3 +38,6 @@ sources:
         description: "Raw GitHub pull requests for Dagster"
       - name: dagster_releases
         description: "Raw GitHub releases for Dagster"
+        freshness:
+          warn_after: {count: 30, period: day}
+          error_after: {count: 60, period: day}      

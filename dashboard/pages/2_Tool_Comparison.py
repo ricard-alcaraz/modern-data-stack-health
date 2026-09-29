@@ -1,10 +1,7 @@
-import os
-import streamlit as st
-import duckdb
-import pandas as pd
 import plotly.express as px
-from dotenv import load_dotenv
+import streamlit as st
 from db import get_connection
+from dotenv import load_dotenv
 
 load_dotenv()
 st.set_page_config(page_title="Tool Comparison", page_icon="⚖️", layout="wide")
@@ -37,9 +34,9 @@ cols = st.columns(len(metrics))
 for i, row in metrics.iterrows():
     with cols[i % len(cols)]:
         st.metric(
-            label=row['tool_name'],
+            label=row["tool_name"],
             value=f"{row['total_prs_merged']} PRs merged",
-            delta=f"{row['total_issues_closed']} issues closed"
+            delta=f"{row['total_issues_closed']} issues closed",
         )
 
 st.divider()
@@ -51,10 +48,10 @@ with col1:
     st.subheader("Total PRs Merged")
     fig1 = px.bar(
         metrics,
-        x='tool_name',
-        y='total_prs_merged',
-        color='tool_name',
-        title="Which tool has the most merged PRs?"
+        x="tool_name",
+        y="total_prs_merged",
+        color="tool_name",
+        title="Which tool has the most merged PRs?",
     )
     st.plotly_chart(fig1, use_container_width=True)
 
@@ -62,10 +59,10 @@ with col2:
     st.subheader("Average Issue Close Time (days)")
     fig2 = px.bar(
         metrics,
-        x='tool_name',
-        y='avg_close_time',
-        color='tool_name',
-        title="Which tool resolves issues fastest?"
+        x="tool_name",
+        y="avg_close_time",
+        color="tool_name",
+        title="Which tool resolves issues fastest?",
     )
     st.plotly_chart(fig2, use_container_width=True)
 

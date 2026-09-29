@@ -2,20 +2,104 @@ version: 2
 
 models:
   - name: stg_github_issues
+    description: "Staged GitHub issues across all tools."
+    tests:
+      - elementary.schema_changes
+      - elementary.volume_anomalies
     columns:
       - name: issue_id
         tests:
           - unique
           - not_null
+
+      - name: issue_number
+        tests:
+          - not_null
+
+      - name: title
+        tests:
+          - not_null
+
       - name: state
         tests:
           - accepted_values:
               arguments:
                 values: ['open', 'closed']
 
+      - name: created_at
+        description: The timestamp when the issue was created.
+        tests:
+          - not_null
+
+      - name: closed_at
+        description: The timestamp when the issue was closed.
+
+      - name: author_login
+        description: The GitHub login of the issue's author.
+        tests:
+          - not_null
+      
+      - name: author_type
+        description: The type of the issue's author.
+
+      - name: is_bot
+        description: Whether the issue's author is a bot.
+      
+      - name: tool_name
+        description: The name of the tool (dbt-core, airflow, dagster) the issue belongs to.
+        tests:
+          - not_null
+
+
   - name: stg_github_pulls
+    description: "Staged GitHub PRs across all tools."
+    tests:
+      - elementary.schema_changes
+      - elementary.volume_anomalies
     columns:
       - name: pr_id
+        description: The unique identifier for the pull request.
         tests:
           - unique
+          - not_null
+      - name: pr_number
+        description: The number of the pull request.
+        tests:
+          - not_null
+
+      - name: title
+        tests:
+          - not_null
+
+      - name: state
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['open', 'closed']
+
+      - name: created_at
+        description: The timestamp when the pull request was created.
+        tests:
+          - not_null
+
+      - name: closed_at
+        description: The timestamp when the pull request was closed.
+
+      - name: merged_at
+        description: The timestamp when the pull request was merged.
+
+      - name: author_login
+        description: The GitHub login of the pull request's author.
+        tests:
+          - not_null
+      
+      - name: author_type
+        description: The type of the pull request's author.
+
+      - name: is_bot
+        description: Whether the pull request's author is a bot.
+      
+      - name: tool_name
+        description: The name of the tool (dbt-core, airflow, dagster) the pull request belongs to.
+        tests:
           - not_null

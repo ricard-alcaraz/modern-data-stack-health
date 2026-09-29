@@ -1,5 +1,7 @@
-from dagster import AssetSpec, AssetKey
+from dagster import AssetKey, AssetSpec
+
 from ingestion.config import TOOLS
+
 # Define the tools and entities to map
 
 ENTITIES = ["issues", "pulls", "releases"]
@@ -15,7 +17,7 @@ for tool in TOOLS:
                 # This key must match the source name in dbt's sources.yml
                 key=AssetKey(["raw_github", table_name]),
                 # This tells Dagster that this source is produced by the ingestion asset
-                deps=[AssetKey("raw_tools_data")], 
+                deps=[AssetKey("raw_tools_data")],
                 description=f"Raw GitHub {entity} for {tool.table_prefix.replace('_', ' ').title()}",
             )
         )

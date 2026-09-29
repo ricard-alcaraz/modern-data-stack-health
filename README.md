@@ -115,6 +115,17 @@ Open `http://localhost:8501`. The dashboard has four pages: a weekly activity ov
 - CI (`.github/workflows/ci-dbt.yml`) loads static fixtures into a local DuckDB file and runs `dbt build --target ci` on every PR touching `transform/`. It does not call the GitHub API, so it's deterministic and doesn't consume rate limit.
 - `dbt_project.yml`/`profiles.yml` define separate `dev`, `ci`, and `prod` targets so local iteration doesn't write to the production MotherDuck database by default.
 
+## Observability
+
+The pipeline includes automated data quality monitoring powered by [Elementary](https://www.elementary-data.com/):
+
+- **Test Results:** All dbt tests (including Elementary's volume/freshness/schema checks) are tracked over time
+- **Run History:** Every dbt invocation is logged with timing and status
+- **Anomaly Detection:** Elementary detects unusual changes in row counts, data freshness, and schema drift
+- **Interactive Dashboard:** View all observability data in the Streamlit dashboard under "Data Quality"
+
+Elementary stores its observability data in the `main_elementary` schema in MotherDuck, making it queryable and explorable.
+
 ## Known limitations
 
 - Tracks a fixed, small set of repositories; scaling to many more tools would need a config-driven source list rather than hardcoded tuples.

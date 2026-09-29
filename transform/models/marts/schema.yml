@@ -3,6 +3,19 @@ version: 2
 models:
   - name: fct_tool_weekly_snapshot
     description: Weekly snapshot of tool health metrics (issues and PRs).
+    tests:
+      # Detect unexpected schema changes
+      - elementary.schema_changes
+      
+      # Detect unusual changes in row count
+      - elementary.volume_anomalies:
+          arguments:
+            timestamp_column: week_start
+      
+      # Detect if data is getting stale
+      - elementary.freshness_anomalies:
+          arguments:
+            timestamp_column: week_start
     columns:
       - name: tool_name
         description: The name of the tool being analyzed.
@@ -12,12 +25,25 @@ models:
         description: The start of the week (Monday).
         tests:
           - not_null
+      - name: issues_opened
+        description: The number of issues opened in that week.
+
+      - name: issues_closed
+        description: The number of issues closed in that week.
+
       - name: avg_issue_close_time_days
         description: >
           Average days to close for issues closed in that week. NULL (not zero)
           when no issues were closed that week.
-      - name: issue_close_time_days_total
+          
+      - name: issue_close_time__days
         description: >
-          Sum of close times (days) for issues closed that week. For tool-level
-          velocity use sum(total) / sum(issues_closed) — never average the weekly
-          averages.
+          The number of days it took to close each issue closed in that week. NULL
+          (not zero) when no issues were closed that week.
+
+      - name: prs_opened
+        description: The number of PRs opened in that week.
+
+      - name: prs_merged
+        description: The number of PRs merged in that week.
+

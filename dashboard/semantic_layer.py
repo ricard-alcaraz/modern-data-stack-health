@@ -25,7 +25,7 @@ METRICS = {
                 ROUND(prs_merged * 100.0 / NULLIF(prs_opened, 0), 2) AS merge_ratio_pct
             FROM fct_tool_weekly_snapshot
             ORDER BY tool_name, week_start
-        """
+        """,
     },
     "weekly_issue_close_ratio": {
         "description": (
@@ -41,7 +41,7 @@ METRICS = {
                 ROUND(issues_closed * 100.0 / NULLIF(issues_opened, 0), 2) AS close_ratio_pct
             FROM fct_tool_weekly_snapshot
             ORDER BY tool_name, week_start
-        """
+        """,
     },
     "issue_resolution_velocity": {
         "description": (
@@ -57,7 +57,7 @@ METRICS = {
                 ROUND(avg_issue_close_time_days, 2) AS avg_close_time_days
             FROM fct_tool_weekly_snapshot
             ORDER BY tool_name, week_start
-        """
+        """,
     },
     "issue_backlog_trend": {
         "description": "Net change in open issues per week (opened minus closed). Negative values mean the backlog is shrinking, which is healthy.",
@@ -70,7 +70,7 @@ METRICS = {
                 (issues_opened - issues_closed) AS net_issue_change
             FROM fct_tool_weekly_snapshot
             ORDER BY tool_name, week_start
-        """
+        """,
     },
     "contributor_concentration": {
         "description": (
@@ -113,7 +113,7 @@ METRICS = {
             FROM with_share
             GROUP BY tool_name
             ORDER BY concentration_hhi DESC
-        """
+        """,
     },
     "top_contributors": {
         "description": "Top 10 most active contributors PER TOOL (bots excluded), ranked by total issues opened + PRs submitted.",
@@ -153,7 +153,7 @@ METRICS = {
             FROM ranked
             WHERE tool_rank <= 10
             ORDER BY tool_name, tool_rank
-        """
+        """,
     },
     "contributor_churn": {
         "description": (
@@ -205,7 +205,7 @@ METRICS = {
                 ON p.tool_name = c.tool_name AND p.author_login = c.author_login
             GROUP BY p.tool_name
             ORDER BY churn_rate_pct DESC
-        """
+        """,
     },
     "tool_health_score": {
         "description": (
@@ -235,22 +235,26 @@ METRICS = {
                 , 2) AS health_score
             FROM metrics
             ORDER BY health_score DESC
-        """
-    }
+        """,
+    },
 }
 
 
 def get_semantic_layer_prompt() -> str:
     """Generate a formatted string of all available metrics for the LLM prompt."""
-    lines = ["AVAILABLE BUSINESS METRICS (use these exact definitions when the user asks about these concepts):"]
-    
+    lines = [
+        "AVAILABLE BUSINESS METRICS (use these exact definitions when the user asks about these concepts):"
+    ]
+
     for name, meta in METRICS.items():
         lines.append(f"\n- `{name}`: {meta['description']}")
         lines.append(f"  Pre-defined SQL:\n  ```sql\n  {meta['sql'].strip()}\n  ```")
-    
-    lines.append("\nWhen the user asks about one of these metrics, YOU MUST USE the pre-defined SQL. You can wrap it in a CTE or add WHERE clauses to filter by tool_name or date range.")
+
+    lines.append(
+        "\nWhen the user asks about one of these metrics, YOU MUST USE the pre-defined SQL. You can wrap it in a CTE or add WHERE clauses to filter by tool_name or date range."
+    )
     lines.append("For any other question, write custom SQL using the table schema.")
-    
+
     return "\n".join(lines)
 
 
