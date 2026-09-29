@@ -1,13 +1,16 @@
 import os
 
-import streamlit as st
-from openai import OpenAI
-from dotenv import load_dotenv
-
-from semantic_layer import get_semantic_layer_prompt, get_metric_sql, list_metric_names, METRICS
-from db import get_connection
-
 import sqlglot
+import streamlit as st
+from db import get_connection
+from dotenv import load_dotenv
+from openai import OpenAI
+from semantic_layer import (
+    METRICS,
+    get_metric_sql,
+    get_semantic_layer_prompt,
+    list_metric_names,
+)
 from sqlglot import exp
 
 load_dotenv()
@@ -27,38 +30,60 @@ PROBE_TIMEOUT = 3.0
 # ---------------------------------------------------------------------------
 # Fail fast so the page never hangs on load when a provider is down.
 
+
 @st.cache_data(ttl=30, show_spinner="🔌 Checking LLM connection…")
 def probe_provider(provider: str):
     """Actually verify the provider is reachable. Returns (ok, model_id, message)."""
     if provider == "openai":
         api_key = os.getenv("OPENAI_API_KEY")
         if not api_key:
-            return False, None, "No OPENAI_API_KEY in .env. Add one, or switch to LM Studio."
+            return (
+                False,
+                None,
+                "No OPENAI_API_KEY in .env. Add one, or switch to LM Studio.",
+            )
         try:
             client = OpenAI(api_key=api_key, timeout=PROBE_TIMEOUT, max_retries=0)
             models = client.models.list().data  # raises 401 if the key is invalid
             if not models:
                 return False, None, "OpenAI accepted the key but returned no models."
-            model_id = next((m.id for m in models if m.id == "gpt-4o-mini"), models[0].id)
+            model_id = next(
+                (m.id for m in models if m.id == "gpt-4o-mini"), models[0].id
+            )
             return True, model_id, "Connected to OpenAI."
         except Exception as e:
             return False, None, f"OpenAI check failed — invalid key or network. ({e})"
     else:  # lmstudio
         base_url = os.getenv("LMSTUDIO_BASE_URL", "http://localhost:1234/v1")
         try:
-            client = OpenAI(base_url=base_url, api_key="lm-studio", timeout=PROBE_TIMEOUT, max_retries=0)
+            client = OpenAI(
+                base_url=base_url,
+                api_key="lm-studio",
+                timeout=PROBE_TIMEOUT,
+                max_retries=0,
+            )
             models = client.models.list().data
             if not models:
-                return False, None, (
-                    f"Reached LM Studio at {base_url}, but no model is loaded. "
-                    "Load a model, then click Re-check."
+                return (
+                    False,
+                    None,
+                    (
+                        f"Reached LM Studio at {base_url}, but no model is loaded. "
+                        "Load a model, then click Re-check."
+                    ),
                 )
             return True, models[0].id, f"Connected to LM Studio at {base_url}."
         except Exception as e:
-            return False, None, (
-                f"Cannot reach LM Studio at {base_url}. Start the server "
-                f"(LM Studio → Developer → Start Server) and load a model. ({e})"
+            return (
+                False,
+                None,
+                (
+                    f"Cannot reach LM Studio at {base_url}. Start the server "
+                    f"(LM Studio → Developer → Start Server) and load a model. ({e})"
+                ),
             )
+
+
 def build_client(provider: str) -> OpenAI:
     if provider == "openai":
         return OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
@@ -74,7 +99,9 @@ with st.sidebar:
     llm_provider = st.selectbox(
         "Choose LLM Provider",
         options=["lmstudio", "openai"],  # default = LM Studio
-        format_func=lambda x: "LM Studio (Local)" if x == "lmstudio" else "OpenAI (Cloud)",
+        format_func=lambda x: (
+            "LM Studio (Local)" if x == "lmstudio" else "OpenAI (Cloud)"
+        ),
         key="provider_select",
     )
     if st.button("🔁 Re-check connection", use_container_width=True):
@@ -181,41 +208,47 @@ def validate_readonly_sql(sql_query: str) -> bool:
         sql_clean = sql_query.strip()
         if sql_clean.lower().startswith("```sql"):
             sql_clean = sql_clean[6:]
-        if sql_clean.endswith("```"):
-            sql_clean = sql_clean[:-3]
+        sql_clean = sql_clean.removesuffix("```")
         sql_clean = sql_clean.strip()
-        
+
         # Strip trailing semicolons BEFORE parsing
-        sql_clean = sql_clean.rstrip(';').strip()
-        
+        sql_clean = sql_clean.rstrip(";").strip()
+
         if not sql_clean:
             return False
 
         parsed = sqlglot.parse(sql_clean, read="duckdb")
-        
+
         # Allow multiple statements if they're all identical
         if len(parsed) == 0 or all(p is None for p in parsed):
             return False
-        
+
         # Take the first non-None statement
         stmt = next((p for p in parsed if p is not None), None)
         if stmt is None:
             return False
-            
+
         if not isinstance(stmt, exp.Select):
             return False
 
         # Dangerous table functions and exfiltration vectors
         DANGEROUS_FUNCS = {
-            "read_csv", "read_csv_auto", "read_parquet", "read_json", "read_json_auto",
-            "glob", "read_text", "httpfs", "md_scan", "current_setting",
+            "read_csv",
+            "read_csv_auto",
+            "read_parquet",
+            "read_json",
+            "read_json_auto",
+            "glob",
+            "read_text",
+            "httpfs",
+            "md_scan",
+            "current_setting",
         }
-        
+
         for node in stmt.walk():
             # Check anonymous functions (catches read_csv, current_setting, etc.)
-            if isinstance(node, exp.Anonymous):
-                if node.name.lower() in DANGEROUS_FUNCS:
-                    return False
+            if isinstance(node, exp.Anonymous) and node.name.lower() in DANGEROUS_FUNCS:
+                return False
             # Check table references for table functions
             if isinstance(node, exp.Table):
                 if node.name.lower() in DANGEROUS_FUNCS:
@@ -231,16 +264,16 @@ def validate_readonly_sql(sql_query: str) -> bool:
             for cte in with_node.expressions:
                 if cte.alias_or_name:
                     cte_names.add(cte.alias_or_name.lower())
-        
+
         # Validate all table references are in the allowlist
         for table in stmt.find_all(exp.Table):
             # Skip table functions (already checked above)
             if table.this and isinstance(table.this, (exp.Func, exp.Anonymous)):
                 continue
-                
+
             table_name = table.name.lower().strip('"')
             schema_name = table.db.lower().strip('"') if table.db else None
-            
+
             # Allow: information_schema, raw schema, CTE references, staging/mart tables
             if schema_name == "information_schema":
                 continue
@@ -248,13 +281,13 @@ def validate_readonly_sql(sql_query: str) -> bool:
                 continue
             if schema_name == "raw":
                 continue
-            if table_name.startswith("fct_") or table_name.startswith("stg_"):
+            if table_name.startswith(("fct_", "stg_")):
                 continue
-                
+
             return False
-            
+
         return True
-        
+
     except Exception as e:
         # If parsing fails, show the query with a warning instead of blocking
         st.warning(f"⚠️ SQL validation warning: {e}")
@@ -267,13 +300,17 @@ def validate_readonly_sql(sql_query: str) -> bool:
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
+
 def generate_sql_stream(question: str) -> str:
     """Stream the SQL into a code block so the user sees progress immediately."""
     resp = client.chat.completions.create(
         model=model,
         messages=[
             {"role": "system", "content": SCHEMA_CONTEXT},
-            {"role": "user", "content": f"Write a DuckDB SQL query to answer: {question}"},
+            {
+                "role": "user",
+                "content": f"Write a DuckDB SQL query to answer: {question}",
+            },
         ],
         temperature=0.0,
         stream=True,
@@ -283,25 +320,31 @@ def generate_sql_stream(question: str) -> str:
     sql = ""
     try:
         for chunk in resp:
-            delta = chunk.choices[0].delta.content if (chunk.choices and chunk.choices[0].delta) else None
+            delta = (
+                chunk.choices[0].delta.content
+                if (chunk.choices and chunk.choices[0].delta)
+                else None
+            )
             if delta:
                 sql += delta
                 box.code(sql, language="sql")
-    except Exception:
-        pass
-    
+    except Exception as e:
+        # Intentionally pass: if the stream drops, we just use whatever SQL we have so far.
+        st.warning(f"⚠️ SQL generation stream interrupted: {e}")
+
     # Clean up markdown fences
     sql = sql.replace("```sql", "").replace("```", "").strip()
-    
-    statements = [s.strip() for s in sql.split(';') if s.strip()]
+
+    statements = [s.strip() for s in sql.split(";") if s.strip()]
     if len(statements) > 1:
         # If all statements are identical, take the first
         if all(s == statements[0] for s in statements):
             sql = statements[0]
         else:
             sql = statements[0]
-    
+
     return sql
+
 
 def summarize_stream(prompt: str) -> str:
     """Stream the summary. The spinner covers the wait until the first token arrives."""
@@ -314,7 +357,11 @@ def summarize_stream(prompt: str) -> str:
 
     def gen():
         for chunk in resp:
-            if chunk.choices and chunk.choices[0].delta and chunk.choices[0].delta.content:
+            if (
+                chunk.choices
+                and chunk.choices[0].delta
+                and chunk.choices[0].delta.content
+            ):
                 yield chunk.choices[0].delta.content
 
     try:
@@ -361,7 +408,9 @@ def handle_metric(metric_name: str):
                 st.session_state.messages.append(msg)
                 return
         msg["df"] = df
-        st.session_state.messages.append(msg)  # persist BEFORE streaming so Stop can't lose it
+        st.session_state.messages.append(
+            msg
+        )  # persist BEFORE streaming so Stop can't lose it
         if df.empty:
             st.info("The query ran successfully but returned no results.")
             return
@@ -380,7 +429,7 @@ def handle_custom_question(question: str):
     """Generate SQL via the LLM, validate, execute, and stream a summary."""
     with st.chat_message("assistant"):
         sql_query = generate_sql_stream(question)
-        
+
         msg = {"role": "assistant", "sql": sql_query}
         if not validate_readonly_sql(sql_query):
             msg["error"] = (

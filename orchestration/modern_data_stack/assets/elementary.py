@@ -1,12 +1,15 @@
-import subprocess
 from pathlib import Path
-from dagster import asset, AssetExecutionContext
+
+from dagster import AssetExecutionContext, asset
+from dagster_dbt import DbtCliResource
+
+from .dbt import mds_dbt_assets
 
 TRANSFORM_DIR = Path(__file__).parent.parent.parent.parent / "transform"
 
 
 @asset(
-    deps=["mds_dbt_assets"],  # Run after dbt build completes
+    deps=[mds_dbt_assets],  # Run after dbt build completes
     group_name="observability",  # Visually separate from data assets
     compute_kind="elementary",  # Shows a nice icon in the UI
     description="""
@@ -21,33 +24,14 @@ TRANSFORM_DIR = Path(__file__).parent.parent.parent.parent / "transform"
     'Data Quality' page or the `edr report` CLI.
     """,
 )
-def elementary_observability(context: AssetExecutionContext):
+def elementary_observability(context: AssetExecutionContext, dbt: DbtCliResource):
     """Run all Elementary checks as a single logical unit."""
-    
+
     # 1. Run Elementary tests (populates observability tables)
     context.log.info("Running Elementary tests...")
-    result = subprocess.run(
-        ["dbt", "test", "--select", "elementary", "--target", "prod"],
-        cwd=TRANSFORM_DIR,
-        capture_output=True,
-        text=True,
-    )
-    
-    if result.returncode != 0:
-        context.log.warning(f"Elementary tests had warnings:\n{result.stdout}")
-    else:
-        context.log.info("✅ All Elementary tests passed")
-    
-    # 2. Check source freshness
-    context.log.info("Checking source freshness...")
-    freshness_result = subprocess.run(
-        ["dbt", "source", "freshness", "--target", "prod"],
-        cwd=TRANSFORM_DIR,
-        capture_output=True,
-        text=True,
-    )
-    context.log.info(f"Freshness check completed")
-    
-    # 3. Summary
+    yield from dbt.cli(
+        ["test", "--select", "elementary", "--target", "prod"], context=context
+    ).stream()
+
+    # 2. Summary
     context.log.info("✅ Observability data updated in MotherDuck")
-    return {"status": "complete"}

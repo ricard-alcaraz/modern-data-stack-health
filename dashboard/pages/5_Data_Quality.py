@@ -1,7 +1,6 @@
-import streamlit as st
 import pandas as pd
 import plotly.express as px
-import plotly.graph_objects as go
+import streamlit as st
 from db import get_connection
 
 st.set_page_config(page_title="Data Quality", page_icon="✅", layout="wide")
@@ -17,7 +16,9 @@ try:
         FROM elementary_test_results
     """).fetchone()[0]
 except Exception as e:
-    st.error(f"Elementary tables not found. Run `make ingest` and `make dbt-run` first to populate observability data.")
+    st.error(
+        "Elementary tables not found. Run `make ingest` and `make dbt-run` first to populate observability data."
+    )
     st.code(str(e))
     st.stop()
 
@@ -74,12 +75,12 @@ test_results = conn.execute("""
 if not test_results.empty:
     fig = px.bar(
         test_results,
-        x='test_date',
-        y='count',
-        color='status',
-        barmode='stack',
-        title='Daily Test Results (Last 30 Days)',
-        labels={'test_date': 'Date', 'count': 'Number of Tests'}
+        x="test_date",
+        y="count",
+        color="status",
+        barmode="stack",
+        title="Daily Test Results (Last 30 Days)",
+        labels={"test_date": "Date", "count": "Number of Tests"},
     )
     st.plotly_chart(fig, use_container_width=True)
 else:
@@ -104,7 +105,9 @@ recent_failures = conn.execute("""
 """).df()
 
 if not recent_failures.empty:
-    recent_failures['detected_at'] = recent_failures['detected_at'].dt.strftime('%Y-%m-%d %H:%M')
+    recent_failures["detected_at"] = recent_failures["detected_at"].dt.strftime(
+        "%Y-%m-%d %H:%M"
+    )
     st.dataframe(recent_failures, use_container_width=True)
 else:
     st.success("No test failures in the recent history! 🎉")
@@ -142,19 +145,21 @@ freshness = conn.execute("""
 """).df()
 
 if not freshness.empty:
-    freshness['max_loaded_at'] = pd.to_datetime(freshness['max_loaded_at']).dt.strftime('%Y-%m-%d %H:%M')
-    
+    freshness["max_loaded_at"] = pd.to_datetime(freshness["max_loaded_at"]).dt.strftime(
+        "%Y-%m-%d %H:%M"
+    )
+
     def color_status(val):
-        if val == 'Stale':
-            return 'color: red'
-        elif val == 'Warning':
-            return 'color: orange'
+        if val == "Stale":
+            return "color: red"
+        elif val == "Warning":
+            return "color: orange"
         else:
-            return 'color: green'
-    
+            return "color: green"
+
     st.dataframe(
-        freshness.style.map(color_status, subset=['display_status']),
-        use_container_width=True
+        freshness.style.map(color_status, subset=["display_status"]),
+        use_container_width=True,
     )
 else:
     st.info("No freshness data yet.")
@@ -178,19 +183,26 @@ runs = conn.execute("""
 """).df()
 
 if not runs.empty:
-    runs['generated_at'] = pd.to_datetime(runs['generated_at']).dt.strftime('%Y-%m-%d %H:%M')
-    runs['elapsed_time'] = (
-        pd.to_datetime(runs['run_completed_at']) - pd.to_datetime(runs['run_started_at'])
-    ).dt.total_seconds().round(2)
+    runs["generated_at"] = pd.to_datetime(runs["generated_at"]).dt.strftime(
+        "%Y-%m-%d %H:%M"
+    )
+    runs["elapsed_time"] = (
+        (
+            pd.to_datetime(runs["run_completed_at"])
+            - pd.to_datetime(runs["run_started_at"])
+        )
+        .dt.total_seconds()
+        .round(2)
+    )
     st.dataframe(runs, use_container_width=True)
-    
+
     # Run duration chart
     fig2 = px.line(
-        runs.sort_values('generated_at'),
-        x='generated_at',
-        y='elapsed_time',
-        title='dbt Run Duration Over Time',
-        labels={'generated_at': 'Run Time', 'elapsed_time': 'Duration (seconds)'}
+        runs.sort_values("generated_at"),
+        x="generated_at",
+        y="elapsed_time",
+        title="dbt Run Duration Over Time",
+        labels={"generated_at": "Run Time", "elapsed_time": "Duration (seconds)"},
     )
     st.plotly_chart(fig2, use_container_width=True)
 else:

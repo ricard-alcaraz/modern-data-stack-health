@@ -1,6 +1,5 @@
-import streamlit as st
 import plotly.express as px
-
+import streamlit as st
 from db import get_connection
 from semantic_layer import METRICS
 
@@ -69,7 +68,11 @@ if not tool_churn.empty:
         help="Share of prior-period contributors who made no contribution in the most recent 90-day window. Lower is better.",
     )
 else:
-    k4.metric("Contributor churn (90d)", "n/a", help="Needs ~180 days of ingested history. Run the full backfill first.")
+    k4.metric(
+        "Contributor churn (90d)",
+        "n/a",
+        help="Needs ~180 days of ingested history. Run the full backfill first.",
+    )
 
 st.divider()
 

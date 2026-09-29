@@ -1,4 +1,5 @@
 """Shared MotherDuck connection helpers for all Streamlit pages."""
+
 import os
 
 import duckdb
@@ -11,9 +12,9 @@ load_dotenv()
 @st.cache_resource
 def get_connection() -> duckdb.DuckDBPyConnection:
     """One cached, strictly read-only MotherDuck connection for the whole dashboard.
-    
-    SECURITY NOTE: For the strongest protection, the MOTHERDUCK_TOKEN provided in 
-    .env or Streamlit secrets should be a Read-Only scaling token generated from 
+
+    SECURITY NOTE: For the strongest protection, the MOTHERDUCK_TOKEN provided in
+    .env or Streamlit secrets should be a Read-Only scaling token generated from
     the MotherDuck UI. This enforces read-only access at the server level.
     """
     token = os.getenv("MOTHERDUCK_TOKEN_RO")
