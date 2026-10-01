@@ -115,6 +115,8 @@ st.caption(
 )
 
 if churn.empty:
-    st.info("Not enough history yet, churn requires ~180 days of data. The default ingestion lookback is 90 days. Set `INITIAL_LOOKBACK_DAYS=180` in your `.env` file and run `make ingest` to fetch the required history.")
+    st.info(
+        "Not enough history yet, churn requires ~180 days of data. The default ingestion lookback is 90 days. Set `INITIAL_LOOKBACK_DAYS=180` in your `.env` file and run `make ingest` to fetch the required history."
+    )
 else:
     st.dataframe(churn, use_container_width=True)

@@ -26,10 +26,10 @@ class BaseExtractor(ABC):
         """Query MotherDuck to find the latest timestamp we have for this table."""
         lookback_days = int(os.getenv("INITIAL_LOOKBACK_DAYS", "90"))
         default_cutoff = datetime.now(timezone.utc) - timedelta(days=lookback_days)
-        
+
         if not self.db_writer:
             return default_cutoff
-            
+
         safe_table_name = safe_identifier(table_name)
         try:
             query = f"SELECT MAX(updated_at) as latest FROM raw.{safe_table_name}"

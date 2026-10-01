@@ -216,7 +216,7 @@ def validate_readonly_sql(sql_query: str) -> bool:
         sql_clean = sql_clean.rstrip(";").strip()
         if not sql_clean:
             return False
-            
+
         parsed = sqlglot.parse(sql_clean, read="duckdb")
 
         # Reject outright if there isn't exactly one statement.
@@ -230,37 +230,167 @@ def validate_readonly_sql(sql_query: str) -> bool:
 
         ALLOWED_FUNCS = {
             # Aggregates
-            "count", "sum", "avg", "min", "max", "groupconcat", "arrayagg", "anyvalue", "argmin", "argmax",
-            "corr", "covar_pop", "covar_samp", "var_pop", "var_samp", "stddev_pop", "stddev_samp",
-            "bit_and", "bit_or", "bit_xor", "bool_and", "bool_or",
-            "countif", "sumif", "avgif", "minif", "maxif",
+            "count",
+            "sum",
+            "avg",
+            "min",
+            "max",
+            "groupconcat",
+            "arrayagg",
+            "anyvalue",
+            "argmin",
+            "argmax",
+            "corr",
+            "covar_pop",
+            "covar_samp",
+            "var_pop",
+            "var_samp",
+            "stddev_pop",
+            "stddev_samp",
+            "bit_and",
+            "bit_or",
+            "bit_xor",
+            "bool_and",
+            "bool_or",
+            "countif",
+            "sumif",
+            "avgif",
+            "minif",
+            "maxif",
             # Window Functions
-            "rownumber", "rank", "denserank", "percentrank", "cumedist", "lead", "lag", "firstvalue", "lastvalue", "nthvalue", "ntile",
-            "cume_dist", "percent_rank",
+            "rownumber",
+            "rank",
+            "denserank",
+            "percentrank",
+            "cumedist",
+            "lead",
+            "lag",
+            "firstvalue",
+            "lastvalue",
+            "nthvalue",
+            "ntile",
+            "cume_dist",
+            "percent_rank",
             # Date/Time
-            "timestamptrunc", "datetrunc", "datepart", "extract", "year", "month", "day", "hour", "minute", "second",
-            "currentdate", "currenttimestamp", "now", "today", "current_time",
-            "datediff", "dateadd", "datesub", "age",
-            "makedate", "maketime", "maketimestamp",
-            "dayname", "monthname", "dayofweek", "dayofyear", "weekofyear", "isodow", "isoyear",
-            "date_diff", "date_add", "date_sub",
+            "timestamptrunc",
+            "datetrunc",
+            "datepart",
+            "extract",
+            "year",
+            "month",
+            "day",
+            "hour",
+            "minute",
+            "second",
+            "currentdate",
+            "currenttimestamp",
+            "now",
+            "today",
+            "current_time",
+            "datediff",
+            "dateadd",
+            "datesub",
+            "age",
+            "makedate",
+            "maketime",
+            "maketimestamp",
+            "dayname",
+            "monthname",
+            "dayofweek",
+            "dayofyear",
+            "weekofyear",
+            "isodow",
+            "isoyear",
+            "date_diff",
+            "date_add",
+            "date_sub",
             # Strings
-            "lower", "upper", "trim", "ltrim", "rtrim", "substring", "substr", "concat", "concatws", "replace", "length", "len",
-            "splitpart", "strpos", "startswith", "endswith", "contains", "left", "right", "lpad", "rpad", "reverse",
-            "regexp_extract", "regexp_replace", "regexp_matches", "regexp_full_match", "regexplike",
-            "repeat", "ascii", "char", "chr",
+            "lower",
+            "upper",
+            "trim",
+            "ltrim",
+            "rtrim",
+            "substring",
+            "substr",
+            "concat",
+            "concatws",
+            "replace",
+            "length",
+            "len",
+            "splitpart",
+            "strpos",
+            "startswith",
+            "endswith",
+            "contains",
+            "left",
+            "right",
+            "lpad",
+            "rpad",
+            "reverse",
+            "regexp_extract",
+            "regexp_replace",
+            "regexp_matches",
+            "regexp_full_match",
+            "regexplike",
+            "repeat",
+            "ascii",
+            "char",
+            "chr",
             # Math
-            "round", "floor", "ceil", "ceiling", "abs", "power", "pow", "mod", "sqrt", "sign", "exp", "log", "log10", "ln",
-            "greatest", "least", "sin", "cos", "tan", "asin", "acos", "atan", "atan2", "degrees", "radians", "pi", "random", "setseed",
+            "round",
+            "floor",
+            "ceil",
+            "ceiling",
+            "abs",
+            "power",
+            "pow",
+            "mod",
+            "sqrt",
+            "sign",
+            "exp",
+            "log",
+            "log10",
+            "ln",
+            "greatest",
+            "least",
+            "sin",
+            "cos",
+            "tan",
+            "asin",
+            "acos",
+            "atan",
+            "atan2",
+            "degrees",
+            "radians",
+            "pi",
+            "random",
+            "setseed",
             # Conditional
-            "coalesce", "if", "iif", "nullif", "case",
+            "coalesce",
+            "if",
+            "iif",
+            "nullif",
+            "case",
             # Conversion
-            "cast", "trycast",
+            "cast",
+            "trycast",
             # JSON / Other
-            "json_extract", "json_extract_string", "json_keys", "unnest", "generate_series",
-            "typeof", "type_of", "strptime", "strftime", "md5", "sha256", "hash",
+            "json_extract",
+            "json_extract_string",
+            "json_keys",
+            "unnest",
+            "generate_series",
+            "typeof",
+            "type_of",
+            "strptime",
+            "strftime",
+            "md5",
+            "sha256",
+            "hash",
             # Logical Operators (parsed as Funcs by sqlglot)
-            "and", "or", "xor"
+            "and",
+            "or",
+            "xor",
         }
 
         for node in stmt.walk():
@@ -274,10 +404,13 @@ def validate_readonly_sql(sql_query: str) -> bool:
                     return False
 
             # Check table references for table functions
-            if isinstance(node, exp.Table):
-                if node.this and isinstance(node.this, (exp.Func, exp.Anonymous)):
-                    return False
-                
+            if (
+                isinstance(node, exp.Table)
+                and node.this
+                and isinstance(node.this, (exp.Func, exp.Anonymous))
+            ):
+                return False
+
         cte_names = set()
         for cte in stmt.ctes:
             if cte.alias_or_name:
@@ -289,7 +422,7 @@ def validate_readonly_sql(sql_query: str) -> bool:
                 continue
             table_name = table.name.lower().strip('"')
             schema_name = table.db.lower().strip('"') if table.db else None
-            
+
             if schema_name == "information_schema":
                 continue
             if table_name in cte_names:
