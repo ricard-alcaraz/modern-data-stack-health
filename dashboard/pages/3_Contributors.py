@@ -71,7 +71,7 @@ else:
     k4.metric(
         "Contributor churn (90d)",
         "n/a",
-        help="Needs ~180 days of ingested history. Run the full backfill first.",
+        help="Needs ~180 days of ingested history. The pipeline defaults to a 90-day lookback on first run. Set INITIAL_LOOKBACK_DAYS=180 in your .env file before running make ingest to capture the required history immediately.",
     )
 
 st.divider()
@@ -113,7 +113,10 @@ st.caption(
     "Of the contributors active in the prior 90-day window, the share who made no "
     "contribution in the most recent 90-day window. Lower is healthier."
 )
+
 if churn.empty:
-    st.info("Not enough history yet — run the one-time backfill, then re-run dbt.")
+    st.info(
+        "Not enough history yet, churn requires ~180 days of data. The default ingestion lookback is 90 days. Set `INITIAL_LOOKBACK_DAYS=180` in your `.env` file and run `make ingest` to fetch the required history."
+    )
 else:
     st.dataframe(churn, use_container_width=True)

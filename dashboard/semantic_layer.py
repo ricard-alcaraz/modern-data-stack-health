@@ -162,50 +162,54 @@ METRICS = {
             "Requires at least ~180 days of ingested history to be meaningful."
         ),
         "sql": """
-            WITH contributions AS (
-                SELECT tool_name, author_login, created_at AS contributed_at
-                FROM stg_github_issues
-                WHERE author_login IS NOT NULL AND NOT is_bot
-                UNION ALL
-                SELECT tool_name, author_login, created_at AS contributed_at
-                FROM stg_github_pulls
-                WHERE author_login IS NOT NULL AND NOT is_bot
-            ),
-            bounds AS (
-                SELECT MAX(contributed_at) AS latest FROM contributions
-            ),
-            windowed AS (
-                SELECT
-                    c.tool_name,
-                    c.author_login,
-                    CASE
-                        WHEN c.contributed_at >= b.latest - INTERVAL '90 days' THEN 'current'
-                        ELSE 'prior'
-                    END AS period
-                FROM contributions c
-                CROSS JOIN bounds b
-                WHERE c.contributed_at >= b.latest - INTERVAL '180 days'
-            ),
-            prior_authors AS (
-                SELECT DISTINCT tool_name, author_login FROM windowed WHERE period = 'prior'
-            ),
-            current_authors AS (
-                SELECT DISTINCT tool_name, author_login FROM windowed WHERE period = 'current'
-            )
-            SELECT
-                p.tool_name,
-                COUNT(DISTINCT p.author_login) AS prior_contributors,
-                COUNT(DISTINCT CASE WHEN c.author_login IS NULL THEN p.author_login END) AS churned_contributors,
-                ROUND(
-                    COUNT(DISTINCT CASE WHEN c.author_login IS NULL THEN p.author_login END) * 100.0
-                    / NULLIF(COUNT(DISTINCT p.author_login), 0), 2
-                ) AS churn_rate_pct
-            FROM prior_authors p
-            LEFT JOIN current_authors c
-                ON p.tool_name = c.tool_name AND p.author_login = c.author_login
-            GROUP BY p.tool_name
-            ORDER BY churn_rate_pct DESC
-        """,
+    WITH contributions AS (
+        SELECT tool_name, author_login, created_at AS contributed_at
+        FROM stg_github_issues
+        WHERE author_login IS NOT NULL AND NOT is_bot
+        UNION ALL
+        SELECT tool_name, author_login, created_at AS contributed_at
+        FROM stg_github_pulls
+        WHERE author_login IS NOT NULL AND NOT is_bot
+    ),
+    bounds AS (
+        -- FIX: Group by tool_name so each tool has its own anchor date
+        SELECT tool_name, MAX(contributed_at) AS latest
+        FROM contributions
+        GROUP BY tool_name
+    ),
+    windowed AS (
+        SELECT
+            c.tool_name,
+            c.author_login,
+            CASE
+                WHEN c.contributed_at >= b.latest - INTERVAL '90 days' THEN 'current'
+                ELSE 'prior'
+            END AS period
+        FROM contributions c
+        -- FIX: JOIN instead of CROSS JOIN to tie the row to its specific tool's max timestamp
+        JOIN bounds b ON c.tool_name = b.tool_name
+        WHERE c.contributed_at >= b.latest - INTERVAL '180 days'
+    ),
+    prior_authors AS (
+        SELECT DISTINCT tool_name, author_login FROM windowed WHERE period = 'prior'
+    ),
+    current_authors AS (
+        SELECT DISTINCT tool_name, author_login FROM windowed WHERE period = 'current'
+    )
+    SELECT
+        p.tool_name,
+        COUNT(DISTINCT p.author_login) AS prior_contributors,
+        COUNT(DISTINCT CASE WHEN c.author_login IS NULL THEN p.author_login END) AS churned_contributors,
+        ROUND(
+            COUNT(DISTINCT CASE WHEN c.author_login IS NULL THEN p.author_login END) * 100.0
+            / NULLIF(COUNT(DISTINCT p.author_login), 0), 2
+        ) AS churn_rate_pct
+    FROM prior_authors p
+    LEFT JOIN current_authors c
+        ON p.tool_name = c.tool_name AND p.author_login = c.author_login
+    GROUP BY p.tool_name
+    ORDER BY churn_rate_pct DESC
+    """,
     },
     "tool_health_score": {
         "description": (
@@ -231,6 +235,8 @@ METRICS = {
                 ROUND(
                     (COALESCE(merge_ratio, 0) * 0.4) + 
                     (COALESCE(close_ratio, 0) * 0.3) + 
+                    -- NOTE: If no issues were closed (NULL), we default to 30 days (max penalty) 
+                    -- to avoid rewarding weeks with zero throughput.
                     (GREATEST(0, 30 - COALESCE(avg_close_time, 30)) * 100.0 / 30 * 0.3)
                 , 2) AS health_score
             FROM metrics

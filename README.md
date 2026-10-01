@@ -1,6 +1,6 @@
 # Modern Data Stack Health
 
-An end-to-end ELT pipeline that tracks the operational health of open-source data infrastructure projects (dbt-core, Airflow, Dagster) using their public GitHub activity — issue resolution time, PR merge rate, and contributor concentration — as a proxy for maintenance health, rather than relying on stars alone.
+An end-to-end ELT pipeline that tracks the operational health of open-source data infrastructure projects (dbt-core, Airflow, Dagster) using their public GitHub activity issue resolution time, PR merge rate, and contributor concentration as a proxy for maintenance health, rather than relying on stars alone.
 
 ## Overview
 
