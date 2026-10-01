@@ -235,6 +235,8 @@ METRICS = {
                 ROUND(
                     (COALESCE(merge_ratio, 0) * 0.4) + 
                     (COALESCE(close_ratio, 0) * 0.3) + 
+                    -- NOTE: If no issues were closed (NULL), we default to 30 days (max penalty) 
+                    -- to avoid rewarding weeks with zero throughput.
                     (GREATEST(0, 30 - COALESCE(avg_close_time, 30)) * 100.0 / 30 * 0.3)
                 , 2) AS health_score
             FROM metrics

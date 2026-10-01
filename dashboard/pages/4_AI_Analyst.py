@@ -18,7 +18,7 @@ st.set_page_config(page_title="AI Analyst", page_icon="🤖", layout="wide")
 st.title("🤖 AI Data Analyst")
 st.caption(
     "Ask natural-language questions. The AI writes SQL, runs it against MotherDuck, and "
-    "summarizes — reusing the shared semantic layer instead of re-inventing metrics."
+    "summarizes reusing the shared semantic layer instead of re-inventing metrics."
 )
 
 conn = get_connection()
@@ -51,8 +51,8 @@ def probe_provider(provider: str):
                 (m.id for m in models if m.id == "gpt-4o-mini"), models[0].id
             )
             return True, model_id, "Connected to OpenAI."
-        except Exception as e:
-            return False, None, f"OpenAI check failed — invalid key or network. ({e})"
+        except Exception:
+            return False, None, "OpenAI check failed invalid key or network."
     else:  # lmstudio
         base_url = os.getenv("LMSTUDIO_BASE_URL", "http://localhost:1234/v1")
         try:
@@ -73,13 +73,13 @@ def probe_provider(provider: str):
                     ),
                 )
             return True, models[0].id, f"Connected to LM Studio at {base_url}."
-        except Exception as e:
+        except Exception:
             return (
                 False,
                 None,
                 (
                     f"Cannot reach LM Studio at {base_url}. Start the server "
-                    f"(LM Studio → Developer → Start Server) and load a model. ({e})"
+                    "(LM Studio → Developer → Start Server) and load a model."
                 ),
             )
 
@@ -167,12 +167,13 @@ def get_schema_from_motherduck(database: str) -> str:
         table = row["table_name"]
         kind = "view" if row["table_type"] == "VIEW" else "table"
         columns = c.execute(
-            f"""
+            """
             SELECT column_name, data_type, is_nullable
             FROM information_schema.columns
-            WHERE table_schema = 'main' AND table_name = '{table}'
+            WHERE table_schema = 'main' AND table_name = ?
             ORDER BY ordinal_position
-            """
+            """,
+            [table],
         ).df()
         cols = [
             f"  - `{r['column_name']}` ({r['data_type']}, {'NULL' if r['is_nullable'] == 'YES' else 'NOT NULL'})"
@@ -218,17 +219,15 @@ def validate_readonly_sql(sql_query: str) -> bool:
             
         parsed = sqlglot.parse(sql_clean, read="duckdb")
 
-        # Filter out any None statements first (e.g., empty statements).
+        # Reject outright if there isn't exactly one statement.
         parsed = [p for p in parsed if p is not None]
         if len(parsed) != 1:
-            # Multi-statement strings are rejected immediately.
             return False
 
         stmt = parsed[0]
         if not isinstance(stmt, exp.Select):
             return False
 
-        # We use the lowercased class name of sqlglot expressions to identify standard functions.
         ALLOWED_FUNCS = {
             # Aggregates
             "count", "sum", "avg", "min", "max", "groupconcat", "arrayagg", "anyvalue", "argmin", "argmax",
@@ -248,7 +247,7 @@ def validate_readonly_sql(sql_query: str) -> bool:
             # Strings
             "lower", "upper", "trim", "ltrim", "rtrim", "substring", "substr", "concat", "concatws", "replace", "length", "len",
             "splitpart", "strpos", "startswith", "endswith", "contains", "left", "right", "lpad", "rpad", "reverse",
-            "regexp_extract", "regexp_replace", "regexp_matches", "regexp_full_match",
+            "regexp_extract", "regexp_replace", "regexp_matches", "regexp_full_match", "regexplike",
             "repeat", "ascii", "char", "chr",
             # Math
             "round", "floor", "ceil", "ceiling", "abs", "power", "pow", "mod", "sqrt", "sign", "exp", "log", "log10", "ln",
@@ -259,13 +258,13 @@ def validate_readonly_sql(sql_query: str) -> bool:
             "cast", "trycast",
             # JSON / Other
             "json_extract", "json_extract_string", "json_keys", "unnest", "generate_series",
-            "typeof", "type_of", "strptime", "strftime", "md5", "sha256", "hash"
+            "typeof", "type_of", "strptime", "strftime", "md5", "sha256", "hash",
+            # Logical Operators (parsed as Funcs by sqlglot)
+            "and", "or", "xor"
         }
 
         for node in stmt.walk():
             if isinstance(node, exp.Func):
-                # For unknown functions (exp.Anonymous), check the `.name` attribute.
-                # For standard functions, the lowercased class name perfectly maps to DuckDB functions.
                 func_name = (
                     node.name.lower()
                     if isinstance(node, exp.Anonymous)
@@ -276,26 +275,21 @@ def validate_readonly_sql(sql_query: str) -> bool:
 
             # Check table references for table functions
             if isinstance(node, exp.Table):
-                # Table functions (like read_csv) are parsed as Table(this=Func/Anonymous)
                 if node.this and isinstance(node.this, (exp.Func, exp.Anonymous)):
                     return False
-
-        # Build set of CTE names (so we can reference them in the main query)
+                
         cte_names = set()
-        with_node = stmt.args.get("with")
-        if with_node:
-            for cte in with_node.expressions:
-                if cte.alias_or_name:
-                    cte_names.add(cte.alias_or_name.lower())
+        for cte in stmt.ctes:
+            if cte.alias_or_name:
+                cte_names.add(cte.alias_or_name.lower())
 
         # Validate all table references are in the allowlist
         for table in stmt.find_all(exp.Table):
-            # Skip table functions (already checked above)
             if table.this and isinstance(table.this, (exp.Func, exp.Anonymous)):
                 continue
             table_name = table.name.lower().strip('"')
             schema_name = table.db.lower().strip('"') if table.db else None
-            # Allow: information_schema, raw schema, CTE references, staging/mart tables
+            
             if schema_name == "information_schema":
                 continue
             if table_name in cte_names:
