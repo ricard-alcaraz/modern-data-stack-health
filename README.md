@@ -49,7 +49,8 @@ graph TD
     end
 
     Sources -->|REST API| PY
-    PY -->|Upsert JSONL| RAW
+    PY -->|validates| GX[Great Expectations: schema drift, null/unique id checks, row-count sanity]
+    GX -->|clean batch| RAW
     RAW --> STG
     STG --> MRT
     MRT --> TESTS
@@ -63,7 +64,7 @@ graph TD
 
 ```text
 modern-data-stack-health/
-├── ingestion/          # Python extractors (API client, pagination, rate-limit handling)
+├── ingestion/          # Python extractors + Great Expectations validation gate
 ├── transform/          # dbt project (staging, marts, schema tests, singular tests)
 ├── orchestration/      # Dagster assets, schedules, and resources
 ├── dashboard/          # Streamlit app (overview, comparison, contributors, AI analyst)
@@ -115,6 +116,13 @@ Open `http://localhost:8501`. The dashboard has four pages: a weekly activity ov
 - CI (`.github/workflows/ci-dbt.yml`) loads static fixtures into a local DuckDB file and runs `dbt build --target ci` on every PR touching `transform/`. It does not call the GitHub API, so it's deterministic and doesn't consume rate limit.
 - `dbt_project.yml`/`profiles.yml` define separate `dev`, `ci`, and `prod` targets so local iteration doesn't write to the production MotherDuck database by default.
 
+## Data Quality
+
+Data quality is checked at two different points in the pipeline, pre-load and post-load:
+
+- **Pre-load, raw payloads (Great Expectations):** every batch from GitHub API is validated in `ingestion/utils/validation.py` before it's written on the warehouse. Critical checks, null or duplicate `id`, an unexpected `state` value, a missing `created_at` stops the extractor and refuse to load the batch, since these usually mean a pagination bug or an upstream API change. Lower-severity checks, like a row count outside the expected range, are logged as warnings rather than blocking the run. This step exists because dbt tests and Elementary only ever see data that already made it into the warehouse; this is the gate that decides whether it gets there at all.
+- **Post-load, modeled data (dbt tests + Elementary):** once data is in MotherDuck and transformed, dbt's own schema and singular tests check the modeled tables, and Elementary tracks those results over time. See Observability below.
+
 ## Observability
 
 The pipeline includes automated data quality monitoring powered by [Elementary](https://www.elementary-data.com/):
@@ -126,11 +134,14 @@ The pipeline includes automated data quality monitoring powered by [Elementary](
 
 Elementary stores its observability data in the `main_elementary` schema in MotherDuck, making it queryable and explorable.
 
+
 ## Known limitations
 
 - Tracks a fixed, small set of repositories; scaling to many more tools would need a config-driven source list rather than hardcoded tuples.
 - The AI analyst page depends on an external LLM API (OpenAI) or a local LM Studio instance; query correctness isn't guaranteed and results should be spot-checked against the dashboard's own charts.
 - Weekly snapshots are recomputed as a full table rebuild; this is fine at current data volume but isn't incremental.
+- Great Expectations currently runs inline during extraction only; there's no separate Dagster asset check surfacing its results in the UI yet.
+
 
 ## Live links
 
