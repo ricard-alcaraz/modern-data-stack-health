@@ -9,3 +9,5 @@ transform/target/
 transform/logs/
 transform/edr_target
 dbt_packages/
+.ruff_cache/
+.pytest_cache/
