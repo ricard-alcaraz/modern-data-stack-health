@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from ingestion.utils.sql_utils import safe_identifier
+from ingestion.utils.validation import validate_raw_batch
 
 logger = logging.getLogger(__name__)
 
@@ -56,7 +57,11 @@ class BaseExtractor(ABC):
             logger.info(f"No data to save for {filename}")
             return
 
-        # 1. Save to local landing zone
+        # 1. GX validation
+        entity = filename.replace(".jsonl", "")
+        validate_raw_batch(data, entity=entity)
+
+        # 2. Save to local landing zone
         output_dir = self.landing_dir / self.today_str
         output_dir.mkdir(parents=True, exist_ok=True)
         filepath = output_dir / filename
@@ -66,7 +71,7 @@ class BaseExtractor(ABC):
 
         logger.info(f"Saved {len(data)} records to {filepath}")
 
-        # 2. Save to MotherDuck
+        # 3. Save to MotherDuck
         if self.db_writer:
             table_name = (
                 f"{self.repo_name.replace('-', '_')}_{filename.replace('.jsonl', '')}"
